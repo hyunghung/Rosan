@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roselyn & An — Wedding RSVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/main.css">
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-logo">Roselyn <em>&amp;</em> An</div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    <div class="nav-links" id="nav-links">
+      <button onclick="showPage('home')"    class="active" id="nav-home">Trang chủ</button>
+      <button onclick="showPage('rsvp')"              id="nav-rsvp">RSVP</button>
+      <button onclick="showPage('lookup')"          id="nav-lookup">Kiểm tra</button>
+      <button onclick="showPage('qr')"                  id="nav-qr">QR Code</button>
+      <button onclick="showPage('admin')"            id="nav-admin">Admin</button>
+    </div>
+  </nav>
+
+  <!-- ── HOME ── -->
+  <div id="page-home" class="page active">
+    <section class="hero">
+      <div class="hero-bg-pattern"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">Trân trọng kính mời</p>
+        <div class="hero-names">
+          <h1 class="bride-name">Roselyn</h1>
+          <span class="bride-viet">Nguyễn Thu Hồng</span>
+          <span class="ampersand">&amp;</span>
+          <h1 class="groom-name">Hoàng Thành An</h1>
+        </div>
+        <div class="hero-divider"><span>✦</span></div>
+        <p class="hero-sub">Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn</p>
+        <p class="hero-sub-en">Together with their families joyfully invite you to celebrate their wedding</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="showPage('rsvp')">Xác nhận tham dự · RSVP</button>
+          <button class="btn btn-outline" onclick="showPage('lookup')">Kiểm tra RSVP</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENT DETAILS -->
+    <section class="details-section">
+      <div class="page-header" style="padding-top:0">
+        <p class="section-eyebrow">Khi nào &amp; Ở đâu</p>
+        <h2 class="section-title">Chi tiết Lễ cưới</h2>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="details-grid">
+        <div class="detail-card">
+          <div class="detail-icon">✦</div>
+          <p class="detail-eyebrow">December 5, 2026</p>
+          <h3 class="detail-title">Thánh lễ · Mass</h3>
+          <p class="detail-time">2:00 PM</p>
+          <p class="detail-place">Vietnamese Martyrs Parish</p>
+          <p class="detail-address">(Address)</p>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">✦</div>
+          <p class="detail-eyebrow">December 5, 2026</p>
+          <h3 class="detail-title">Tiệc cưới · Reception</h3>
+          <p class="detail-time">6:00 PM</p>
+          <p class="detail-place">New Happy Garden</p>
+          <p class="detail-address">(Address)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="countdown-section">
+      <p class="section-eyebrow">Đếm ngược</p>
+      <h2 class="section-title">Countdown to Forever</h2>
+      <div class="divider"><span>✦</span></div>
+      <div class="countdown-grid" id="countdown-grid">
+        <div class="countdown-box"><span class="countdown-num" id="cd-days">00</span><span class="countdown-label">Ngày</span></div>
+        <div class="countdown-box"><span class="countdown-num" id="cd-hours">00</span><span class="countdown-label">Giờ</span></div>
+        <div class="countdown-box"><span class="countdown-num" id="cd-mins">00</span><span class="countdown-label">Phút</span></div>
+        <div class="countdown-box"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label">Giây</span></div>
+      </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section class="story-section">
+      <div class="page-header" style="padding-top:0">
+        <p class="section-eyebrow">Chuyện tình của chúng tôi</p>
+        <h2 class="section-title">Our Story</h2>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="story-card">
+        <p>Bảy năm trước, chúng tôi gặp nhau qua Thiếu Nhi Thánh Thể tại nhà thờ, trong lúc cùng phụ giúp tổ chức Tết Trung Thu. Lúc đó, chúng tôi không hề nghĩ rằng một khoảnh khắc giản dị cùng nhau phục vụ lại trở thành khởi đầu của một hành trình mãi mãi.</p>
+        <p>Mối quan hệ của chúng tôi chưa bao giờ hoàn hảo. Chúng tôi đã trải qua những giai đoạn khó khăn, những hiểu lầm, khoảng cách, áp lực, và những lúc cuộc sống thử thách chúng tôi theo nhiều cách. Nhưng qua mỗi thử thách, chúng tôi vẫn luôn chọn nhau. Chúng tôi giữ sự chân thành, giữ sự thật lòng, và quan trọng nhất, chúng tôi luôn đặt Chúa làm trung tâm trong mối quan hệ của mình.</p>
+        <p>Điều giúp chúng tôi vững vàng không phải là sự hoàn hảo, mà là đức tin, sự tin tưởng, và sự nâng đỡ vô điều kiện dành cho nhau. Chúng tôi học cách cùng nhau trưởng thành thay vì xa cách nhau. Qua từng thăng trầm, chúng tôi nhắc nhau rằng tình yêu không chỉ là hạnh phúc, mà còn là sự kiên nhẫn, hy sinh, tha thứ, và niềm tin vào nhau ngay cả trong những lúc khó khăn nhất.</p>
+        <p>Giờ đây, sau bảy năm bên nhau, cuối cùng chúng tôi sẽ tổ chức lễ cưới tại nhà thờ vào tháng Mười Hai này. Nhìn lại, chúng tôi nhận ra câu chuyện tình yêu của mình bắt đầu từ việc phục vụ người khác tại nhà thờ, và hôm nay nó tiếp tục với lòng biết ơn, đức tin, và ước mơ xây dựng một gia đình lấy tình yêu của Thiên Chúa làm nền tảng.</p>
+        <p>Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt bảy năm qua. ♡</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── RSVP ── -->
+  <div id="page-rsvp" class="page">
+    <div class="page-header">
+      <h2 class="page-title">Xác nhận tham dự</h2>
+      <p class="page-sub">Kindly reply · Vui lòng phản hồi trước ngày đã thông báo</p>
+      <div class="divider"><span>✦</span></div>
+    </div>
+
+    <div id="rsvp-form-wrap">
+      <form class="form-card" id="rsvp-form" onsubmit="submitRSVP(event)">
+        <div class="form-group">
+          <label for="rsvp-name">Họ và tên · Full Name</label>
+          <input type="text" id="rsvp-name" placeholder="Tên đầy đủ của bạn" autocomplete="name" required>
+        </div>
+        <div class="form-group">
+          <label for="rsvp-phone">Số điện thoại · Phone Number</label>
+          <input type="tel" id="rsvp-phone" placeholder="+84 hoặc số nội địa" autocomplete="tel" required>
+        </div>
+        <div class="form-group">
+          <label>Nhóm khách · Party Group</label>
+          <div class="category-grid" id="category-grid"></div>
+          <input type="hidden" id="rsvp-category">
+        </div>
+        <div class="form-group">
+          <label for="rsvp-guests">Số người trong nhóm · Number of Guests</label>
+          <select id="rsvp-guests">
+            <option value="1">1 — Chỉ mình tôi</option>
+            <option value="2">2 — Tôi + 1</option>
+            <option value="3">3 người</option>
+            <option value="4">4 người</option>
+            <option value="5">5 người</option>
+            <option value="6">6 người</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Xác nhận · Attendance</label>
+          <div class="attendance-row">
+            <button type="button" class="att-btn att-yes" id="btn-yes" onclick="selectAttendance(true)">
+              ✓ Vui lòng tham dự<br><small>Joyfully Accepts</small>
+            </button>
+            <button type="button" class="att-btn att-no" id="btn-no" onclick="selectAttendance(false)">
+              ✗ Tiếc không thể đến<br><small>Regretfully Declines</small>
+            </button>
+          </div>
+          <input type="hidden" id="rsvp-attending">
+        </div>
+        <div class="form-group" id="dietary-wrap" style="display:none">
+          <label for="rsvp-dietary">Yêu cầu ăn uống · Dietary Restrictions</label>
+          <textarea id="rsvp-dietary" rows="2" placeholder="Ví dụ: ăn chay, dị ứng đậu phộng..."></textarea>
+        </div>
+        <div id="rsvp-error" class="error-msg" style="display:none"></div>
+        <button type="submit" class="btn btn-primary btn-full" id="rsvp-submit">
+          Gửi xác nhận · Submit RSVP
+        </button>
+      </form>
+    </div>
+
+    <div id="rsvp-success" style="display:none">
+      <div class="form-card success-card">
+        <div class="success-icon">✦</div>
+        <h3 id="success-title">Cảm ơn bạn!</h3>
+        <p id="success-msg"></p>
+        <div id="success-seat"></div>
+        <button class="btn btn-outline" style="margin-top:2rem" onclick="resetRSVP()">
+          Gửi RSVP khác · Submit Another
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LOOKUP ── -->
+  <div id="page-lookup" class="page">
+    <div class="page-header">
+      <h2 class="page-title">Kiểm tra RSVP</h2>
+      <p class="page-sub">Nhập số điện thoại để xem thông tin đặt chỗ của bạn</p>
+      <div class="divider"><span>✦</span></div>
+    </div>
+    <div class="lookup-card">
+      <div class="form-group">
+        <label for="lookup-phone">Số điện thoại · Phone Number</label>
+        <input type="tel" id="lookup-phone" placeholder="+84 hoặc số nội địa"
+               onkeydown="if(event.key==='Enter')lookupRSVP()">
+      </div>
+      <button class="btn btn-primary btn-full" onclick="lookupRSVP()">Tìm kiếm · Find My RSVP</button>
+      <div id="lookup-result"></div>
+    </div>
+  </div>
+
+  <!-- ── QR ── -->
+  <div id="page-qr" class="page">
+    <div class="page-header">
+      <h2 class="page-title">RSVP QR Code</h2>
+      <p class="page-sub">Quét mã để xác nhận tham dự ngay trên điện thoại</p>
+      <div class="divider"><span>✦</span></div>
+    </div>
+    <div class="qr-section">
+      <div class="qr-card">
+        <p class="qr-label">Quét để RSVP · Scan to RSVP</p>
+        <div id="qr-img-wrap"><div class="qr-loading">Đang tạo QR...</div></div>
+        <p class="qr-url" id="qr-url-text"></p>
+      </div>
+      <div class="qr-actions">
+        <button class="btn btn-primary" onclick="downloadQR()">↓ Tải QR Code</button>
+        <button class="btn btn-outline" onclick="copyQRUrl()">⎘ Sao chép link</button>
+      </div>
+      <!-- Print-ready invitation card -->
+      <div class="invite-card" id="invite-card">
+        <div class="invite-inner">
+          <p class="invite-eyebrow">Wedding Invitation</p>
+          <p class="invite-bride-name">Roselyn</p>
+          <p class="invite-bride-viet">Nguyễn Thu Hồng</p>
+          <p class="invite-amp">&amp;</p>
+          <p class="invite-groom-name">Hoàng Thành An</p>
+          <div id="invite-qr"></div>
+          <p class="invite-scan">Quét để RSVP · Scan to RSVP</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ADMIN ── -->
+  <div id="page-admin" class="page">
+    <div id="admin-locked">
+      <div class="page-header">
+        <h2 class="page-title">Admin Dashboard</h2>
+        <p class="page-sub">Nhập mật khẩu để quản lý danh sách khách</p>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="lookup-card" style="max-width:340px">
+        <div class="form-group">
+          <label for="admin-pass">Mật khẩu · Password</label>
+          <input type="password" id="admin-pass" placeholder="••••••••"
+                 onkeydown="if(event.key==='Enter')unlockAdmin()">
+        </div>
+        <button class="btn btn-primary btn-full" onclick="unlockAdmin()">Đăng nhập · Enter</button>
+        <p style="font-size:0.75rem;color:var(--mid);margin-top:0.75rem;text-align:center">
+          Demo: <strong>wedding2025</strong>
+        </p>
+      </div>
+    </div>
+
+    <div id="admin-content" style="display:none">
+      <div class="page-header">
+        <h2 class="page-title">Quản lý Khách Mời</h2>
+        <p class="page-sub">Roselyn &amp; An · Guest Management</p>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="stat-grid" id="admin-stats"></div>
+      <div class="admin-tabs">
+        <button class="btn btn-primary"  id="tab-guests"     onclick="showAdminTab('guests')">Danh sách</button>
+        <button class="btn btn-outline"  id="tab-seating"    onclick="showAdminTab('seating')">Sơ đồ chỗ ngồi</button>
+        <button class="btn btn-outline"  id="tab-categories" onclick="showAdminTab('categories')">Theo nhóm</button>
+        <button class="btn btn-blue"                         onclick="autoSeatAll()">⟳ Xếp chỗ tự động</button>
+        <button class="btn btn-outline"                      onclick="exportCSV()">↓ Xuất CSV</button>
+      </div>
+
+      <!-- Guest list tab -->
+      <div id="admin-tab-guests">
+        <div class="filter-row">
+          <input type="text" id="search-input" placeholder="Tìm tên hoặc số điện thoại..."
+                 oninput="loadGuests()">
+          <select id="filter-cat" onchange="loadGuests()">
+            <option value="">Tất cả nhóm</option>
+          </select>
+          <select id="filter-att" onchange="loadGuests()">
+            <option value="">Tất cả</option>
+            <option value="true">Tham dự</option>
+            <option value="false">Vắng mặt</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Họ và tên</th><th>Điện thoại</th><th>Nhóm</th>
+                <th>Số người</th><th>Tham dự</th><th>Bàn</th><th>Yêu cầu ăn</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="guest-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Seating tab -->
+      <div id="admin-tab-seating" style="display:none">
+        <div class="seating-grid" id="seating-grid"></div>
+      </div>
+
+      <!-- Categories tab -->
+      <div id="admin-tab-categories" style="display:none">
+        <div id="cat-breakdown"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="files/main.js"></script>
+</body>
+</html>
