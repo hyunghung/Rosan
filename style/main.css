@@ -293,14 +293,11 @@ body {
 }
 
 .story-section .story-card {
-  max-width: none;
-  margin: 0;
-}
-
-.story-section .story-card {
   background: var(--white);
   border: 1px solid var(--blue-light);
   box-shadow: var(--shadow);
+  max-width: none;
+  margin: 0;
 }
 
 .story-section .page-header {
@@ -315,15 +312,10 @@ body {
   .story-section .story-card:first-of-type {
     border-right: none;
   }
-}
-
-/* ── MOBILE STACK ─────────────────────────────────────────────────────────── */
-@media (max-width: 900px) {
   .story-section {
     grid-template-columns: 1fr;
   }
 }
-
 
 /* ── PAGE HEADER ────────────────────────────────────────────────────────────── */
 .page-header { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 0; text-align: center; }
