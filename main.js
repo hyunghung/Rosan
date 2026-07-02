@@ -1,5 +1,4 @@
 // ─── CONFIG ─────────────────────────────────────────────────────────────────
-// Paste your Google Apps Script web app URL here after deploying (see backend/README.md)
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBAkbzs9pmXLP3w8o9DQrqmagDW7Kt35T_dLlFwOdu2IfUmgHY1o94PeBpSNeZDWvk/exec';
 
 const CATEGORIES = {
