@@ -1,20 +1,45 @@
 // ─── CONFIG ─────────────────────────────────────────────────────────────────
-const CATEGORIES = [
-  "Họ hàng Cô dâu",
-  "Họ hàng Chú rể",
-  "Bạn bè Cô dâu",
-  "Bạn bè Chú rể",
-  "TNTT",
-  "Cộng đoàn / Parish",
-  "Đồng nghiệp / Coworkers",
-  "Hàng xóm / Neighbors",
-  "Bạn chung đôi",
-  "Khác / Other"
-];
+// Paste your Google Apps Script web app URL here after deploying (see backend/README.md)
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+const CATEGORIES = {
+  vi: ["Họ hàng Cô dâu","Họ hàng Chú rể","Bạn bè Cô dâu","Bạn bè Chú rể","TNTT","Cộng đoàn / Parish","Đồng nghiệp","Hàng xóm","Bạn chung đôi","Khác"],
+  en: ["Bride's Family","Groom's Family","Bride's Friends","Groom's Friends","TNTT / Youth Group","Parish / Community","Coworkers","Neighbors","Mutual Friends","Other"]
+};
 
 let selectedCategory = null;
 let attending = null;
 let adminPassword = null;
+let currentLang = 'vi';
+
+// ─── LANGUAGE TOGGLE ────────────────────────────────────────────────────────
+function setLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+
+  // swap textContent for all data-vi/data-en elements
+  document.querySelectorAll('[data-vi]').forEach(el => {
+    el.textContent = lang === 'vi' ? el.dataset.vi : el.dataset.en;
+  });
+
+  // swap placeholders
+  document.querySelectorAll('[data-vi-placeholder]').forEach(el => {
+    el.placeholder = lang === 'vi' ? el.dataset.viPlaceholder : el.dataset.enPlaceholder;
+  });
+
+  // story blocks (full paragraphs, swapped as blocks)
+  const storyVi = document.getElementById('story-vi');
+  const storyEn = document.getElementById('story-en');
+  if (storyVi) storyVi.style.display = lang === 'vi' ? '' : 'none';
+  if (storyEn) storyEn.style.display = lang === 'en' ? '' : 'none';
+
+  // toggle button state
+  document.getElementById('lang-vi').classList.toggle('active', lang === 'vi');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+
+  // rebuild category grid so labels translate
+  buildCategoryGrid();
+}
 
 // ─── INIT ───────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -73,15 +98,20 @@ function showPage(p) {
 // ─── CATEGORY GRID ──────────────────────────────────────────────────────────
 function buildCategoryGrid() {
   const grid = document.getElementById('category-grid');
+  const prevSelected = selectedCategory;
   grid.innerHTML = '';
-  CATEGORIES.forEach(c => {
+  const cats = CATEGORIES[currentLang];
+  const catsVi = CATEGORIES.vi;
+  cats.forEach((c, i) => {
+    const viName = catsVi[i]; // always store Vietnamese name as canonical value
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'cat-btn';
     b.textContent = c;
+    if (prevSelected === viName) b.classList.add('selected');
     b.onclick = () => {
-      selectedCategory = c;
-      document.getElementById('rsvp-category').value = c;
+      selectedCategory = viName;
+      document.getElementById('rsvp-category').value = viName;
       grid.querySelectorAll('.cat-btn').forEach(x => x.classList.remove('selected'));
       b.classList.add('selected');
     };
@@ -91,7 +121,7 @@ function buildCategoryGrid() {
 
 function buildFilterCategoryDropdown() {
   const sel = document.getElementById('filter-cat');
-  CATEGORIES.forEach(c => {
+  CATEGORIES.vi.forEach(c => {
     const o = document.createElement('option');
     o.value = c; o.textContent = c;
     sel.appendChild(o);
@@ -108,56 +138,111 @@ function selectAttendance(val) {
 }
 
 // ─── SUBMIT RSVP ────────────────────────────────────────────────────────────
+function validatePhone(raw) {
+  const digits = raw.replace(/\D/g, '');
+  return digits.length >= 7 && digits.length <= 15;
+}
+
 async function submitRSVP(e) {
   e.preventDefault();
   const errEl = document.getElementById('rsvp-error');
   errEl.style.display = 'none';
 
-  const name = document.getElementById('rsvp-name').value.trim();
-  const phone = document.getElementById('rsvp-phone').value.trim();
-  const guests = document.getElementById('rsvp-guests').value;
-  const dietary = document.getElementById('rsvp-dietary').value.trim();
+  const name     = document.getElementById('rsvp-name').value.trim();
+  const phone    = document.getElementById('rsvp-phone').value.trim();
+  const guests   = document.getElementById('rsvp-guests').value;
+  const dietary  = document.getElementById('rsvp-dietary').value.trim();
 
-  if (!name || !phone) {
-    return showRsvpError('Vui lòng điền đầy đủ thông tin / Please fill out all fields.');
+  // ── Client-side validation ──
+  if (!name) {
+    return showRsvpError(
+      currentLang === 'vi'
+        ? 'Vui lòng nhập họ và tên.'
+        : 'Please enter your full name.'
+    );
+  }
+  if (name.length < 2) {
+    return showRsvpError(
+      currentLang === 'vi'
+        ? 'Tên phải có ít nhất 2 ký tự.'
+        : 'Name must be at least 2 characters.'
+    );
+  }
+  if (!phone) {
+    return showRsvpError(
+      currentLang === 'vi'
+        ? 'Vui lòng nhập số điện thoại.'
+        : 'Please enter your phone number.'
+    );
+  }
+  if (!validatePhone(phone)) {
+    return showRsvpError(
+      currentLang === 'vi'
+        ? 'Số điện thoại không hợp lệ. Vui lòng nhập từ 7–15 chữ số.'
+        : 'Invalid phone number. Please enter 7–15 digits.'
+    );
   }
   if (!selectedCategory) {
-    return showRsvpError('Vui lòng chọn nhóm khách / Please select your party group.');
+    return showRsvpError(
+      currentLang === 'vi'
+        ? 'Vui lòng chọn nhóm khách.'
+        : 'Please select your party group.'
+    );
   }
   if (attending === null) {
-    return showRsvpError('Vui lòng xác nhận tham dự / Please confirm attendance.');
+    return showRsvpError(
+      currentLang === 'vi'
+        ? 'Vui lòng xác nhận tham dự.'
+        : 'Please confirm your attendance.'
+    );
+  }
+  if (attending && !dietary) {
+    return showRsvpError(
+      currentLang === 'vi'
+        ? 'Vui lòng điền yêu cầu ăn uống. Nếu không có, ghi "Không có".'
+        : 'Please fill in dietary info. If none, write "None".'
+    );
   }
 
   const submitBtn = document.getElementById('rsvp-submit');
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Đang gửi...';
+  submitBtn.textContent = currentLang === 'vi' ? 'Đang gửi...' : 'Submitting...';
 
   try {
-    const res = await fetch('/api/rsvp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, phone, category: selectedCategory, guests, attending, dietary })
+    const params = new URLSearchParams({
+      action:    'submit',
+      name,
+      phone,
+      category:  selectedCategory,
+      guests,
+      attending: attending.toString(),
+      dietary:   dietary || 'N/A'
     });
+
+    const res  = await fetch(`${APPS_SCRIPT_URL}?${params}`, { redirect: 'follow' });
     const data = await res.json();
 
-    if (!res.ok) {
-      showRsvpError(data.error || 'Có lỗi xảy ra / Something went wrong.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Gửi xác nhận · Submit RSVP';
+    if (!data.ok) {
+      showRsvpError(data.error || (currentLang === 'vi' ? 'Có lỗi xảy ra.' : 'Something went wrong.'));
       return;
     }
 
     document.getElementById('rsvp-form-wrap').style.display = 'none';
-    document.getElementById('rsvp-success').style.display = 'block';
-    document.getElementById('success-msg').textContent = data.message;
-    document.getElementById('success-seat').innerHTML = data.data.table
-      ? `<div class="seat-badge">Bàn của bạn · Table ${data.data.table}</div>`
+    document.getElementById('rsvp-success').style.display   = 'block';
+    document.getElementById('success-title').textContent    = currentLang === 'vi' ? 'Cảm ơn bạn!' : 'Thank You!';
+    document.getElementById('success-msg').textContent      = data.message;
+    document.getElementById('success-seat').innerHTML       = data.data.table
+      ? `<div class="seat-badge">${currentLang === 'vi' ? 'Bàn của bạn' : 'Your table'} · Table ${data.data.table}</div>`
       : '';
   } catch (err) {
-    showRsvpError('Không thể kết nối máy chủ / Could not connect to server.');
+    showRsvpError(
+      currentLang === 'vi'
+        ? 'Không thể kết nối. Vui lòng thử lại.'
+        : 'Could not connect. Please try again.'
+    );
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Gửi xác nhận · Submit RSVP';
+    submitBtn.textContent = currentLang === 'vi' ? 'Gửi xác nhận · Submit RSVP' : 'Submit RSVP';
   }
 }
 
@@ -181,51 +266,99 @@ function resetRSVP() {
 
 // ─── LOOKUP ─────────────────────────────────────────────────────────────────
 async function lookupRSVP() {
-  const phone = document.getElementById('lookup-phone').value.trim();
+  const phone    = document.getElementById('lookup-phone').value.trim();
   const resultEl = document.getElementById('lookup-result');
-  if (!phone) { toast('Vui lòng nhập số điện thoại'); return; }
+
+  if (!phone) {
+    toast(currentLang === 'vi' ? 'Vui lòng nhập số điện thoại' : 'Please enter a phone number');
+    return;
+  }
+  if (!validatePhone(phone)) {
+    resultEl.innerHTML = `<div class="error-msg">${currentLang === 'vi' ? 'Số điện thoại không hợp lệ.' : 'Invalid phone number.'}</div>`;
+    return;
+  }
+
+  resultEl.innerHTML = `<div class="qr-loading">${currentLang === 'vi' ? 'Đang tìm kiếm...' : 'Searching...'}</div>`;
 
   try {
-    const res = await fetch(`/api/rsvp/${encodeURIComponent(phone)}`);
-    const data = await res.json();
+    const params = new URLSearchParams({ action: 'lookup', phone });
+    const res    = await fetch(`${APPS_SCRIPT_URL}?${params}`, { redirect: 'follow' });
+    const data   = await res.json();
 
-    if (!res.ok) {
-      resultEl.innerHTML = `<div class="error-msg">${data.error || 'Không tìm thấy RSVP'}</div>`;
+    if (!data.ok) {
+      resultEl.innerHTML = `<div class="error-msg">${data.error || (currentLang === 'vi' ? 'Không tìm thấy RSVP' : 'No RSVP found')}</div>`;
       return;
     }
+
     const g = data.data;
+    const isVi = currentLang === 'vi';
     resultEl.innerHTML = `
       <div class="rsvp-result">
         <div class="guest-name">${g.name}</div>
-        <div class="info-row"><span class="info-label">Nhóm</span><span>${g.category}</span></div>
-        <div class="info-row"><span class="info-label">Tham dự</span>
-          <span class="badge badge-${g.attending ? 'yes' : 'no'}">${g.attending ? '✓ Tham dự' : '✗ Vắng mặt'}</span>
+        <div class="info-row">
+          <span class="info-label">${isVi ? 'Nhóm' : 'Group'}</span>
+          <span>${g.category}</span>
         </div>
-        ${g.attending ? `<div class="info-row"><span class="info-label">Số người</span><span>${g.guests} người</span></div>` : ''}
-        ${g.table ? `<div class="info-row"><span class="info-label">Bàn số</span><span style="font-weight:500;font-size:1rem">Bàn ${g.table}</span></div>` : ''}
-        ${g.dietary ? `<div class="info-row"><span class="info-label">Yêu cầu ăn</span><span>${g.dietary}</span></div>` : ''}
-        <div class="info-row"><span class="info-label">Ngày gửi</span><span>${new Date(g.submittedAt).toLocaleDateString('vi-VN')}</span></div>
+        <div class="info-row">
+          <span class="info-label">${isVi ? 'Tham dự' : 'Attending'}</span>
+          <span class="badge badge-${g.attending ? 'yes' : 'no'}">
+            ${g.attending ? (isVi ? '✓ Tham dự' : '✓ Attending') : (isVi ? '✗ Vắng mặt' : '✗ Not Attending')}
+          </span>
+        </div>
+        ${g.attending ? `<div class="info-row"><span class="info-label">${isVi ? 'Số người' : 'Guests'}</span><span>${g.guests} ${isVi ? 'người' : 'guests'}</span></div>` : ''}
+        ${g.table     ? `<div class="info-row"><span class="info-label">${isVi ? 'Bàn số' : 'Table'}</span><span style="font-weight:500;font-size:1rem">${isVi ? 'Bàn' : 'Table'} ${g.table}</span></div>` : ''}
+        ${g.dietary   ? `<div class="info-row"><span class="info-label">${isVi ? 'Yêu cầu ăn' : 'Dietary'}</span><span>${g.dietary}</span></div>` : ''}
+        <div class="info-row">
+          <span class="info-label">${isVi ? 'Ngày gửi' : 'Submitted'}</span>
+          <span>${new Date(g.submittedAt).toLocaleDateString(isVi ? 'vi-VN' : 'en-US')}</span>
+        </div>
       </div>`;
   } catch (err) {
-    resultEl.innerHTML = `<div class="error-msg">Không thể kết nối máy chủ / Could not connect to server.</div>`;
+    resultEl.innerHTML = `<div class="error-msg">${currentLang === 'vi' ? 'Không thể kết nối. Vui lòng thử lại.' : 'Could not connect. Please try again.'}</div>`;
   }
 }
 
-// ─── QR CODE ────────────────────────────────────────────────────────────────
-async function loadQR() {
-  try {
-    const res = await fetch('/api/qr');
-    const data = await res.json();
-    if (data.success) {
-      document.getElementById('qr-img-wrap').innerHTML = `<img src="${data.qr}" alt="RSVP QR Code">`;
-      document.getElementById('invite-qr').innerHTML = `<img src="${data.qr}" alt="RSVP QR Code">`;
-      document.getElementById('qr-url-text').textContent = data.url;
-      window._qrDataUrl = data.qr;
-      window._qrUrl = data.url;
+// ─── QR CODE (client-side) ───────────────────────────────────────────────────
+function loadQR() {
+  const url = window.location.href.split('#')[0] + '#rsvp';
+  window._qrUrl = url;
+
+  // Use qrcode.js loaded from CDN in index.html
+  // If library not loaded yet, retry after short delay
+  function tryGenerate() {
+    if (typeof QRCode === 'undefined') {
+      setTimeout(tryGenerate, 300);
+      return;
     }
-  } catch (err) {
-    document.getElementById('qr-img-wrap').innerHTML = `<div class="qr-loading">Không thể tạo QR</div>`;
+    const wrap = document.getElementById('qr-img-wrap');
+    wrap.innerHTML = '';
+    const canvas = document.createElement('canvas');
+    wrap.appendChild(canvas);
+
+    QRCode.toCanvas(canvas, url, {
+      width: 200,
+      margin: 2,
+      color: { dark: '#34495a', light: '#f9f7f2' }
+    }, (err) => {
+      if (err) {
+        wrap.innerHTML = '<div class="qr-loading">QR unavailable</div>';
+        return;
+      }
+      window._qrDataUrl = canvas.toDataURL();
+      // Also render in invite card
+      const inviteWrap = document.getElementById('invite-qr');
+      if (inviteWrap) {
+        const c2 = document.createElement('canvas');
+        inviteWrap.innerHTML = '';
+        inviteWrap.appendChild(c2);
+        QRCode.toCanvas(c2, url, { width: 130, margin: 1, color: { dark: '#34495a', light: '#ffffff' } });
+      }
+    });
+
+    document.getElementById('qr-url-text').textContent = url;
   }
+
+  tryGenerate();
 }
 
 function downloadQR() {
