@@ -24,7 +24,6 @@
       <button onclick="showPage('home')" class="active" id="nav-home" data-vi="Trang chủ" data-en="Home">Trang chủ</button>
       <button onclick="showPage('rsvp')"            id="nav-rsvp">RSVP</button>
       <button onclick="showPage('lookup')"        id="nav-lookup" data-vi="Kiểm tra" data-en="Lookup">Kiểm tra</button>
-      <button onclick="showPage('qr')"                id="nav-qr">QR Code</button>
       <button onclick="showPage('admin')"          id="nav-admin">Admin</button>
     </div>
   </nav>
@@ -43,7 +42,7 @@
         <div class="hero-divider"><span>✦</span></div>
         <p class="hero-sub" data-vi="Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn" data-en="Together with their families joyfully invite you to celebrate their wedding">Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn</p>
         <div class="hero-actions">
-          <button class="btn btn-primary" onclick="showPage('rsvp')" data-vi="Xác nhận tham dự · RSVP" data-en="RSVP Now">Xác nhận tham dự · RSVP</button>
+          <button class="btn btn-primary" onclick="showPage('rsvp')" data-vi="Xác nhận tham dự" data-en="RSVP Now">Xác nhận tham dự</button>
           <button class="btn btn-outline" onclick="showPage('lookup')" data-vi="Kiểm tra RSVP" data-en="Look Up RSVP">Kiểm tra RSVP</button>
         </div>
       </div>
@@ -79,7 +78,7 @@
     <!-- COUNTDOWN -->
     <section class="countdown-section">
       <p class="section-eyebrow" data-vi="Đếm ngược" data-en="Counting Down">Đếm ngược</p>
-      <h2 class="section-title">Countdown to Forever</h2>
+      <h2 class="section-title" data-vi="Đếm Ngược Đến Ngày Trọng Đại" data-en="Countdown to Forever">Đếm Ngược Đến Ngày Trọng Đại</h2>
       <div class="divider"><span>✦</span></div>
       <div class="countdown-grid" id="countdown-grid">
         <div class="countdown-box"><span class="countdown-num" id="cd-days">00</span><span class="countdown-label" data-vi="Ngày" data-en="Days">Ngày</span></div>
@@ -93,7 +92,7 @@
     <section class="story-section">
       <div class="page-header" style="padding-top:0">
         <p class="section-eyebrow" data-vi="Chuyện tình của chúng tôi" data-en="Our Journey Together">Chuyện tình của chúng tôi</p>
-        <h2 class="section-title">Our Story</h2>
+        <h2 class="section-title" data-vi="Chuyện Tình Của Chúng Tôi" data-en="Our Story">Chuyện Tình Của Chúng Tôi</h2>
         <div class="divider"><span>✦</span></div>
       </div>
       <div class="story-card">
@@ -111,6 +110,22 @@
           <p>Now, after seven years together, we are finally having our church celebration this December. Looking back, we realize our love story began with serving others at church, and today it continues with gratitude, faith, and the dream of building a family centered on God's love.</p>
           <p class="story-closing">No matter what happens in life, we know we will continue walking side by side, just like we have for the past seven years. ♡</p>
         </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery-section">
+      <div class="page-header" style="padding-top:0">
+        <p class="section-eyebrow" data-vi="Khoảnh khắc của chúng tôi" data-en="Moments We Cherish">Khoảnh khắc của chúng tôi</p>
+        <h2 class="section-title" data-vi="Thư Viện Ảnh" data-en="Our Gallery">Thư Viện Ảnh</h2>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="gallery-wrap">
+        <div class="gallery-stage" id="gallery-stage">
+          <button class="gallery-arrow gallery-prev" onclick="galleryPrev()" aria-label="Previous photo">&#10094;</button>
+          <button class="gallery-arrow gallery-next" onclick="galleryNext()" aria-label="Next photo">&#10095;</button>
+        </div>
+        <div class="gallery-dots" id="gallery-dots"></div>
       </div>
     </section>
   </div>
@@ -134,8 +149,8 @@
         <div class="form-group">
           <label for="rsvp-phone" data-vi="Số điện thoại" data-en="Phone Number">Số điện thoại</label>
           <input type="tel" id="rsvp-phone"
-                 data-vi-placeholder="+84 hoặc số nội địa" data-en-placeholder="+1 or local number"
-                 placeholder="+84 hoặc số nội địa" autocomplete="tel" required>
+                 placeholder="(___) ___-____" inputmode="numeric" maxlength="14"
+                 oninput="formatPhoneField(event)" autocomplete="tel" required>
         </div>
         <div class="form-group">
           <label data-vi="Nhóm khách" data-en="Party Group">Nhóm khách</label>
@@ -176,8 +191,8 @@
         </div>
         <div id="rsvp-error" class="error-msg" style="display:none"></div>
         <button type="submit" class="btn btn-primary btn-full" id="rsvp-submit"
-                data-vi="Gửi xác nhận · Submit RSVP" data-en="Submit RSVP">
-          Gửi xác nhận · Submit RSVP
+                data-vi="Gửi xác nhận" data-en="Submit RSVP">
+          Gửi xác nhận
         </button>
       </form>
     </div>
@@ -207,46 +222,15 @@
       <div class="form-group">
         <label for="lookup-phone" data-vi="Số điện thoại" data-en="Phone Number">Số điện thoại</label>
         <input type="tel" id="lookup-phone"
-               data-vi-placeholder="+84 hoặc số nội địa" data-en-placeholder="+1 or local number"
-               placeholder="+84 hoặc số nội địa"
+               placeholder="(___) ___-____" inputmode="numeric" maxlength="14"
+               oninput="formatPhoneField(event)"
                onkeydown="if(event.key==='Enter')lookupRSVP()">
       </div>
       <button class="btn btn-primary btn-full" onclick="lookupRSVP()"
-              data-vi="Tìm kiếm · Find My RSVP" data-en="Find My RSVP">
-        Tìm kiếm · Find My RSVP
+              data-vi="Tìm kiếm" data-en="Find My RSVP">
+        Tìm kiếm
       </button>
       <div id="lookup-result"></div>
-    </div>
-  </div>
-
-  <!-- ── QR ── -->
-  <div id="page-qr" class="page">
-    <div class="page-header">
-      <h2 class="page-title">RSVP QR Code</h2>
-      <p class="page-sub" data-vi="Quét mã để xác nhận tham dự ngay trên điện thoại" data-en="Scan the code to RSVP directly on your phone">Quét mã để xác nhận tham dự ngay trên điện thoại</p>
-      <div class="divider"><span>✦</span></div>
-    </div>
-    <div class="qr-section">
-      <div class="qr-card">
-        <p class="qr-label" data-vi="Quét để RSVP" data-en="Scan to RSVP">Quét để RSVP</p>
-        <div id="qr-img-wrap"><div class="qr-loading" data-vi="Đang tạo QR..." data-en="Generating QR...">Đang tạo QR...</div></div>
-        <p class="qr-url" id="qr-url-text"></p>
-      </div>
-      <div class="qr-actions">
-        <button class="btn btn-primary" onclick="downloadQR()" data-vi="↓ Tải QR Code" data-en="↓ Download QR">↓ Tải QR Code</button>
-        <button class="btn btn-outline" onclick="copyQRUrl()" data-vi="⎘ Sao chép link" data-en="⎘ Copy Link">⎘ Sao chép link</button>
-      </div>
-      <div class="invite-card" id="invite-card">
-        <div class="invite-inner">
-          <p class="invite-eyebrow">Wedding Invitation</p>
-          <p class="invite-bride-name">Roselyn</p>
-          <p class="invite-bride-viet">Nguyễn Thu Hồng</p>
-          <p class="invite-amp">&amp;</p>
-          <p class="invite-groom-name">Hoàng Thành An</p>
-          <div id="invite-qr"></div>
-          <p class="invite-scan" data-vi="Quét để RSVP · Scan to RSVP" data-en="Scan to RSVP">Quét để RSVP · Scan to RSVP</p>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -265,7 +249,7 @@
                  onkeydown="if(event.key==='Enter')unlockAdmin()">
         </div>
         <button class="btn btn-primary btn-full" onclick="unlockAdmin()"
-                data-vi="Đăng nhập · Enter" data-en="Enter">Đăng nhập · Enter</button>
+                data-vi="Đăng nhập" data-en="Enter">Đăng nhập</button>
         <p style="font-size:0.75rem;color:var(--mid);margin-top:0.75rem;text-align:center">
           Demo: <strong>wedding2025</strong>
         </p>
@@ -279,11 +263,13 @@
         <div class="divider"><span>✦</span></div>
       </div>
       <div class="stat-grid" id="admin-stats"></div>
+      <p class="admin-updated" id="admin-updated"></p>
       <div class="admin-tabs">
         <button class="btn btn-primary"  id="tab-guests"     onclick="showAdminTab('guests')"     data-vi="Danh sách"       data-en="Guests">Danh sách</button>
         <button class="btn btn-outline"  id="tab-seating"    onclick="showAdminTab('seating')"    data-vi="Sơ đồ chỗ ngồi" data-en="Seating Chart">Sơ đồ chỗ ngồi</button>
         <button class="btn btn-outline"  id="tab-categories" onclick="showAdminTab('categories')" data-vi="Theo nhóm"       data-en="By Group">Theo nhóm</button>
         <button class="btn btn-blue"     onclick="autoSeatAll()" data-vi="⟳ Xếp chỗ tự động" data-en="⟳ Auto-Seat">⟳ Xếp chỗ tự động</button>
+        <button class="btn btn-outline"  onclick="refreshAdmin()" data-vi="↻ Làm mới" data-en="↻ Refresh">↻ Làm mới</button>
         <button class="btn btn-outline"  onclick="exportCSV()"   data-vi="↓ Xuất CSV"         data-en="↓ Export CSV">↓ Xuất CSV</button>
       </div>
 
