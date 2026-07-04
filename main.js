@@ -197,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buildFilterCategoryDropdown();
   startCountdown();
   buildGallery();
+  initIntro();
 
   document.getElementById('hamburger').addEventListener('click', () => {
     document.getElementById('nav-links').classList.toggle('open');
@@ -204,6 +205,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (window.location.hash === '#rsvp') showPage('rsvp');
 });
+
+// ─── INTRO ENVELOPE ─────────────────────────────────────────────────────────
+function initIntro() {
+  const overlay = document.getElementById('intro-overlay');
+  if (!overlay) return;
+
+  // guests who already opened the invitation this session skip straight in
+  if (sessionStorage.getItem('introSeen') === 'true') {
+    overlay.classList.add('hidden');
+    return;
+  }
+  document.documentElement.classList.add('intro-active');
+}
+
+function openEnvelope() {
+  const envelope = document.getElementById('envelope');
+  const card = document.getElementById('invitation-card');
+  if (!envelope || envelope.classList.contains('open')) return;
+
+  envelope.classList.add('open');
+  setTimeout(() => card.classList.add('show'), 450);
+}
+
+function enterSite(event) {
+  if (event) event.stopPropagation();
+  const overlay = document.getElementById('intro-overlay');
+  if (!overlay) return;
+
+  sessionStorage.setItem('introSeen', 'true');
+  overlay.classList.add('exit');
+  document.documentElement.classList.remove('intro-active');
+
+  setTimeout(() => overlay.classList.add('hidden'), 850);
+}
 
 // ─── COUNTDOWN ──────────────────────────────────────────────────────────────
 function startCountdown() {
@@ -237,8 +272,7 @@ function startCountdown() {
 // ─── GALLERY ────────────────────────────────────────────────────────────────
 function buildGallery() {
   const stage = document.getElementById('gallery-stage');
-  const dotsWrap = document.getElementById('gallery-dots');
-  if (!stage || !dotsWrap || !GALLERY_IMAGES.length) return;
+  if (!stage || !GALLERY_IMAGES.length) return;
 
   GALLERY_IMAGES.forEach((src, i) => {
     const slide = document.createElement('div');
@@ -257,13 +291,6 @@ function buildGallery() {
     slide.appendChild(img);
 
     stage.appendChild(slide);
-
-    const dot = document.createElement('button');
-    dot.type = 'button';
-    dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', `Photo ${i + 1}`);
-    dot.onclick = () => goToGallerySlide(i);
-    dotsWrap.appendChild(dot);
   });
 
   // pause autoplay while the person is looking closely / interacting
@@ -288,11 +315,9 @@ function buildGallery() {
 
 function showGallerySlide(index) {
   const imgs = document.querySelectorAll('.gallery-slide');
-  const dots = document.querySelectorAll('.gallery-dot');
   if (!imgs.length) return;
   galleryIndex = ((index % imgs.length) + imgs.length) % imgs.length;
   imgs.forEach((img, i) => img.classList.toggle('active', i === galleryIndex));
-  dots.forEach((dot, i) => dot.classList.toggle('active', i === galleryIndex));
 }
 
 function galleryNext() {

@@ -10,6 +10,26 @@
 </head>
 <body>
 
+  <!-- ── INTRO: ENVELOPE ── -->
+  <div id="intro-overlay">
+    <div class="intro-scene">
+      <div class="envelope" id="envelope" onclick="openEnvelope()">
+        <div class="invitation-card" id="invitation-card">
+          <p class="invitation-eyebrow" data-vi="Trân trọng kính mời" data-en="You Are Cordially Invited">Trân trọng kính mời</p>
+          <p class="invitation-names">An <em>&amp;</em> Roselyn</p>
+          <div class="invitation-divider"><span>✦</span></div>
+          <p class="invitation-date">05 . 12 . 2026</p>
+          <button type="button" class="btn btn-primary invitation-enter" id="invitation-enter" onclick="enterSite(event)"
+                  data-vi="Vào xem thiệp mời" data-en="Enter the Invitation">Vào xem thiệp mời</button>
+        </div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-back"></div>
+        <div class="envelope-seal"><span>✦</span></div>
+      </div>
+      <p class="envelope-hint" id="envelope-hint" data-vi="Chạm vào phong bì để mở" data-en="Tap the envelope to open">Chạm vào phong bì để mở</p>
+    </div>
+  </div>
+
   <nav id="navbar">
     <div class="nav-logo">An <em>&amp;</em> Roselyn </div>
     <div class="nav-right">
@@ -125,7 +145,11 @@
           <button class="gallery-arrow gallery-prev" onclick="galleryPrev()" aria-label="Previous photo">&#10094;</button>
           <button class="gallery-arrow gallery-next" onclick="galleryNext()" aria-label="Next photo">&#10095;</button>
         </div>
-        <div class="gallery-dots" id="gallery-dots"></div>
+      </div>
+      <div class="gallery-album-cta">
+        <p data-vi="Xem thêm nhiều hình ảnh của chúng tôi trong album đầy đủ" data-en="See more of our photos in the full album">Xem thêm nhiều hình ảnh của chúng tôi trong album đầy đủ</p>
+        <a class="btn btn-outline" href="https://photos.app.goo.gl/4Q4sQnfQMgSiqC1f6" target="_blank" rel="noopener noreferrer"
+           data-vi="Xem toàn bộ Album" data-en="View Full Album">Xem toàn bộ Album</a>
       </div>
     </section>
   </div>
