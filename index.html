@@ -29,10 +29,13 @@
     }
 
     :root {
-      /* Script/handwritten accent — couple's names, envelope card. Twister is Latin-only
-         (no Vietnamese diacritics), so it falls back to Hello Honey — still a script
-         font — for any accented character Twister can't render, rather than breaking. */
-      --font-display: 'Twister', 'hello honey - Personal Use', 'Allura', cursive;
+      /* Script/handwritten accent — couple's names, envelope card. Hello Honey
+         has fuller Vietnamese diacritic coverage than Twister, so it's the
+         primary here (names always render in Vietnamese, diacritics and all). */
+      --font-display: 'hello honey - Personal Use', 'Allura', cursive;
+      /* Twister — reserved for the Welcome section specifically. Falls back to
+         Hello Honey for any Vietnamese character Twister can't render. */
+      --font-welcome: 'Twister', 'hello honey - Personal Use', 'Allura', cursive;
       /* Playful display accent — section titles only, kept off data-heavy UI for legibility */
       --font-accent: 'Candy Cane Personal Use', 'hello honey - Personal Use', cursive;
       --font-heading: 'Cormorant Garamond', Georgia, serif;
@@ -43,6 +46,17 @@
 </head>
 
 <body>
+
+  <!-- ── BACKGROUND MUSIC ──────────────────────────────────────────────────────
+       To add your song: drop an mp3 file into the music/ folder and name it
+       "song.mp3" (see music/README.txt). No other changes needed — it starts
+       softly once the envelope is opened, and guests can mute it any time. -->
+  <audio id="bg-music" loop preload="none">
+    <source src="music/song.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-toggle" class="music-toggle" onclick="toggleMusic()" aria-label="Toggle background music" style="display:none">
+    <span id="music-icon">&#9834;</span>
+  </button>
 
   <!-- ── INTRO: ENVELOPE ── -->
   <div id="intro-overlay">
@@ -145,7 +159,7 @@
       <p class="intro-invite-title" data-vi="Bạn được mời!" data-en="You are invited!">You are invited!</p>
       <div class="envelope" id="envelope" onclick="openEnvelope()">
         <div class="invitation-card" id="invitation-card">
-          <p class="invitation-eyebrow" data-vi="Trân trọng kính mời" data-en="You Are Cordially Invited">Trân trọng kính mời</p>
+          <p class="invitation-eyebrow" data-vi="Trân trọng kính mời quý vị đến dự lễ thành hôn của" data-en="You Are Cordially Invited to the Wedding of">Trân trọng kính mời quý vị đến dự lễ thành hôn của</p>
           <p class="invitation-names">An <em>&amp;</em> Roselyn</p>
           <div class="invitation-divider"><span>✦</span></div>
           <p class="invitation-date">12 . 05 . 2026</p>
@@ -391,10 +405,16 @@
     <!-- WELCOME -->
     <section class="welcome-section">
       <img class="welcome-logo" src="logo-colored-white.png" alt="An &amp; Roselyn monogram">
-      <h2 class="welcome-title">Welcome</h2>
-      <p class="welcome-title-vi">Chào Mừng</p>
-      <p class="welcome-text">Welcome to our wedding website! We are truly grateful to God for bringing us together and blessing us with this beautiful journey of love. As we prepare to receive the Sacrament of Holy Matrimony, we warmly invite you to celebrate this special day with us. Your prayers, love, and presence mean more than words can express. Thank you for being part of our story, and we look forward to creating cherished memories together.</p>
-      <p class="welcome-text">Chào mừng bạn đến với trang web đám cưới của chúng tôi! Chúng tôi xin tạ ơn Thiên Chúa vì đã dẫn dắt và chúc phúc cho hành trình tình yêu của chúng tôi. Khi chuẩn bị bước vào Bí tích Hôn Phối, chúng tôi rất hân hạnh được mời bạn cùng chia sẻ niềm vui trong ngày trọng đại này. Sự hiện diện, lời cầu nguyện và tình yêu thương của bạn là món quà quý giá nhất dành cho chúng tôi. Xin chân thành cảm ơn vì đã đồng hành cùng chúng tôi, và chúng tôi mong được cùng bạn tạo nên những kỷ niệm thật đẹp trong ngày đặc biệt này.</p>
+      <h2 class="welcome-title" data-vi="Chào Mừng" data-en="Welcome">Welcome</h2>
+      <p class="welcome-text" data-vi="Chào mừng bạn đến với trang web đám cưới của chúng tôi! Chúng tôi xin tạ ơn Thiên Chúa vì đã dẫn dắt và chúc phúc cho hành trình tình yêu của chúng tôi. Khi chuẩn bị bước vào Bí tích Hôn Phối, chúng tôi rất hân hạnh được mời bạn cùng chia sẻ niềm vui trong ngày trọng đại này. Sự hiện diện, lời cầu nguyện và tình yêu thương của bạn là món quà quý giá nhất dành cho chúng tôi. Xin chân thành cảm ơn vì đã đồng hành cùng chúng tôi, và chúng tôi mong được cùng bạn tạo nên những kỷ niệm thật đẹp trong ngày đặc biệt này."
+         data-en="Welcome to our wedding website! We are truly grateful to God for bringing us together and blessing us with this beautiful journey of love. As we prepare to receive the Sacrament of Holy Matrimony, we warmly invite you to celebrate this special day with us. Your prayers, love, and presence mean more than words can express. Thank you for being part of our story, and we look forward to creating cherished memories together.">Welcome to our wedding website! We are truly grateful to God for bringing us together and blessing us with this beautiful journey of love. As we prepare to receive the Sacrament of Holy Matrimony, we warmly invite you to celebrate this special day with us. Your prayers, love, and presence mean more than words can express. Thank you for being part of our story, and we look forward to creating cherished memories together.</p>
+    </section>
+
+    <!-- FAVORITE VERSE -->
+    <section class="verse-section">
+      <div class="verse-mark" aria-hidden="true">&#10077;</div>
+      <p class="verse-text">Love is patient, love is kind&hellip; Love never fails.</p>
+      <p class="verse-ref">1 Corinthians 13:4&ndash;8</p>
     </section>
 
     <!-- EVENT DETAILS -->
@@ -414,6 +434,9 @@
         <p class="section-eyebrow" data-vi="Khi nào &amp; Ở đâu" data-en="When &amp; Where">Khi nào &amp; Ở đâu</p>
         <h2 class="section-title" data-vi="Chi tiết Lễ cưới" data-en="Wedding Details">Chi tiết Lễ cưới</h2>
         <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="church-banner">
+        <img src="church.jpg" alt="Vietnamese Martyrs Parish">
       </div>
       <div class="details-grid">
         <div class="detail-card">
@@ -654,11 +677,11 @@
 
   <footer class="contact-footer">
     <p data-vi="Có câu hỏi nào không?" data-en="Have a question?">Have a question?</p>
-    <p><a href="mailto:anandroselyn2026@gmail.com">anandroselyn2026@gmail.com</a></p>
+    <p><a href="mailto:anrosie1205@gmail.com">anrosie1205@gmail.com</a></p>
   </footer>
 
   <div class="toast" id="toast"></div>
 
   <script src="main.js"></script>
 </body>
-  </html>
+        </html>
