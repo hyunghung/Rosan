@@ -17,6 +17,7 @@
 
   <link rel="stylesheet" href="style/main.css">
 
+  <!-- ✅ FONT FIX (MOBILE + DESKTOP CONSISTENCY) -->
   <style>
     html {
       -webkit-text-size-adjust: 100%;
@@ -30,8 +31,11 @@
     }
 
     :root {
-
+      /* Script/handwritten accent — couple's names, envelope card. Twister is Latin-only
+         (no Vietnamese diacritics), so it falls back to Hello Honey — still a script
+         font — for any accented character Twister can't render, rather than breaking. */
       --font-display: 'Twister', 'hello honey - Personal Use', 'Allura', cursive;
+      /* Playful display accent — section titles only, kept off data-heavy UI for legibility */
       --font-accent: 'Candy Cane Personal Use', 'hello honey - Personal Use', cursive;
       --font-heading: 'Cormorant Garamond', Georgia, serif;
       --font-body: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -140,9 +144,10 @@
     <svg class="intro-petal intro-petal--8" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="13" ry="7" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(-30 10 10)"/></svg>
     <svg class="intro-petal intro-petal--9" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(20 10 10)"/></svg>
     <div class="intro-scene">
+      <p class="intro-invite-title" data-vi="Bạn được mời!" data-en="You are invited!">You are invited!</p>
       <div class="envelope" id="envelope" onclick="openEnvelope()">
         <div class="invitation-card" id="invitation-card">
-          <p class="invitation-eyebrow" data-vi="Trân trọng kính mời" data-en="You Are Cordially Invited to the wedding of">Trân trọng kính mời</p>
+          <p class="invitation-eyebrow" data-vi="Trân trọng kính mời" data-en="You Are Cordially Invited">Trân trọng kính mời</p>
           <p class="invitation-names">An <em>&amp;</em> Roselyn</p>
           <div class="invitation-divider"><span>✦</span></div>
           <p class="invitation-date">12 . 05 . 2026</p>
@@ -229,18 +234,16 @@
     </div>
     <div class="nav-links" id="nav-links">
       <button onclick="showPage('home')" class="active" id="nav-home" data-vi="Trang chủ" data-en="Home">Trang chủ</button>
+      <button onclick="showPage('story')" id="nav-story" data-vi="Chuyện tình" data-en="Our Story">Our Story</button>
+      <button onclick="showPage('gallery')" id="nav-gallery" data-vi="Thư viện" data-en="Gallery">Gallery</button>
       <button onclick="showPage('rsvp')" id="nav-rsvp">RSVP</button>
-      <button onclick="showPage('lookup')" id="nav-lookup" data-vi="Kiểm tra" data-en="Lookup">Kiểm tra</button>
-      <button onclick="showPage('story')" id="nav-story" data-vi="Câu chuyện" data-en="Our Story">Câu chuyện</button>
-      <button onclick="showPage('gallery')" id="nav-gallery" data-vi="Thư viện" data-en="Gallery">Thư viện</button>
-      <button onclick="showPage('registry')" id="nav-registry" data-vi="Danh sách quà" data-en="Registry">Danh sách quà</button>
-      <button onclick="showPage('contact')" id="nav-contact" data-vi="Liên hệ" data-en="Contact">Liên hệ</button>
     </div>
   </nav>
 
   <!-- ── HOME ── -->
   <div id="page-home" class="page active">
     <section class="hero">
+      <!-- decorative corner sprigs (original line-art, not a photo) -->
       <svg class="hero-bloom hero-bloom--tl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g fill="none" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
           <path d="M6 6 C 40 18, 55 45, 48 82" />
@@ -350,11 +353,11 @@
         <ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--cream)" stroke="var(--rose)" stroke-width="1" transform="rotate(-25 10 10)"/>
       </svg>
       <div class="hero-content">
-        <p class="hero-eyebrow" data-vi="Trân trọng kính mời" data-en="You Are Cordially Invited">Trân trọng kính mời</p>
+        <p class="hero-eyebrow" data-vi="Trân trọng kính mời quý vị đến dự lễ thành hôn của" data-en="You Are Cordially Invited to the Wedding of">Trân trọng kính mời quý vị đến dự lễ thành hôn của</p>
         <div class="hero-names">
-          <h1 class="groom-name">Hoàng Thanh An</h1>
+          <h1 class="bride-name">Hoàng Thanh An</h1>
           <span class="ampersand">&amp;</span>
-          <h1 class="bride-name">Nguyễn Thu Hồng Roselyn</h1>
+          <h1 class="groom-name">Nguyễn Thu Hồng Roselyn</h1>
         </div>
         <div class="hero-divider"><span>✦</span></div>
         <p class="hero-sub" data-vi="Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn" data-en="Together with their families joyfully invite you to celebrate their wedding">Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn</p>
@@ -405,6 +408,32 @@
       </svg>
     </section>
 
+    <!-- WELCOME -->
+    <section class="welcome-section">
+      <svg class="welcome-logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An &amp; Roselyn monogram">
+        <circle cx="60" cy="58" r="50" fill="none" stroke-width="1.4" opacity="0.9"/>
+        <g>
+          <path d="M18 88 Q10 78 14 66" fill="none" stroke="var(--sage-light)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M14 66 Q6 64 5 56" fill="none" stroke="var(--sage-light)" stroke-width="1" stroke-linecap="round"/>
+          <ellipse cx="10.5" cy="60" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(-30 10.5 60)"/>
+          <ellipse cx="16.5" cy="72" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(-15 16.5 72)"/>
+          <circle cx="20" cy="86" r="3.6" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="0.9"/>
+        </g>
+        <g>
+          <path d="M102 88 Q110 78 106 66" fill="none" stroke="var(--sage-light)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M106 66 Q114 64 115 56" fill="none" stroke="var(--sage-light)" stroke-width="1" stroke-linecap="round"/>
+          <ellipse cx="109.5" cy="60" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(30 109.5 60)"/>
+          <ellipse cx="103.5" cy="72" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(15 103.5 72)"/>
+          <circle cx="100" cy="86" r="3.6" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="0.9"/>
+        </g>
+        <path d="M32 68 Q60 88 88 68" fill="none" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="60" y="70" font-family="'Cormorant Garamond', Georgia, serif" font-size="44" text-anchor="middle" font-weight="500">AR</text>
+      </svg>
+      <h2 class="welcome-title">Welcome</h2>
+      <p class="welcome-title-vi">Chào Mừng</p>
+      <p class="welcome-text">Welcome to our wedding website! We are truly grateful to God for bringing us together and blessing us with this beautiful journey of love. As we prepare to receive the Sacrament of Holy Matrimony, we warmly invite you to celebrate this special day with us. Your prayers, love, and presence mean more than words can express. Thank you for being part of our story, and we look forward to creating cherished memories together.</p>
+      <p class="welcome-text">Chào mừng bạn đến với trang web đám cưới của chúng tôi! Chúng tôi xin tạ ơn Thiên Chúa vì đã dẫn dắt và chúc phúc cho hành trình tình yêu của chúng tôi. Khi chuẩn bị bước vào Bí tích Hôn Phối, chúng tôi rất hân hạnh được mời bạn cùng chia sẻ niềm vui trong ngày trọng đại này. Sự hiện diện, lời cầu nguyện và tình yêu thương của bạn là món quà quý giá nhất dành cho chúng tôi. Xin chân thành cảm ơn vì đã đồng hành cùng chúng tôi, và chúng tôi mong được cùng bạn tạo nên những kỷ niệm thật đẹp trong ngày đặc biệt này.</p>
+    </section>
 
     <!-- EVENT DETAILS -->
     <section class="details-section">
@@ -467,11 +496,10 @@
         <div class="countdown-box"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label" data-vi="Giây" data-en="Secs">Giây</span></div>
       </div>
     </section>
-  </div>  
+  </div>
 
-  <!-- OUR STORY -->
-
-  <div id="page-story" class="page active">
+  <!-- ── OUR STORY ── -->
+  <div id="page-story" class="page">
     <section class="story-section">
       <div class="page-header" style="padding-top:0">
         <p class="section-eyebrow" data-vi="Chuyện tình của chúng tôi" data-en="Our Journey Together">Chuyện tình của chúng tôi</p>
@@ -527,9 +555,17 @@
 
       <p class="story-closing" data-vi="Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt bảy năm qua. ♡"
          data-en="No matter what happens in life, we know we will continue walking side by side, just like we have for the past seven years. ♡">Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt bảy năm qua. ♡</p>
+    </section>
+  </div>
 
-      <div class="divider story-gallery-divider"><span data-vi="Thêm khoảnh khắc của chúng tôi" data-en="More moments together">Thêm khoảnh khắc của chúng tôi</span></div>
-
+  <!-- ── GALLERY ── -->
+  <div id="page-gallery" class="page">
+    <section class="gallery-section">
+      <div class="page-header" style="padding-top:0">
+        <p class="section-eyebrow" data-vi="Khoảnh khắc của chúng tôi" data-en="Moments We Cherish">Khoảnh khắc của chúng tôi</p>
+        <h2 class="section-title" data-vi="Thư Viện Ảnh" data-en="Gallery">Thư Viện Ảnh</h2>
+        <div class="divider"><span>✦</span></div>
+      </div>
       <div class="gallery-wrap">
         <div class="gallery-stage" id="gallery-stage">
           <button class="gallery-arrow gallery-prev" onclick="galleryPrev()" aria-label="Previous photo">&#10094;</button>
@@ -550,6 +586,10 @@
       <h2 class="page-title" data-vi="Xác nhận tham dự" data-en="RSVP">Xác nhận tham dự</h2>
       <p class="page-sub" data-vi="Vui lòng cho chúng tôi biết bạn có thể tham dự không" data-en="Please let us know whether you'll be able to join us">Vui lòng cho chúng tôi biết bạn có thể tham dự không</p>
       <div class="divider"><span>✦</span></div>
+      <p style="font-size:0.82rem">
+        <span data-vi="Đã gửi RSVP rồi?" data-en="Already RSVP'd?">Already RSVP'd?</span>
+        <a href="#" onclick="showPage('lookup');return false;" style="color:var(--blue-dark);font-weight:500" data-vi="Kiểm tra tại đây" data-en="Look it up here">Look it up here</a>
+      </p>
     </div>
 
     <div id="rsvp-form-wrap">
@@ -650,8 +690,13 @@
     </div>
   </div>
 
+  <footer class="contact-footer">
+    <p data-vi="Có câu hỏi nào không?" data-en="Have a question?">Have a question?</p>
+    <p><a href="mailto:anandroselyn2026@gmail.com">anandroselyn2026@gmail.com</a></p>
+  </footer>
+
   <div class="toast" id="toast"></div>
 
   <script src="main.js"></script>
 </body>
-</html>
+              </html>
