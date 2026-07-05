@@ -592,6 +592,16 @@ body {
   width: 100%;
   height: auto;
 }
+@media (max-width: 640px) {
+  .details-section { padding-left: 1rem; padding-right: 1rem; }
+  .church-banner {
+    max-width: none;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 0;
+    box-shadow: 0 4px 24px rgba(52,73,90,0.15);
+  }
+}
 .details-grid {
   position: relative;
   z-index: 1;
