@@ -192,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
   startCountdown();
   buildGallery();
   initIntro();
+  setLanguage('en');
 
   document.getElementById('hamburger').addEventListener('click', () => {
     document.getElementById('nav-links').classList.toggle('open');
