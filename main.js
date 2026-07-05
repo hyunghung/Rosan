@@ -170,12 +170,6 @@ function setLanguage(lang) {
     el.placeholder = lang === 'vi' ? el.dataset.viPlaceholder : el.dataset.enPlaceholder;
   });
 
-  // story blocks (full paragraphs, swapped as blocks)
-  const storyVi = document.getElementById('story-vi');
-  const storyEn = document.getElementById('story-en');
-  if (storyVi) storyVi.style.display = lang === 'vi' ? '' : 'none';
-  if (storyEn) storyEn.style.display = lang === 'en' ? '' : 'none';
-
   // toggle button state
   document.getElementById('lang-vi').classList.toggle('active', lang === 'vi');
   document.getElementById('lang-en').classList.toggle('active', lang === 'en');
@@ -405,6 +399,7 @@ function buildCategoryGrid() {
 
 function buildFilterCategoryDropdown() {
   const sel = document.getElementById('filter-cat');
+  if (!sel) return;
   const prevValue = sel.value;
   // Rebuild all options after the first (the "All Groups" placeholder, kept as-is)
   sel.querySelectorAll('option[data-cat-option]').forEach(o => o.remove());

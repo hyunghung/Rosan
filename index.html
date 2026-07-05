@@ -4,14 +4,127 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>An & Roselyn — Wedding RSVP</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Hello Honey (romantic script) & Candy Cane (playful display) — free-for-personal-use webfonts via CDN Fonts -->
+  <link href="https://fonts.cdnfonts.com/css/hello-honey-personal-use" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/candy-cane-personal-use" rel="stylesheet">
+
   <link rel="stylesheet" href="style/main.css">
+
+  <!-- ✅ FONT FIX (MOBILE + DESKTOP CONSISTENCY) -->
+  <style>
+    html {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    :root {
+      /* Script/handwritten accent — couple's names, envelope card, nav logo */
+      --font-display: 'hello honey - Personal Use', 'Allura', cursive;
+      /* Playful display accent — section titles only, kept off data-heavy UI for legibility */
+      --font-accent: 'Candy Cane Personal Use', 'hello honey - Personal Use', cursive;
+      --font-heading: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+  </style>
+
 </head>
+
 <body>
 
   <!-- ── INTRO: ENVELOPE ── -->
   <div id="intro-overlay">
+    <!-- corner sprigs — soft botanical line-art, echoes the hero section -->
+    <svg class="intro-bloom intro-bloom--tl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g fill="none" stroke="var(--blue-light)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
+        <path d="M6 6 C 40 18, 55 45, 48 82" />
+        <path d="M6 6 C 26 34, 30 58, 20 90" />
+        <path d="M6 6 C 48 10, 78 22, 96 50" />
+      </g>
+      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--cream)" opacity="0.95">
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-18 52 20)"/>
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(38 52 20)"/>
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(94 52 20)"/>
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(150 52 20)"/>
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-74 52 20)"/>
+        <circle cx="52" cy="20" r="4.5" fill="var(--rose-light)" stroke="var(--rose)"/>
+      </g>
+      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--white)" opacity="0.95">
+        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(-10 90 52)"/>
+        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(52 90 52)"/>
+        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(114 90 52)"/>
+        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(176 90 52)"/>
+        <circle cx="90" cy="52" r="3" fill="var(--rose-light)" stroke="var(--rose)"/>
+      </g>
+      <g fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1">
+        <ellipse cx="26" cy="66" rx="9" ry="4" transform="rotate(30 26 66)"/>
+        <ellipse cx="70" cy="30" rx="8" ry="3.5" transform="rotate(-40 70 30)"/>
+      </g>
+    </svg>
+    <svg class="intro-bloom intro-bloom--br" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g fill="none" stroke="var(--blue-light)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
+        <path d="M6 6 C 40 18, 55 45, 48 82" />
+        <path d="M6 6 C 26 34, 30 58, 20 90" />
+        <path d="M6 6 C 48 10, 78 22, 96 50" />
+      </g>
+      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--cream)" opacity="0.95">
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-18 52 20)"/>
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(38 52 20)"/>
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(94 52 20)"/>
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(150 52 20)"/>
+        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-74 52 20)"/>
+        <circle cx="52" cy="20" r="4.5" fill="var(--rose-light)" stroke="var(--rose)"/>
+      </g>
+      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--white)" opacity="0.95">
+        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(-10 90 52)"/>
+        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(52 90 52)"/>
+        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(114 90 52)"/>
+        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(176 90 52)"/>
+        <circle cx="90" cy="52" r="3" fill="var(--rose-light)" stroke="var(--rose)"/>
+      </g>
+      <g fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1">
+        <ellipse cx="26" cy="66" rx="9" ry="4" transform="rotate(30 26 66)"/>
+        <ellipse cx="70" cy="30" rx="8" ry="3.5" transform="rotate(-40 70 30)"/>
+      </g>
+    </svg>
+    <svg class="intro-bloom intro-bloom--tr" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--white)" opacity="0.9">
+        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(-10 20 20)"/>
+        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(58 20 20)"/>
+        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(126 20 20)"/>
+        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(194 20 20)"/>
+        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(262 20 20)"/>
+        <circle cx="20" cy="20" r="4" fill="var(--rose-light)" stroke="var(--rose)"/>
+      </g>
+    </svg>
+    <svg class="intro-bloom intro-bloom--bl" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--cream)" opacity="0.9">
+        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(-10 20 20)"/>
+        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(62 20 20)"/>
+        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(134 20 20)"/>
+        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(206 20 20)"/>
+        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(278 20 20)"/>
+        <circle cx="20" cy="20" r="3.5" fill="var(--rose-light)" stroke="var(--rose)"/>
+      </g>
+    </svg>
+    <!-- floating petals — drift gently around the envelope for a merrier, blossoming feel -->
+    <svg class="intro-petal intro-petal--1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="9" ry="5" fill="var(--white)" stroke="var(--blue-light)" stroke-width="1" transform="rotate(35 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--2" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="8" ry="4.5" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(-20 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--white)" stroke="var(--blue-light)" stroke-width="1" transform="rotate(60 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1" transform="rotate(-45 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="8" ry="4.5" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(15 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="6" ry="3.5" fill="var(--white)" stroke="var(--blue-light)" stroke-width="1" transform="rotate(-60 10 10)"/></svg>
     <div class="intro-scene">
       <div class="envelope" id="envelope" onclick="openEnvelope()">
         <div class="invitation-card" id="invitation-card">
@@ -24,11 +137,12 @@
         </div>
         <div class="envelope-flap"></div>
         <div class="envelope-back"></div>
-        <div class="envelope-seal"><span>✦</span></div>
+        <div class="envelope-seal"><span>♥</span></div>
       </div>
       <p class="envelope-hint" id="envelope-hint" data-vi="Chạm vào phong bì để mở" data-en="Tap the envelope to open">Chạm vào phong bì để mở</p>
     </div>
   </div>
+
 
   <nav id="navbar">
     <div class="nav-logo">An <em>&amp;</em> Roselyn </div>
@@ -42,20 +156,80 @@
     </div>
     <div class="nav-links" id="nav-links">
       <button onclick="showPage('home')" class="active" id="nav-home" data-vi="Trang chủ" data-en="Home">Trang chủ</button>
-      <button onclick="showPage('rsvp')"            id="nav-rsvp">RSVP</button>
-      <button onclick="showPage('lookup')"        id="nav-lookup" data-vi="Kiểm tra" data-en="Lookup">Kiểm tra</button>
-      <button onclick="showPage('admin')"          id="nav-admin">Admin</button>
+      <button onclick="showPage('rsvp')" id="nav-rsvp">RSVP</button>
+      <button onclick="showPage('lookup')" id="nav-lookup" data-vi="Kiểm tra" data-en="Lookup">Kiểm tra</button>
     </div>
   </nav>
 
   <!-- ── HOME ── -->
   <div id="page-home" class="page active">
     <section class="hero">
-      <div class="hero-bg-pattern"></div>
+      <!-- decorative corner sprigs (original line-art, not a photo) -->
+      <svg class="hero-bloom hero-bloom--tl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g fill="none" stroke="var(--blue)" stroke-width="1.4" stroke-linecap="round" opacity="0.75">
+          <path d="M6 6 C 40 18, 55 45, 48 82" />
+          <path d="M6 6 C 26 34, 30 58, 20 90" />
+          <path d="M6 6 C 48 10, 78 22, 96 50" />
+        </g>
+        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--cream)" opacity="0.9">
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-18 52 20)"/>
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(38 52 20)"/>
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(94 52 20)"/>
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(150 52 20)"/>
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-74 52 20)"/>
+          <circle cx="52" cy="20" r="4.5" fill="var(--rose-light)" stroke="var(--rose)"/>
+        </g>
+        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--white)" opacity="0.9">
+          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(-10 90 52)"/>
+          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(52 90 52)"/>
+          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(114 90 52)"/>
+          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(176 90 52)"/>
+          <circle cx="90" cy="52" r="3" fill="var(--rose-light)" stroke="var(--rose)"/>
+        </g>
+        <g fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1">
+          <ellipse cx="26" cy="66" rx="9" ry="4" transform="rotate(30 26 66)"/>
+          <ellipse cx="70" cy="30" rx="8" ry="3.5" transform="rotate(-40 70 30)"/>
+        </g>
+      </svg>
+      <svg class="hero-bloom hero-bloom--br" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g fill="none" stroke="var(--blue)" stroke-width="1.4" stroke-linecap="round" opacity="0.75">
+          <path d="M6 6 C 40 18, 55 45, 48 82" />
+          <path d="M6 6 C 26 34, 30 58, 20 90" />
+          <path d="M6 6 C 48 10, 78 22, 96 50" />
+        </g>
+        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--cream)" opacity="0.9">
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-18 52 20)"/>
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(38 52 20)"/>
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(94 52 20)"/>
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(150 52 20)"/>
+          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-74 52 20)"/>
+          <circle cx="52" cy="20" r="4.5" fill="var(--rose-light)" stroke="var(--rose)"/>
+        </g>
+        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--white)" opacity="0.9">
+          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(-10 90 52)"/>
+          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(52 90 52)"/>
+          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(114 90 52)"/>
+          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(176 90 52)"/>
+          <circle cx="90" cy="52" r="3" fill="var(--rose-light)" stroke="var(--rose)"/>
+        </g>
+        <g fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1">
+          <ellipse cx="26" cy="66" rx="9" ry="4" transform="rotate(30 26 66)"/>
+          <ellipse cx="70" cy="30" rx="8" ry="3.5" transform="rotate(-40 70 30)"/>
+        </g>
+      </svg>
+      <svg class="hero-petal hero-petal--1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="10" cy="10" rx="9" ry="5" fill="var(--white)" stroke="var(--blue)" stroke-width="1" transform="rotate(35 10 10)"/>
+      </svg>
+      <svg class="hero-petal hero-petal--2" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="10" cy="10" rx="8" ry="4.5" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(-20 10 10)"/>
+      </svg>
+      <svg class="hero-petal hero-petal--3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--white)" stroke="var(--blue)" stroke-width="1" transform="rotate(60 10 10)"/>
+      </svg>
       <div class="hero-content">
         <p class="hero-eyebrow" data-vi="Trân trọng kính mời" data-en="You Are Cordially Invited">Trân trọng kính mời</p>
         <div class="hero-names">
-          <h1 class="bride-name">Hoàng Thành An</h1>
+          <h1 class="bride-name">Hoàng Thanh An</h1>
           <span class="ampersand">&amp;</span>
           <h1 class="groom-name">Nguyễn Thu Hồng Roselyn</h1>
         </div>
@@ -108,38 +282,65 @@
       </div>
     </section>
 
-    <!-- OUR STORY -->
+    <!-- OUR STORY + GALLERY (merged into one continuous, photo-interleaved narrative) -->
     <section class="story-section">
       <div class="page-header" style="padding-top:0">
         <p class="section-eyebrow" data-vi="Chuyện tình của chúng tôi" data-en="Our Journey Together">Chuyện tình của chúng tôi</p>
         <h2 class="section-title" data-vi="Chuyện Tình Của Chúng Tôi" data-en="Our Story">Chuyện Tình Của Chúng Tôi</h2>
         <div class="divider"><span>✦</span></div>
       </div>
-      <div class="story-card">
-        <div id="story-vi">
-          <p>Bảy năm trước, chúng tôi gặp nhau qua Thiếu Nhi Thánh Thể tại nhà thờ, trong lúc cùng phụ giúp tổ chức Tết Trung Thu. Lúc đó, chúng tôi không hề nghĩ rằng một khoảnh khắc giản dị cùng nhau phục vụ lại trở thành khởi đầu của một hành trình mãi mãi.</p>
-          <p>Mối quan hệ của chúng tôi chưa bao giờ hoàn hảo. Chúng tôi đã trải qua những giai đoạn khó khăn, những hiểu lầm, khoảng cách, áp lực, và những lúc cuộc sống thử thách chúng tôi theo nhiều cách. Nhưng qua mỗi thử thách, chúng tôi vẫn luôn chọn nhau. Chúng tôi giữ sự chân thành, giữ sự thật lòng, và quan trọng nhất, chúng tôi luôn đặt Chúa làm trung tâm trong mối quan hệ của mình.</p>
-          <p>Điều giúp chúng tôi vững vàng không phải là sự hoàn hảo, mà là đức tin, sự tin tưởng, và sự nâng đỡ vô điều kiện dành cho nhau. Chúng tôi học cách cùng nhau trưởng thành thay vì xa cách nhau. Qua từng thăng trầm, chúng tôi nhắc nhau rằng tình yêu không chỉ là hạnh phúc, mà còn là sự kiên nhẫn, hy sinh, tha thứ, và niềm tin vào nhau ngay cả trong những lúc khó khăn nhất.</p>
-          <p>Giờ đây, sau bảy năm bên nhau, cuối cùng chúng tôi sẽ tổ chức lễ cưới tại nhà thờ vào tháng Mười Hai này. Nhìn lại, chúng tôi nhận ra câu chuyện tình yêu của mình bắt đầu từ việc phục vụ người khác tại nhà thờ, và hôm nay nó tiếp tục với lòng biết ơn, đức tin, và ước mơ xây dựng một gia đình lấy tình yêu của Thiên Chúa làm nền tảng.</p>
-          <p class="story-closing">Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt bảy năm qua. ♡</p>
-        </div>
-        <div id="story-en" style="display:none">
-          <p>Seven years ago, we met through Thiếu Nhi Thánh Thể at church while helping plan the Mid-Autumn Festival. At that time, we never imagined that one simple moment of serving together would become the beginning of our forever.</p>
-          <p>Our relationship was never perfect. We went through difficult seasons, misunderstandings, distance, stress, and moments where life tested us in many ways. But through every challenge, we chose each other again and again. We stayed honest. We stayed genuine. Most importantly, we kept God at the center of our relationship.</p>
-          <p>What kept us strong was not perfection, but faith, trust, and unconditional support. We learned how to grow together instead of growing apart. Through every high and low, we reminded each other that love is not only about happiness — it is also about patience, sacrifice, forgiveness, and believing in one another even during the hardest moments.</p>
-          <p>Now, after seven years together, we are finally having our church celebration this December. Looking back, we realize our love story began with serving others at church, and today it continues with gratitude, faith, and the dream of building a family centered on God's love.</p>
-          <p class="story-closing">No matter what happens in life, we know we will continue walking side by side, just like we have for the past seven years. ♡</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- GALLERY -->
-    <section class="gallery-section">
-      <div class="page-header" style="padding-top:0">
-        <p class="section-eyebrow" data-vi="Khoảnh khắc của chúng tôi" data-en="Moments We Cherish">Khoảnh khắc của chúng tôi</p>
-        <h2 class="section-title" data-vi="Thư Viện Ảnh" data-en="Our Gallery">Thư Viện Ảnh</h2>
-        <div class="divider"><span>✦</span></div>
+      <div class="story-timeline">
+        <div class="story-row story-row--right">
+          <div class="story-row-media">
+            <img class="story-row-img" src="pictures/14bdf07cc5bd4b8a66b579e07c709ebe.jpg" loading="lazy" alt="An & Roselyn">
+          </div>
+          <div class="story-row-node"><span>✦</span></div>
+          <div class="story-row-text">
+            <p data-vi="Bảy năm trước, chúng tôi gặp nhau qua Thiếu Nhi Thánh Thể tại nhà thờ, trong lúc cùng phụ giúp tổ chức Tết Trung Thu. Lúc đó, chúng tôi không hề nghĩ rằng một khoảnh khắc giản dị cùng nhau phục vụ lại trở thành khởi đầu của một hành trình mãi mãi."
+               data-en="Seven years ago, we met through Thiếu Nhi Thánh Thể at church while helping plan the Mid-Autumn Festival. At that time, we never imagined that one simple moment of serving together would become the beginning of our forever.">Bảy năm trước, chúng tôi gặp nhau qua Thiếu Nhi Thánh Thể tại nhà thờ, trong lúc cùng phụ giúp tổ chức Tết Trung Thu. Lúc đó, chúng tôi không hề nghĩ rằng một khoảnh khắc giản dị cùng nhau phục vụ lại trở thành khởi đầu của một hành trình mãi mãi.</p>
+          </div>
+        </div>
+
+        <div class="story-row story-row--left">
+          <div class="story-row-media">
+            <img class="story-row-img" src="pictures/IMG_2035.jpg" loading="lazy" alt="An & Roselyn">
+          </div>
+          <div class="story-row-node"><span>✦</span></div>
+          <div class="story-row-text">
+            <p data-vi="Mối quan hệ của chúng tôi chưa bao giờ hoàn hảo. Chúng tôi đã trải qua những giai đoạn khó khăn, những hiểu lầm, khoảng cách, áp lực, và những lúc cuộc sống thử thách chúng tôi theo nhiều cách. Nhưng qua mỗi thử thách, chúng tôi vẫn luôn chọn nhau. Chúng tôi giữ sự chân thành, giữ sự thật lòng, và quan trọng nhất, chúng tôi luôn đặt Chúa làm trung tâm trong mối quan hệ của mình."
+               data-en="Our relationship was never perfect. We went through difficult seasons, misunderstandings, distance, stress, and moments where life tested us in many ways. But through every challenge, we chose each other again and again. We stayed honest. We stayed genuine. Most importantly, we kept God at the center of our relationship.">Mối quan hệ của chúng tôi chưa bao giờ hoàn hảo. Chúng tôi đã trải qua những giai đoạn khó khăn, những hiểu lầm, khoảng cách, áp lực, và những lúc cuộc sống thử thách chúng tôi theo nhiều cách. Nhưng qua mỗi thử thách, chúng tôi vẫn luôn chọn nhau. Chúng tôi giữ sự chân thành, giữ sự thật lòng, và quan trọng nhất, chúng tôi luôn đặt Chúa làm trung tâm trong mối quan hệ của mình.</p>
+          </div>
+        </div>
+
+        <div class="story-row story-row--right">
+          <div class="story-row-media">
+            <img class="story-row-img" src="pictures/IMG_3187.jpg" loading="lazy" alt="An & Roselyn">
+          </div>
+          <div class="story-row-node"><span>✦</span></div>
+          <div class="story-row-text">
+            <p data-vi="Điều giúp chúng tôi vững vàng không phải là sự hoàn hảo, mà là đức tin, sự tin tưởng, và sự nâng đỡ vô điều kiện dành cho nhau. Chúng tôi học cách cùng nhau trưởng thành thay vì xa cách nhau. Qua từng thăng trầm, chúng tôi nhắc nhau rằng tình yêu không chỉ là hạnh phúc, mà còn là sự kiên nhẫn, hy sinh, tha thứ, và niềm tin vào nhau ngay cả trong những lúc khó khăn nhất."
+               data-en="What kept us strong was not perfection, but faith, trust, and unconditional support. We learned how to grow together instead of growing apart. Through every high and low, we reminded each other that love is not only about happiness — it is also about patience, sacrifice, forgiveness, and believing in one another even during the hardest moments.">Điều giúp chúng tôi vững vàng không phải là sự hoàn hảo, mà là đức tin, sự tin tưởng, và sự nâng đỡ vô điều kiện dành cho nhau. Chúng tôi học cách cùng nhau trưởng thành thay vì xa cách nhau. Qua từng thăng trầm, chúng tôi nhắc nhau rằng tình yêu không chỉ là hạnh phúc, mà còn là sự kiên nhẫn, hy sinh, tha thứ, và niềm tin vào nhau ngay cả trong những lúc khó khăn nhất.</p>
+          </div>
+        </div>
+
+        <div class="story-row story-row--left">
+          <div class="story-row-media">
+            <img class="story-row-img" src="pictures/IMG_3747.jpg" loading="lazy" alt="An & Roselyn">
+          </div>
+          <div class="story-row-node"><span>✦</span></div>
+          <div class="story-row-text">
+            <p data-vi="Giờ đây, sau bảy năm bên nhau, cuối cùng chúng tôi sẽ tổ chức lễ cưới tại nhà thờ vào tháng Mười Hai này. Nhìn lại, chúng tôi nhận ra câu chuyện tình yêu của mình bắt đầu từ việc phục vụ người khác tại nhà thờ, và hôm nay nó tiếp tục với lòng biết ơn, đức tin, và ước mơ xây dựng một gia đình lấy tình yêu của Thiên Chúa làm nền tảng."
+               data-en="Now, after seven years together, we are finally having our church celebration this December. Looking back, we realize our love story began with serving others at church, and today it continues with gratitude, faith, and the dream of building a family centered on God's love.">Giờ đây, sau bảy năm bên nhau, cuối cùng chúng tôi sẽ tổ chức lễ cưới tại nhà thờ vào tháng Mười Hai này. Nhìn lại, chúng tôi nhận ra câu chuyện tình yêu của mình bắt đầu từ việc phục vụ người khác tại nhà thờ, và hôm nay nó tiếp tục với lòng biết ơn, đức tin, và ước mơ xây dựng một gia đình lấy tình yêu của Thiên Chúa làm nền tảng.</p>
+          </div>
+        </div>
       </div>
+
+      <p class="story-closing" data-vi="Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt bảy năm qua. ♡"
+         data-en="No matter what happens in life, we know we will continue walking side by side, just like we have for the past seven years. ♡">Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt bảy năm qua. ♡</p>
+
+      <div class="divider story-gallery-divider"><span data-vi="Thêm khoảnh khắc của chúng tôi" data-en="More moments together">Thêm khoảnh khắc của chúng tôi</span></div>
+
       <div class="gallery-wrap">
         <div class="gallery-stage" id="gallery-stage">
           <button class="gallery-arrow gallery-prev" onclick="galleryPrev()" aria-label="Previous photo">&#10094;</button>
@@ -255,88 +456,6 @@
         Tìm kiếm
       </button>
       <div id="lookup-result"></div>
-    </div>
-  </div>
-
-  <!-- ── ADMIN ── -->
-  <div id="page-admin" class="page">
-    <div id="admin-locked">
-      <div class="page-header">
-        <h2 class="page-title">Admin Dashboard</h2>
-        <p class="page-sub" data-vi="Nhập mật khẩu để quản lý danh sách khách" data-en="Enter password to manage the guest list">Nhập mật khẩu để quản lý danh sách khách</p>
-        <div class="divider"><span>✦</span></div>
-      </div>
-      <div class="lookup-card" style="max-width:340px">
-        <div class="form-group">
-          <label for="admin-pass" data-vi="Mật khẩu" data-en="Password">Mật khẩu</label>
-          <input type="password" id="admin-pass" placeholder="••••••••"
-                 onkeydown="if(event.key==='Enter')unlockAdmin()">
-        </div>
-        <button class="btn btn-primary btn-full" onclick="unlockAdmin()"
-                data-vi="Đăng nhập" data-en="Enter">Đăng nhập</button>
-        <p style="font-size:0.75rem;color:var(--mid);margin-top:0.75rem;text-align:center">
-          Demo: <strong>wedding2025</strong>
-        </p>
-      </div>
-    </div>
-
-    <div id="admin-content" style="display:none">
-      <div class="page-header">
-        <h2 class="page-title" data-vi="Quản lý Khách Mời" data-en="Guest Management">Quản lý Khách Mời</h2>
-        <p class="page-sub">Roselyn &amp; An</p>
-        <div class="divider"><span>✦</span></div>
-      </div>
-      <div class="stat-grid" id="admin-stats"></div>
-      <p class="admin-updated" id="admin-updated"></p>
-      <div class="admin-tabs">
-        <button class="btn btn-primary"  id="tab-guests"     onclick="showAdminTab('guests')"     data-vi="Danh sách"       data-en="Guests">Danh sách</button>
-        <button class="btn btn-outline"  id="tab-seating"    onclick="showAdminTab('seating')"    data-vi="Sơ đồ chỗ ngồi" data-en="Seating Chart">Sơ đồ chỗ ngồi</button>
-        <button class="btn btn-outline"  id="tab-categories" onclick="showAdminTab('categories')" data-vi="Theo nhóm"       data-en="By Group">Theo nhóm</button>
-        <button class="btn btn-blue"     onclick="autoSeatAll()" data-vi="⟳ Xếp chỗ tự động" data-en="⟳ Auto-Seat">⟳ Xếp chỗ tự động</button>
-        <button class="btn btn-outline"  onclick="refreshAdmin()" data-vi="↻ Làm mới" data-en="↻ Refresh">↻ Làm mới</button>
-        <button class="btn btn-outline"  onclick="exportCSV()"   data-vi="↓ Xuất CSV"         data-en="↓ Export CSV">↓ Xuất CSV</button>
-      </div>
-
-      <div id="admin-tab-guests">
-        <div class="filter-row">
-          <input type="text" id="search-input"
-                 data-vi-placeholder="Tìm tên hoặc số điện thoại..." data-en-placeholder="Search name or phone..."
-                 placeholder="Tìm tên hoặc số điện thoại..." oninput="loadGuests()">
-          <select id="filter-cat" onchange="loadGuests()">
-            <option value="" data-vi="Tất cả nhóm" data-en="All Groups">Tất cả nhóm</option>
-          </select>
-          <select id="filter-att" onchange="loadGuests()">
-            <option value=""      data-vi="Tất cả"   data-en="All">Tất cả</option>
-            <option value="true"  data-vi="Tham dự"  data-en="Attending">Tham dự</option>
-            <option value="false" data-vi="Vắng mặt" data-en="Not Attending">Vắng mặt</option>
-          </select>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th data-vi="Họ và tên"   data-en="Name">Họ và tên</th>
-                <th data-vi="Điện thoại"  data-en="Phone">Điện thoại</th>
-                <th data-vi="Nhóm"        data-en="Group">Nhóm</th>
-                <th data-vi="Số người"    data-en="Guests">Số người</th>
-                <th data-vi="Tham dự"     data-en="Attending">Tham dự</th>
-                <th data-vi="Bàn"         data-en="Table">Bàn</th>
-                <th data-vi="Yêu cầu ăn" data-en="Dietary">Yêu cầu ăn</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="guest-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div id="admin-tab-seating" style="display:none">
-        <div class="seating-grid" id="seating-grid"></div>
-      </div>
-
-      <div id="admin-tab-categories" style="display:none">
-        <div id="cat-breakdown"></div>
-      </div>
     </div>
   </div>
 
