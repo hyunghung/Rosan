@@ -6,6 +6,9 @@ const CATEGORIES = {
   en: ["Bride's Family","Groom's Family","Bride's Friends","Groom's Friends","TNTT / Youth Group","Parish / Community","Coworkers","Neighbors","Mutual Friends","Other"]
 };
 
+// Photo gallery — add/remove/reorder file paths here. Drop the actual image
+// files into pictures/ (same filenames) and the carousel picks them up
+// automatically, no other code changes needed.
 const GALLERY_IMAGES = [
   'pictures/14bdf07cc5bd4b8a66b579e07c709ebe.jpg',
   'pictures/1F8F44D7-25B1-4856-A491-AB1FF456737B.jpg',
