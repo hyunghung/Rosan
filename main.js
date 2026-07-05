@@ -6,9 +6,6 @@ const CATEGORIES = {
   en: ["Bride's Family","Groom's Family","Bride's Friends","Groom's Friends","TNTT / Youth Group","Parish / Community","Coworkers","Neighbors","Mutual Friends","Other"]
 };
 
-// Photo gallery — add/remove/reorder file paths here. Drop the actual image
-// files into pictures/ (same filenames) and the carousel picks them up
-// automatically, no other code changes needed.
 const GALLERY_IMAGES = [
   'pictures/14bdf07cc5bd4b8a66b579e07c709ebe.jpg',
   'pictures/1F8F44D7-25B1-4856-A491-AB1FF456737B.jpg',
@@ -420,6 +417,52 @@ function categoryLabel(viName) {
   return i === -1 ? viName : CATEGORIES[currentLang][i];
 }
 
+// ─── PLUS-ONE GUEST NAMES ───────────────────────────────────────────────────
+// Rebuilds the "additional guest" name inputs whenever the plus-ones dropdown
+// changes, and keeps the hidden #rsvp-guests total (self + plus-ones) in sync
+// so the rest of the submit/lookup pipeline needs no other changes.
+function updatePlusOneFields() {
+  const n = parseInt(document.getElementById('rsvp-plusones').value, 10) || 0;
+  const wrap = document.getElementById('plusone-names-wrap');
+  const existing = {};
+  wrap.querySelectorAll('.plusone-name-input').forEach(input => {
+    existing[input.dataset.index] = input.value;
+  });
+
+  wrap.innerHTML = '';
+  if (n > 0) {
+    wrap.style.display = 'block';
+    for (let i = 1; i <= n; i++) {
+      const guestNumber = i + 1; // guest 1 is the person filling out the form
+      const field = document.createElement('div');
+      field.style.marginTop = i === 1 ? '0' : '0.9rem';
+
+      const label = document.createElement('label');
+      label.setAttribute('data-vi', `Tên khách ${guestNumber}`);
+      label.setAttribute('data-en', `Guest ${guestNumber} Name`);
+      label.textContent = currentLang === 'vi' ? `Tên khách ${guestNumber}` : `Guest ${guestNumber} Name`;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'plusone-name-input';
+      input.dataset.index = String(i);
+      input.setAttribute('data-vi-placeholder', 'Tên đầy đủ');
+      input.setAttribute('data-en-placeholder', 'Full name');
+      input.placeholder = currentLang === 'vi' ? 'Tên đầy đủ' : 'Full name';
+      input.required = true;
+      if (existing[i]) input.value = existing[i];
+
+      field.appendChild(label);
+      field.appendChild(input);
+      wrap.appendChild(field);
+    }
+  } else {
+    wrap.style.display = 'none';
+  }
+
+  document.getElementById('rsvp-guests').value = String(1 + n);
+}
+
 // ─── ATTENDANCE TOGGLE ──────────────────────────────────────────────────────
 function selectAttendance(val) {
   attending = val;
@@ -459,6 +502,8 @@ async function submitRSVP(e) {
   const phone    = document.getElementById('rsvp-phone').value.trim();
   const guests   = document.getElementById('rsvp-guests').value;
   const dietary  = document.getElementById('rsvp-dietary').value.trim();
+  const plusOneInputs = [...document.querySelectorAll('.plusone-name-input')];
+  const plusOneNames  = plusOneInputs.map(i => i.value.trim());
 
   // ── Client-side validation ──
   if (!name) {
@@ -493,7 +538,7 @@ async function submitRSVP(e) {
     return showRsvpError(
       currentLang === 'vi'
         ? 'Vui lòng chọn nhóm khách.'
-        : 'Please select your party group.'
+        : 'Please select your guest group.'
     );
   }
   if (attending === null) {
@@ -503,6 +548,13 @@ async function submitRSVP(e) {
         : 'Please confirm your attendance.'
     );
   }
+  if (plusOneNames.some(n => !n)) {
+    return showRsvpError(
+      currentLang === 'vi'
+        ? 'Vui lòng nhập tên cho mỗi khách đi cùng.'
+        : 'Please enter a name for each additional guest.'
+    );
+  }
   if (attending && !dietary) {
     return showRsvpError(
       currentLang === 'vi'
@@ -510,6 +562,13 @@ async function submitRSVP(e) {
         : 'Please fill in dietary info. If none, write "None".'
     );
   }
+
+  // Fold plus-one names into the dietary/notes field with a clear "Guests:" prefix,
+  // since that's the one free-text field the spreadsheet backend already stores —
+  // lookupRSVP() parses this same prefix back out to show it as its own line.
+  const finalDietary = plusOneNames.length
+    ? `Guests: ${plusOneNames.join(', ')}${dietary ? ' | Notes: ' + dietary : ''}`
+    : (dietary || 'N/A');
 
   const submitBtn = document.getElementById('rsvp-submit');
   submitBtn.disabled = true;
@@ -523,7 +582,7 @@ async function submitRSVP(e) {
       category:  selectedCategory,
       guests,
       attending: attending.toString(),
-      dietary:   dietary || 'N/A'
+      dietary:   finalDietary
     });
 
     const res  = await fetch(`${APPS_SCRIPT_URL}?${params}`, { redirect: 'follow' });
@@ -539,7 +598,7 @@ async function submitRSVP(e) {
     document.getElementById('success-title').textContent    = currentLang === 'vi' ? 'Cảm ơn bạn!' : 'Thank You!';
     document.getElementById('success-msg').textContent      = data.message;
     document.getElementById('success-seat').innerHTML       = data.data.table
-      ? `<div class="seat-badge">${currentLang === 'vi' ? 'Bàn của bạn' : 'Your table'} · Table ${data.data.table}</div>`
+      ? `<div class="seat-badge">${currentLang === 'vi' ? 'Bàn số' : 'Table'} ${data.data.table}</div>`
       : '';
   } catch (err) {
     showRsvpError(
@@ -549,7 +608,7 @@ async function submitRSVP(e) {
     );
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = currentLang === 'vi' ? 'Gửi xác nhận · Submit RSVP' : 'Submit RSVP';
+    submitBtn.textContent = currentLang === 'vi' ? 'Gửi xác nhận' : 'Submit RSVP';
   }
 }
 
@@ -567,6 +626,7 @@ function resetRSVP() {
   document.getElementById('dietary-wrap').style.display = 'none';
   document.getElementById('rsvp-error').style.display = 'none';
   buildCategoryGrid();
+  updatePlusOneFields();
   document.getElementById('rsvp-form-wrap').style.display = 'block';
   document.getElementById('rsvp-success').style.display = 'none';
 }
@@ -599,6 +659,17 @@ async function lookupRSVP() {
 
     const g = data.data;
     const isVi = currentLang === 'vi';
+
+    // The stored "dietary" field may carry a "Guests: A, B | Notes: ..." prefix
+    // (see submitRSVP) — split it back apart for display.
+    let extraGuests = '';
+    let dietaryNote = g.dietary || '';
+    const guestsMatch = dietaryNote.match(/^Guests:\s*(.+?)(?:\s*\|\s*Notes:\s*(.*))?$/s);
+    if (guestsMatch) {
+      extraGuests = guestsMatch[1].trim();
+      dietaryNote = (guestsMatch[2] || '').trim();
+    }
+
     resultEl.innerHTML = `
       <div class="rsvp-result">
         <div class="guest-name">${g.name}</div>
@@ -613,8 +684,9 @@ async function lookupRSVP() {
           </span>
         </div>
         ${g.attending ? `<div class="info-row"><span class="info-label">${isVi ? 'Số người' : 'Guests'}</span><span>${g.guests} ${isVi ? 'người' : 'guests'}</span></div>` : ''}
-        ${g.table     ? `<div class="info-row"><span class="info-label">${isVi ? 'Bàn số' : 'Table'}</span><span style="font-weight:500;font-size:1rem">${isVi ? 'Bàn' : 'Table'} ${g.table}</span></div>` : ''}
-        ${g.dietary   ? `<div class="info-row"><span class="info-label">${isVi ? 'Yêu cầu ăn' : 'Dietary'}</span><span>${g.dietary}</span></div>` : ''}
+        ${extraGuests  ? `<div class="info-row"><span class="info-label">${isVi ? 'Khách đi cùng' : 'Additional Guests'}</span><span>${extraGuests}</span></div>` : ''}
+        ${g.table     ? `<div class="info-row"><span class="info-label">${isVi ? 'Bàn số' : 'Table'}</span><span style="font-weight:500;font-size:1rem">${g.table}</span></div>` : ''}
+        ${dietaryNote && dietaryNote !== 'N/A' ? `<div class="info-row"><span class="info-label">${isVi ? 'Yêu cầu ăn' : 'Dietary'}</span><span>${dietaryNote}</span></div>` : ''}
         <div class="info-row">
           <span class="info-label">${isVi ? 'Ngày gửi' : 'Submitted'}</span>
           <span>${new Date(g.submittedAt).toLocaleDateString(isVi ? 'vi-VN' : 'en-US')}</span>

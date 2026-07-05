@@ -10,13 +10,13 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- Hello Honey (romantic script) & Candy Cane (playful display) — free-for-personal-use webfonts via CDN Fonts -->
+  <!-- Twister (playful script), Hello Honey (romantic script) & Candy Cane (playful display) — free-for-personal-use webfonts via CDN Fonts -->
+  <link href="https://fonts.cdnfonts.com/css/twister-2" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/hello-honey-personal-use" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/candy-cane-personal-use" rel="stylesheet">
 
   <link rel="stylesheet" href="style/main.css">
 
-  <!-- ✅ FONT FIX (MOBILE + DESKTOP CONSISTENCY) -->
   <style>
     html {
       -webkit-text-size-adjust: 100%;
@@ -30,9 +30,8 @@
     }
 
     :root {
-      /* Script/handwritten accent — couple's names, envelope card, nav logo */
-      --font-display: 'hello honey - Personal Use', 'Allura', cursive;
-      /* Playful display accent — section titles only, kept off data-heavy UI for legibility */
+
+      --font-display: 'Twister', 'hello honey - Personal Use', 'Allura', cursive;
       --font-accent: 'Candy Cane Personal Use', 'hello honey - Personal Use', cursive;
       --font-heading: 'Cormorant Garamond', Georgia, serif;
       --font-body: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -47,97 +46,151 @@
   <div id="intro-overlay">
     <!-- corner sprigs — soft botanical line-art, echoes the hero section -->
     <svg class="intro-bloom intro-bloom--tl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <g fill="none" stroke="var(--blue-light)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
-        <path d="M6 6 C 40 18, 55 45, 48 82" />
-        <path d="M6 6 C 26 34, 30 58, 20 90" />
-        <path d="M6 6 C 48 10, 78 22, 96 50" />
-      </g>
-      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--cream)" opacity="0.95">
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-18 52 20)"/>
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(38 52 20)"/>
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(94 52 20)"/>
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(150 52 20)"/>
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-74 52 20)"/>
-        <circle cx="52" cy="20" r="4.5" fill="var(--rose-light)" stroke="var(--rose)"/>
-      </g>
-      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--white)" opacity="0.95">
-        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(-10 90 52)"/>
-        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(52 90 52)"/>
-        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(114 90 52)"/>
-        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(176 90 52)"/>
-        <circle cx="90" cy="52" r="3" fill="var(--rose-light)" stroke="var(--rose)"/>
-      </g>
-      <g fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1">
-        <ellipse cx="26" cy="66" rx="9" ry="4" transform="rotate(30 26 66)"/>
-        <ellipse cx="70" cy="30" rx="8" ry="3.5" transform="rotate(-40 70 30)"/>
-      </g>
-    </svg>
+        <g fill="none" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
+          <path d="M6 6 C 40 18, 55 45, 48 82" />
+          <path d="M6 6 C 26 34, 30 58, 20 90" />
+          <path d="M6 6 C 48 10, 78 22, 96 50" />
+        </g>
+        <g>
+        <path d="M38.5 47.6 Q25.0 39.5 30.4 23.3 Q43.9 31.4 46.6 44.9 Z" fill="var(--sage-light)"/>
+        <path d="M65.5 47.6 Q79.0 39.5 73.6 23.3 Q60.1 31.4 57.4 44.9 Z" fill="var(--sage-light)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(0 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--rose-light)" transform="rotate(72 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(144 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--rose-light)" transform="rotate(216 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(288 52.0 26.0)"/>
+        <circle cx="52.0" cy="26.0" r="8.1" fill="var(--cream)"/>
+        <circle cx="52.0" cy="26.0" r="8.1" fill="none" stroke="var(--rose)" stroke-width="1"/>
+        </g>
+        <g>
+        <path d="M85.5 69.6 Q77.0 64.5 80.4 54.3 Q88.9 59.4 90.6 67.9 Z" fill="var(--sage-light)"/>
+        <path d="M102.5 69.6 Q111.0 64.5 107.6 54.3 Q99.1 59.4 97.4 67.9 Z" fill="var(--sage-light)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(0 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--rose-light)" transform="rotate(72 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(144 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--rose-light)" transform="rotate(216 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(288 94.0 56.0)"/>
+        <circle cx="94.0" cy="56.0" r="5.1" fill="var(--cream)"/>
+        <circle cx="94.0" cy="56.0" r="5.1" fill="none" stroke="var(--rose)" stroke-width="1"/>
+        </g>
+        <path d="M20 68 Q8 66 10 56 Q20 56 24 66 Z" fill="var(--sage-light)"/>
+        <path d="M74 34 Q84 28 82 18 Q72 20 70 30 Z" fill="var(--sage-light)"/>
+      </svg>
     <svg class="intro-bloom intro-bloom--br" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <g fill="none" stroke="var(--blue-light)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
-        <path d="M6 6 C 40 18, 55 45, 48 82" />
-        <path d="M6 6 C 26 34, 30 58, 20 90" />
-        <path d="M6 6 C 48 10, 78 22, 96 50" />
-      </g>
-      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--cream)" opacity="0.95">
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-18 52 20)"/>
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(38 52 20)"/>
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(94 52 20)"/>
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(150 52 20)"/>
-        <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-74 52 20)"/>
-        <circle cx="52" cy="20" r="4.5" fill="var(--rose-light)" stroke="var(--rose)"/>
-      </g>
-      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--white)" opacity="0.95">
-        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(-10 90 52)"/>
-        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(52 90 52)"/>
-        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(114 90 52)"/>
-        <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(176 90 52)"/>
-        <circle cx="90" cy="52" r="3" fill="var(--rose-light)" stroke="var(--rose)"/>
-      </g>
-      <g fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1">
-        <ellipse cx="26" cy="66" rx="9" ry="4" transform="rotate(30 26 66)"/>
-        <ellipse cx="70" cy="30" rx="8" ry="3.5" transform="rotate(-40 70 30)"/>
-      </g>
-    </svg>
+        <g fill="none" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
+          <path d="M6 6 C 40 18, 55 45, 48 82" />
+          <path d="M6 6 C 26 34, 30 58, 20 90" />
+          <path d="M6 6 C 48 10, 78 22, 96 50" />
+        </g>
+        <g>
+        <path d="M38.5 47.6 Q25.0 39.5 30.4 23.3 Q43.9 31.4 46.6 44.9 Z" fill="var(--sage-light)"/>
+        <path d="M65.5 47.6 Q79.0 39.5 73.6 23.3 Q60.1 31.4 57.4 44.9 Z" fill="var(--sage-light)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(0 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--rose-light)" transform="rotate(72 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(144 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--rose-light)" transform="rotate(216 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(288 52.0 26.0)"/>
+        <circle cx="52.0" cy="26.0" r="8.1" fill="var(--cream)"/>
+        <circle cx="52.0" cy="26.0" r="8.1" fill="none" stroke="var(--rose)" stroke-width="1"/>
+        </g>
+        <g>
+        <path d="M85.5 69.6 Q77.0 64.5 80.4 54.3 Q88.9 59.4 90.6 67.9 Z" fill="var(--sage-light)"/>
+        <path d="M102.5 69.6 Q111.0 64.5 107.6 54.3 Q99.1 59.4 97.4 67.9 Z" fill="var(--sage-light)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(0 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--rose-light)" transform="rotate(72 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(144 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--rose-light)" transform="rotate(216 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(288 94.0 56.0)"/>
+        <circle cx="94.0" cy="56.0" r="5.1" fill="var(--cream)"/>
+        <circle cx="94.0" cy="56.0" r="5.1" fill="none" stroke="var(--rose)" stroke-width="1"/>
+        </g>
+        <path d="M20 68 Q8 66 10 56 Q20 56 24 66 Z" fill="var(--sage-light)"/>
+        <path d="M74 34 Q84 28 82 18 Q72 20 70 30 Z" fill="var(--sage-light)"/>
+      </svg>
     <svg class="intro-bloom intro-bloom--tr" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--white)" opacity="0.9">
-        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(-10 20 20)"/>
-        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(58 20 20)"/>
-        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(126 20 20)"/>
-        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(194 20 20)"/>
-        <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(262 20 20)"/>
-        <circle cx="20" cy="20" r="4" fill="var(--rose-light)" stroke="var(--rose)"/>
-      </g>
-    </svg>
+        <path d="M20.0 46.0 Q10.0 40.0 14.0 28.0 Q24.0 34.0 26.0 44.0 Z" fill="var(--sage-light)"/>
+        <path d="M40.0 46.0 Q50.0 40.0 46.0 28.0 Q36.0 34.0 34.0 44.0 Z" fill="var(--sage-light)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(0 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(72 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(144 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(216 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(288 30.0 30.0)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="var(--cream)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="none" stroke="var(--rose)" stroke-width="1"/>
+      </svg>
     <svg class="intro-bloom intro-bloom--bl" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--cream)" opacity="0.9">
-        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(-10 20 20)"/>
-        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(62 20 20)"/>
-        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(134 20 20)"/>
-        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(206 20 20)"/>
-        <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(278 20 20)"/>
-        <circle cx="20" cy="20" r="3.5" fill="var(--rose-light)" stroke="var(--rose)"/>
-      </g>
-    </svg>
+        <path d="M20.0 46.0 Q10.0 40.0 14.0 28.0 Q24.0 34.0 26.0 44.0 Z" fill="var(--sage-light)"/>
+        <path d="M40.0 46.0 Q50.0 40.0 46.0 28.0 Q36.0 34.0 34.0 44.0 Z" fill="var(--sage-light)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(0 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(72 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(144 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(216 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(288 30.0 30.0)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="var(--cream)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="none" stroke="var(--rose)" stroke-width="1"/>
+      </svg>
     <!-- floating petals — drift gently around the envelope for a merrier, blossoming feel -->
-    <svg class="intro-petal intro-petal--1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="9" ry="5" fill="var(--white)" stroke="var(--blue-light)" stroke-width="1" transform="rotate(35 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="9" ry="5" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(35 10 10)"/></svg>
     <svg class="intro-petal intro-petal--2" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="8" ry="4.5" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(-20 10 10)"/></svg>
-    <svg class="intro-petal intro-petal--3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--white)" stroke="var(--blue-light)" stroke-width="1" transform="rotate(60 10 10)"/></svg>
-    <svg class="intro-petal intro-petal--4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1" transform="rotate(-45 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="6" ry="3.5" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(60 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="12" ry="6.5" fill="var(--cream)" stroke="var(--rose)" stroke-width="1" transform="rotate(-45 10 10)"/></svg>
     <svg class="intro-petal intro-petal--5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="8" ry="4.5" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(15 10 10)"/></svg>
-    <svg class="intro-petal intro-petal--6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="6" ry="3.5" fill="var(--white)" stroke="var(--blue-light)" stroke-width="1" transform="rotate(-60 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="5" ry="3" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(-60 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--7" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="10" ry="5.5" fill="var(--cream)" stroke="var(--rose)" stroke-width="1" transform="rotate(42 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--8" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="13" ry="7" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(-30 10 10)"/></svg>
+    <svg class="intro-petal intro-petal--9" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(20 10 10)"/></svg>
     <div class="intro-scene">
       <div class="envelope" id="envelope" onclick="openEnvelope()">
         <div class="invitation-card" id="invitation-card">
-          <p class="invitation-eyebrow" data-vi="Trân trọng kính mời" data-en="You Are Cordially Invited">Trân trọng kính mời</p>
+          <p class="invitation-eyebrow" data-vi="Trân trọng kính mời" data-en="You Are Cordially Invited to the wedding of">Trân trọng kính mời</p>
           <p class="invitation-names">An <em>&amp;</em> Roselyn</p>
           <div class="invitation-divider"><span>✦</span></div>
           <p class="invitation-date">12 . 05 . 2026</p>
           <button type="button" class="btn btn-primary invitation-enter" id="invitation-enter" onclick="enterSite(event)"
                   data-vi="Vào xem thiệp mời" data-en="Enter the Invitation">Vào xem thiệp mời</button>
         </div>
-        <div class="envelope-flap"></div>
-        <div class="envelope-back"></div>
-        <div class="envelope-seal"><span>♥</span></div>
+        <div class="envelope-shell">
+          <div class="envelope-back"></div>
+          <div class="envelope-liner">
+            <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M70 100 Q50 90 52 70" fill="none" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M130 100 Q150 90 148 70" fill="none" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M60 96 Q48 90 50 80 Q60 82 62 92 Z" fill="var(--sage-light)"/>
+              <path d="M140 96 Q152 90 150 80 Q140 82 138 92 Z" fill="var(--sage-light)"/>
+              <g>
+                <path d="M62 92 Q50 86 48 72 Q40 78 42 90 Z" fill="var(--sage-light)"/>
+                <ellipse cx="62" cy="60" rx="9" ry="12.6" fill="var(--white)"/>
+                <ellipse cx="62" cy="60" rx="9" ry="12.6" fill="var(--rose-light)" transform="rotate(72 62 60)"/>
+                <ellipse cx="62" cy="60" rx="9" ry="12.6" fill="var(--white)" transform="rotate(144 62 60)"/>
+                <ellipse cx="62" cy="60" rx="9" ry="12.6" fill="var(--rose-light)" transform="rotate(216 62 60)"/>
+                <ellipse cx="62" cy="60" rx="9" ry="12.6" fill="var(--white)" transform="rotate(288 62 60)"/>
+                <circle cx="62" cy="60" r="5.4" fill="var(--cream)"/>
+                <circle cx="62" cy="60" r="5.4" fill="none" stroke="var(--rose)" stroke-width="1"/>
+              </g>
+              <g>
+                <path d="M138 92 Q150 86 152 72 Q160 78 158 90 Z" fill="var(--sage-light)"/>
+                <ellipse cx="138" cy="62" rx="8" ry="11" fill="var(--white)"/>
+                <ellipse cx="138" cy="62" rx="8" ry="11" fill="var(--rose-light)" transform="rotate(72 138 62)"/>
+                <ellipse cx="138" cy="62" rx="8" ry="11" fill="var(--white)" transform="rotate(144 138 62)"/>
+                <ellipse cx="138" cy="62" rx="8" ry="11" fill="var(--rose-light)" transform="rotate(216 138 62)"/>
+                <ellipse cx="138" cy="62" rx="8" ry="11" fill="var(--white)" transform="rotate(288 138 62)"/>
+                <circle cx="138" cy="62" r="4.8" fill="var(--cream)"/>
+                <circle cx="138" cy="62" r="4.8" fill="none" stroke="var(--rose)" stroke-width="1"/>
+              </g>
+              <g>
+                <ellipse cx="100" cy="42" rx="13" ry="18" fill="var(--white)"/>
+                <ellipse cx="100" cy="42" rx="13" ry="18" fill="var(--rose-light)" transform="rotate(72 100 42)"/>
+                <ellipse cx="100" cy="42" rx="13" ry="18" fill="var(--white)" transform="rotate(144 100 42)"/>
+                <ellipse cx="100" cy="42" rx="13" ry="18" fill="var(--rose-light)" transform="rotate(216 100 42)"/>
+                <ellipse cx="100" cy="42" rx="13" ry="18" fill="var(--white)" transform="rotate(288 100 42)"/>
+                <circle cx="100" cy="42" r="8" fill="var(--cream)"/>
+                <circle cx="100" cy="42" r="8" fill="none" stroke="var(--rose)" stroke-width="1"/>
+              </g>
+            </svg>
+          </div>
+          <div class="envelope-flap"></div>
+        </div>
+        <div class="envelope-seal"><span>with<br>love</span></div>
       </div>
       <p class="envelope-hint" id="envelope-hint" data-vi="Chạm vào phong bì để mở" data-en="Tap the envelope to open">Chạm vào phong bì để mở</p>
     </div>
@@ -145,7 +198,27 @@
 
 
   <nav id="navbar">
-    <div class="nav-logo">An <em>&amp;</em> Roselyn </div>
+    <div class="nav-logo">
+      <svg class="nav-logo-mark" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An &amp; Roselyn monogram">
+        <circle cx="60" cy="58" r="50" fill="none" stroke="var(--blue-light)" stroke-width="1.4" opacity="0.9"/>
+        <g>
+          <path d="M18 88 Q10 78 14 66" fill="none" stroke="var(--sage)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M14 66 Q6 64 5 56" fill="none" stroke="var(--sage)" stroke-width="1" stroke-linecap="round"/>
+          <ellipse cx="10.5" cy="60" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(-30 10.5 60)"/>
+          <ellipse cx="16.5" cy="72" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(-15 16.5 72)"/>
+          <circle cx="20" cy="86" r="3.6" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="0.9"/>
+        </g>
+        <g>
+          <path d="M102 88 Q110 78 106 66" fill="none" stroke="var(--sage)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M106 66 Q114 64 115 56" fill="none" stroke="var(--sage)" stroke-width="1" stroke-linecap="round"/>
+          <ellipse cx="109.5" cy="60" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(30 109.5 60)"/>
+          <ellipse cx="103.5" cy="72" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(15 103.5 72)"/>
+          <circle cx="100" cy="86" r="3.6" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="0.9"/>
+        </g>
+        <path d="M32 68 Q60 88 88 68" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="60" y="70" font-family="'Cormorant Garamond', Georgia, serif" font-size="44" text-anchor="middle" fill="var(--navy)" font-weight="500">AR</text>
+      </svg>
+    </div>
     <div class="nav-right">
       <div class="lang-toggle">
         <button id="lang-vi" class="lang-btn" onclick="setLanguage('vi')">VI</button>
@@ -158,109 +231,130 @@
       <button onclick="showPage('home')" class="active" id="nav-home" data-vi="Trang chủ" data-en="Home">Trang chủ</button>
       <button onclick="showPage('rsvp')" id="nav-rsvp">RSVP</button>
       <button onclick="showPage('lookup')" id="nav-lookup" data-vi="Kiểm tra" data-en="Lookup">Kiểm tra</button>
+      <button onclick="showPage('story')" id="nav-story" data-vi="Câu chuyện" data-en="Our Story">Câu chuyện</button>
+      <button onclick="showPage('gallery')" id="nav-gallery" data-vi="Thư viện" data-en="Gallery">Thư viện</button>
+      <button onclick="showPage('registry')" id="nav-registry" data-vi="Danh sách quà" data-en="Registry">Danh sách quà</button>
+      <button onclick="showPage('contact')" id="nav-contact" data-vi="Liên hệ" data-en="Contact">Liên hệ</button>
     </div>
   </nav>
 
   <!-- ── HOME ── -->
   <div id="page-home" class="page active">
     <section class="hero">
-      <!-- decorative corner sprigs (original line-art, not a photo) -->
       <svg class="hero-bloom hero-bloom--tl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g fill="none" stroke="var(--blue)" stroke-width="1.4" stroke-linecap="round" opacity="0.75">
+        <g fill="none" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
           <path d="M6 6 C 40 18, 55 45, 48 82" />
           <path d="M6 6 C 26 34, 30 58, 20 90" />
           <path d="M6 6 C 48 10, 78 22, 96 50" />
         </g>
-        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--cream)" opacity="0.9">
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-18 52 20)"/>
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(38 52 20)"/>
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(94 52 20)"/>
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(150 52 20)"/>
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-74 52 20)"/>
-          <circle cx="52" cy="20" r="4.5" fill="var(--rose-light)" stroke="var(--rose)"/>
+        <g>
+        <path d="M38.5 47.6 Q25.0 39.5 30.4 23.3 Q43.9 31.4 46.6 44.9 Z" fill="var(--sage-light)"/>
+        <path d="M65.5 47.6 Q79.0 39.5 73.6 23.3 Q60.1 31.4 57.4 44.9 Z" fill="var(--sage-light)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(0 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--rose-light)" transform="rotate(72 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(144 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--rose-light)" transform="rotate(216 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(288 52.0 26.0)"/>
+        <circle cx="52.0" cy="26.0" r="8.1" fill="var(--cream)"/>
+        <circle cx="52.0" cy="26.0" r="8.1" fill="none" stroke="var(--rose)" stroke-width="1"/>
         </g>
-        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--white)" opacity="0.9">
-          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(-10 90 52)"/>
-          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(52 90 52)"/>
-          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(114 90 52)"/>
-          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(176 90 52)"/>
-          <circle cx="90" cy="52" r="3" fill="var(--rose-light)" stroke="var(--rose)"/>
+        <g>
+        <path d="M85.5 69.6 Q77.0 64.5 80.4 54.3 Q88.9 59.4 90.6 67.9 Z" fill="var(--sage-light)"/>
+        <path d="M102.5 69.6 Q111.0 64.5 107.6 54.3 Q99.1 59.4 97.4 67.9 Z" fill="var(--sage-light)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(0 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--rose-light)" transform="rotate(72 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(144 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--rose-light)" transform="rotate(216 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(288 94.0 56.0)"/>
+        <circle cx="94.0" cy="56.0" r="5.1" fill="var(--cream)"/>
+        <circle cx="94.0" cy="56.0" r="5.1" fill="none" stroke="var(--rose)" stroke-width="1"/>
         </g>
-        <g fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1">
-          <ellipse cx="26" cy="66" rx="9" ry="4" transform="rotate(30 26 66)"/>
-          <ellipse cx="70" cy="30" rx="8" ry="3.5" transform="rotate(-40 70 30)"/>
-        </g>
+        <path d="M20 68 Q8 66 10 56 Q20 56 24 66 Z" fill="var(--sage-light)"/>
+        <path d="M74 34 Q84 28 82 18 Q72 20 70 30 Z" fill="var(--sage-light)"/>
       </svg>
       <svg class="hero-bloom hero-bloom--br" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g fill="none" stroke="var(--blue)" stroke-width="1.4" stroke-linecap="round" opacity="0.75">
+        <g fill="none" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
           <path d="M6 6 C 40 18, 55 45, 48 82" />
           <path d="M6 6 C 26 34, 30 58, 20 90" />
           <path d="M6 6 C 48 10, 78 22, 96 50" />
         </g>
-        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--cream)" opacity="0.9">
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-18 52 20)"/>
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(38 52 20)"/>
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(94 52 20)"/>
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(150 52 20)"/>
-          <ellipse cx="52" cy="20" rx="16" ry="7"  transform="rotate(-74 52 20)"/>
-          <circle cx="52" cy="20" r="4.5" fill="var(--rose-light)" stroke="var(--rose)"/>
+        <g>
+        <path d="M38.5 47.6 Q25.0 39.5 30.4 23.3 Q43.9 31.4 46.6 44.9 Z" fill="var(--sage-light)"/>
+        <path d="M65.5 47.6 Q79.0 39.5 73.6 23.3 Q60.1 31.4 57.4 44.9 Z" fill="var(--sage-light)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(0 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--rose-light)" transform="rotate(72 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(144 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--rose-light)" transform="rotate(216 52.0 26.0)"/>
+        <ellipse cx="52.0" cy="7.1" rx="13.5" ry="18.9" fill="var(--white)" transform="rotate(288 52.0 26.0)"/>
+        <circle cx="52.0" cy="26.0" r="8.1" fill="var(--cream)"/>
+        <circle cx="52.0" cy="26.0" r="8.1" fill="none" stroke="var(--rose)" stroke-width="1"/>
         </g>
-        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--white)" opacity="0.9">
-          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(-10 90 52)"/>
-          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(52 90 52)"/>
-          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(114 90 52)"/>
-          <ellipse cx="90" cy="52" rx="11" ry="5" transform="rotate(176 90 52)"/>
-          <circle cx="90" cy="52" r="3" fill="var(--rose-light)" stroke="var(--rose)"/>
+        <g>
+        <path d="M85.5 69.6 Q77.0 64.5 80.4 54.3 Q88.9 59.4 90.6 67.9 Z" fill="var(--sage-light)"/>
+        <path d="M102.5 69.6 Q111.0 64.5 107.6 54.3 Q99.1 59.4 97.4 67.9 Z" fill="var(--sage-light)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(0 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--rose-light)" transform="rotate(72 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(144 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--rose-light)" transform="rotate(216 94.0 56.0)"/>
+        <ellipse cx="94.0" cy="44.1" rx="8.5" ry="11.9" fill="var(--white)" transform="rotate(288 94.0 56.0)"/>
+        <circle cx="94.0" cy="56.0" r="5.1" fill="var(--cream)"/>
+        <circle cx="94.0" cy="56.0" r="5.1" fill="none" stroke="var(--rose)" stroke-width="1"/>
         </g>
-        <g fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1">
-          <ellipse cx="26" cy="66" rx="9" ry="4" transform="rotate(30 26 66)"/>
-          <ellipse cx="70" cy="30" rx="8" ry="3.5" transform="rotate(-40 70 30)"/>
-        </g>
+        <path d="M20 68 Q8 66 10 56 Q20 56 24 66 Z" fill="var(--sage-light)"/>
+        <path d="M74 34 Q84 28 82 18 Q72 20 70 30 Z" fill="var(--sage-light)"/>
       </svg>
       <svg class="hero-bloom hero-bloom--tr" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--white)" opacity="0.9">
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(-10 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(58 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(126 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(194 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(262 20 20)"/>
-          <circle cx="20" cy="20" r="4" fill="var(--rose-light)" stroke="var(--rose)"/>
-        </g>
+        <path d="M20.0 46.0 Q10.0 40.0 14.0 28.0 Q24.0 34.0 26.0 44.0 Z" fill="var(--sage-light)"/>
+        <path d="M40.0 46.0 Q50.0 40.0 46.0 28.0 Q36.0 34.0 34.0 44.0 Z" fill="var(--sage-light)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(0 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(72 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(144 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(216 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(288 30.0 30.0)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="var(--cream)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="none" stroke="var(--rose)" stroke-width="1"/>
       </svg>
       <svg class="hero-bloom hero-bloom--bl" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--cream)" opacity="0.9">
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(-10 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(62 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(134 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(206 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(278 20 20)"/>
-          <circle cx="20" cy="20" r="3.5" fill="var(--rose-light)" stroke="var(--rose)"/>
-        </g>
+        <path d="M20.0 46.0 Q10.0 40.0 14.0 28.0 Q24.0 34.0 26.0 44.0 Z" fill="var(--sage-light)"/>
+        <path d="M40.0 46.0 Q50.0 40.0 46.0 28.0 Q36.0 34.0 34.0 44.0 Z" fill="var(--sage-light)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(0 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(72 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(144 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(216 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(288 30.0 30.0)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="var(--cream)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="none" stroke="var(--rose)" stroke-width="1"/>
       </svg>
       <svg class="hero-petal hero-petal--1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <ellipse cx="10" cy="10" rx="9" ry="5" fill="var(--white)" stroke="var(--blue)" stroke-width="1" transform="rotate(35 10 10)"/>
+        <ellipse cx="10" cy="10" rx="9" ry="5" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(35 10 10)"/>
       </svg>
       <svg class="hero-petal hero-petal--2" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <ellipse cx="10" cy="10" rx="8" ry="4.5" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(-20 10 10)"/>
       </svg>
       <svg class="hero-petal hero-petal--3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--white)" stroke="var(--blue)" stroke-width="1" transform="rotate(60 10 10)"/>
+        <ellipse cx="10" cy="10" rx="6" ry="3.5" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(60 10 10)"/>
       </svg>
       <svg class="hero-petal hero-petal--4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1" transform="rotate(-45 10 10)"/>
+        <ellipse cx="10" cy="10" rx="12" ry="6.5" fill="var(--cream)" stroke="var(--rose)" stroke-width="1" transform="rotate(-45 10 10)"/>
       </svg>
       <svg class="hero-petal hero-petal--5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <ellipse cx="10" cy="10" rx="8" ry="4.5" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(15 10 10)"/>
       </svg>
       <svg class="hero-petal hero-petal--6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <ellipse cx="10" cy="10" rx="6" ry="3.5" fill="var(--white)" stroke="var(--blue)" stroke-width="1" transform="rotate(-60 10 10)"/>
+        <ellipse cx="10" cy="10" rx="5" ry="3" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(-60 10 10)"/>
+      </svg>
+      <svg class="hero-petal hero-petal--10" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="10" cy="10" rx="10" ry="5.5" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(40 10 10)"/>
+      </svg>
+      <svg class="hero-petal hero-petal--11" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--cream)" stroke="var(--rose)" stroke-width="1" transform="rotate(-25 10 10)"/>
       </svg>
       <div class="hero-content">
         <p class="hero-eyebrow" data-vi="Trân trọng kính mời" data-en="You Are Cordially Invited">Trân trọng kính mời</p>
         <div class="hero-names">
-          <h1 class="bride-name">Hoàng Thanh An</h1>
+          <h1 class="groom-name">Hoàng Thanh An</h1>
           <span class="ampersand">&amp;</span>
-          <h1 class="groom-name">Nguyễn Thu Hồng Roselyn</h1>
+          <h1 class="bride-name">Nguyễn Thu Hồng Roselyn</h1>
         </div>
         <div class="hero-divider"><span>✦</span></div>
         <p class="hero-sub" data-vi="Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn" data-en="Together with their families joyfully invite you to celebrate their wedding">Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn</p>
@@ -270,47 +364,60 @@
         </div>
       </div>
       <svg class="hero-petal hero-petal--7" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <ellipse cx="10" cy="10" rx="8" ry="4.5" fill="var(--white)" stroke="var(--blue)" stroke-width="1" transform="rotate(25 10 10)"/>
+        <ellipse cx="10" cy="10" rx="8" ry="4.5" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(25 10 10)"/>
       </svg>
       <svg class="hero-petal hero-petal--8" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--sage-light)" stroke="var(--sage)" stroke-width="1" transform="rotate(-35 10 10)"/>
+        <ellipse cx="10" cy="10" rx="11" ry="6" fill="var(--cream)" stroke="var(--rose)" stroke-width="1" transform="rotate(-35 10 10)"/>
       </svg>
       <svg class="hero-petal hero-petal--9" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <ellipse cx="10" cy="10" rx="9" ry="5" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(50 10 10)"/>
       </svg>
+      <svg class="hero-petal hero-petal--12" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="10" cy="10" rx="6" ry="3.5" fill="var(--white)" stroke="var(--rose)" stroke-width="1" transform="rotate(-15 10 10)"/>
+      </svg>
+      <svg class="hero-petal hero-petal--13" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="10" cy="10" rx="13" ry="7" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="1" transform="rotate(30 10 10)"/>
+      </svg>
+      <svg class="hero-petal hero-petal--14" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="10" cy="10" rx="5" ry="3" fill="var(--cream)" stroke="var(--rose)" stroke-width="1" transform="rotate(-55 10 10)"/>
+      </svg>
       <svg class="hero-bloom hero-bloom--mid-left" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--white)" opacity="0.85">
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(-10 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(62 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(134 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(206 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(278 20 20)"/>
-          <circle cx="20" cy="20" r="3.5" fill="var(--rose-light)" stroke="var(--rose)"/>
-        </g>
+        <path d="M20.0 46.0 Q10.0 40.0 14.0 28.0 Q24.0 34.0 26.0 44.0 Z" fill="var(--sage-light)"/>
+        <path d="M40.0 46.0 Q50.0 40.0 46.0 28.0 Q36.0 34.0 34.0 44.0 Z" fill="var(--sage-light)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(0 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(72 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(144 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(216 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(288 30.0 30.0)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="var(--cream)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="none" stroke="var(--rose)" stroke-width="1"/>
       </svg>
       <svg class="hero-bloom hero-bloom--mid-right" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g stroke="var(--blue-dark)" stroke-width="1.1" fill="var(--cream)" opacity="0.85">
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(-10 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(58 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(126 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(194 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(262 20 20)"/>
-          <circle cx="20" cy="20" r="4" fill="var(--rose-light)" stroke="var(--rose)"/>
-        </g>
+        <path d="M20.0 46.0 Q10.0 40.0 14.0 28.0 Q24.0 34.0 26.0 44.0 Z" fill="var(--sage-light)"/>
+        <path d="M40.0 46.0 Q50.0 40.0 46.0 28.0 Q36.0 34.0 34.0 44.0 Z" fill="var(--sage-light)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(0 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(72 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(144 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(216 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(288 30.0 30.0)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="var(--cream)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="none" stroke="var(--rose)" stroke-width="1"/>
       </svg>
     </section>
+
 
     <!-- EVENT DETAILS -->
     <section class="details-section">
       <svg class="section-bloom section-bloom--details" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--cream)" opacity="0.9">
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(-10 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(62 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(134 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(206 20 20)"/>
-          <ellipse cx="20" cy="20" rx="12" ry="5.5" transform="rotate(278 20 20)"/>
-          <circle cx="20" cy="20" r="3.5" fill="var(--rose-light)" stroke="var(--rose)"/>
-        </g>
+        <path d="M20.0 46.0 Q10.0 40.0 14.0 28.0 Q24.0 34.0 26.0 44.0 Z" fill="var(--sage-light)"/>
+        <path d="M40.0 46.0 Q50.0 40.0 46.0 28.0 Q36.0 34.0 34.0 44.0 Z" fill="var(--sage-light)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--cream)" transform="rotate(0 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(72 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--cream)" transform="rotate(144 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(216 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--cream)" transform="rotate(288 30.0 30.0)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="var(--white)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="none" stroke="var(--rose)" stroke-width="1"/>
       </svg>
       <div class="page-header" style="padding-top:0">
         <p class="section-eyebrow" data-vi="Khi nào &amp; Ở đâu" data-en="When &amp; Where">Khi nào &amp; Ở đâu</p>
@@ -340,14 +447,15 @@
     <!-- COUNTDOWN -->
     <section class="countdown-section">
       <svg class="section-bloom section-bloom--countdown" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g stroke="var(--blue-light)" stroke-width="1.1" fill="var(--white)" opacity="0.85">
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(-10 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(58 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(126 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(194 20 20)"/>
-          <ellipse cx="20" cy="20" rx="13" ry="6" transform="rotate(262 20 20)"/>
-          <circle cx="20" cy="20" r="4" fill="var(--rose-light)" stroke="var(--rose)"/>
-        </g>
+        <path d="M20.0 46.0 Q10.0 40.0 14.0 28.0 Q24.0 34.0 26.0 44.0 Z" fill="var(--sage-light)"/>
+        <path d="M40.0 46.0 Q50.0 40.0 46.0 28.0 Q36.0 34.0 34.0 44.0 Z" fill="var(--sage-light)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(0 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(72 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(144 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--rose-light)" transform="rotate(216 30.0 30.0)"/>
+        <ellipse cx="30.0" cy="16.0" rx="10.0" ry="14.0" fill="var(--white)" transform="rotate(288 30.0 30.0)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="var(--cream)"/>
+        <circle cx="30.0" cy="30.0" r="6.0" fill="none" stroke="var(--rose)" stroke-width="1"/>
       </svg>
       <p class="section-eyebrow" data-vi="Đếm ngược" data-en="Counting Down">Đếm ngược</p>
       <h2 class="section-title" data-vi="Đếm Ngược Đến Ngày Trọng Đại" data-en="Countdown to Forever">Đếm Ngược Đến Ngày Trọng Đại</h2>
@@ -359,8 +467,11 @@
         <div class="countdown-box"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label" data-vi="Giây" data-en="Secs">Giây</span></div>
       </div>
     </section>
+  </div>  
 
-    <!-- OUR STORY + GALLERY (merged into one continuous, photo-interleaved narrative) -->
+  <!-- OUR STORY -->
+
+  <div id="page-story" class="page active">
     <section class="story-section">
       <div class="page-header" style="padding-top:0">
         <p class="section-eyebrow" data-vi="Chuyện tình của chúng tôi" data-en="Our Journey Together">Chuyện tình của chúng tôi</p>
@@ -437,7 +548,7 @@
   <div id="page-rsvp" class="page">
     <div class="page-header">
       <h2 class="page-title" data-vi="Xác nhận tham dự" data-en="RSVP">Xác nhận tham dự</h2>
-      <p class="page-sub" data-vi="Vui lòng phản hồi trước ngày đã thông báo" data-en="Kindly reply before the announced date">Vui lòng phản hồi trước ngày đã thông báo</p>
+      <p class="page-sub" data-vi="Vui lòng cho chúng tôi biết bạn có thể tham dự không" data-en="Please let us know whether you'll be able to join us">Vui lòng cho chúng tôi biết bạn có thể tham dự không</p>
       <div class="divider"><span>✦</span></div>
     </div>
 
@@ -456,21 +567,23 @@
                  oninput="formatPhoneField(event)" autocomplete="tel" required>
         </div>
         <div class="form-group">
-          <label data-vi="Nhóm khách" data-en="Party Group">Nhóm khách</label>
+          <label data-vi="Nhóm khách" data-en="Guest Group">Nhóm khách</label>
           <div class="category-grid" id="category-grid"></div>
           <input type="hidden" id="rsvp-category">
         </div>
         <div class="form-group">
-          <label for="rsvp-guests" data-vi="Số người trong nhóm" data-en="Number of Guests">Số người trong nhóm</label>
-          <select id="rsvp-guests">
-            <option value="1" data-vi="1 — Chỉ mình tôi" data-en="1 — Just me">1 — Chỉ mình tôi</option>
-            <option value="2" data-vi="2 — Tôi + 1" data-en="2 — Me + 1">2 — Tôi + 1</option>
-            <option value="3" data-vi="3 người" data-en="3 guests">3 người</option>
-            <option value="4" data-vi="4 người" data-en="4 guests">4 người</option>
-            <option value="5" data-vi="5 người" data-en="5 guests">5 người</option>
-            <option value="6" data-vi="6 người" data-en="6 guests">6 người</option>
+          <label for="rsvp-plusones" data-vi="Bạn có mang khách đi cùng không?" data-en="Will you be bringing any guests?">Will you be bringing any guests?</label>
+          <select id="rsvp-plusones" onchange="updatePlusOneFields()">
+            <option value="0" data-vi="Chỉ mình tôi" data-en="Just me">Just me</option>
+            <option value="1" data-vi="+1 khách" data-en="+1 guest">+1 guest</option>
+            <option value="2" data-vi="+2 khách" data-en="+2 guests">+2 guests</option>
+            <option value="3" data-vi="+3 khách" data-en="+3 guests">+3 guests</option>
+            <option value="4" data-vi="+4 khách" data-en="+4 guests">+4 guests</option>
+            <option value="5" data-vi="+5 khách" data-en="+5 guests">+5 guests</option>
           </select>
         </div>
+        <div class="form-group" id="plusone-names-wrap" style="display:none"></div>
+        <input type="hidden" id="rsvp-guests" value="1">
         <div class="form-group">
           <label data-vi="Xác nhận tham dự" data-en="Attendance">Xác nhận tham dự</label>
           <div class="attendance-row">
