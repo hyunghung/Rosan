@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>An & Roselyn — Wedding RSVP</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Cormorant Garamond, Jost, and Allura are self-hosted via @font-face in main.css
+       (no external Google Fonts request needed — see fonts/ folder) -->
 
   <!-- Twister (playful script), Hello Honey (romantic script) & Candy Cane (playful display) — free-for-personal-use webfonts via CDN Fonts -->
   <link href="https://fonts.cdnfonts.com/css/twister-2" rel="stylesheet">
@@ -204,25 +202,7 @@
 
   <nav id="navbar">
     <div class="nav-logo">
-      <svg class="nav-logo-mark" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An &amp; Roselyn monogram">
-        <circle cx="60" cy="58" r="50" fill="none" stroke="var(--blue-light)" stroke-width="1.4" opacity="0.9"/>
-        <g>
-          <path d="M18 88 Q10 78 14 66" fill="none" stroke="var(--sage)" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M14 66 Q6 64 5 56" fill="none" stroke="var(--sage)" stroke-width="1" stroke-linecap="round"/>
-          <ellipse cx="10.5" cy="60" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(-30 10.5 60)"/>
-          <ellipse cx="16.5" cy="72" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(-15 16.5 72)"/>
-          <circle cx="20" cy="86" r="3.6" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="0.9"/>
-        </g>
-        <g>
-          <path d="M102 88 Q110 78 106 66" fill="none" stroke="var(--sage)" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M106 66 Q114 64 115 56" fill="none" stroke="var(--sage)" stroke-width="1" stroke-linecap="round"/>
-          <ellipse cx="109.5" cy="60" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(30 109.5 60)"/>
-          <ellipse cx="103.5" cy="72" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(15 103.5 72)"/>
-          <circle cx="100" cy="86" r="3.6" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="0.9"/>
-        </g>
-        <path d="M32 68 Q60 88 88 68" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round"/>
-        <text x="60" y="70" font-family="'Cormorant Garamond', Georgia, serif" font-size="44" text-anchor="middle" fill="var(--navy)" font-weight="500">AR</text>
-      </svg>
+      <img class="nav-logo-mark" src="logo-colored.png" alt="An &amp; Roselyn monogram">
     </div>
     <div class="nav-right">
       <div class="lang-toggle">
@@ -410,25 +390,7 @@
 
     <!-- WELCOME -->
     <section class="welcome-section">
-      <svg class="welcome-logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An &amp; Roselyn monogram">
-        <circle cx="60" cy="58" r="50" fill="none" stroke-width="1.4" opacity="0.9"/>
-        <g>
-          <path d="M18 88 Q10 78 14 66" fill="none" stroke="var(--sage-light)" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M14 66 Q6 64 5 56" fill="none" stroke="var(--sage-light)" stroke-width="1" stroke-linecap="round"/>
-          <ellipse cx="10.5" cy="60" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(-30 10.5 60)"/>
-          <ellipse cx="16.5" cy="72" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(-15 16.5 72)"/>
-          <circle cx="20" cy="86" r="3.6" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="0.9"/>
-        </g>
-        <g>
-          <path d="M102 88 Q110 78 106 66" fill="none" stroke="var(--sage-light)" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M106 66 Q114 64 115 56" fill="none" stroke="var(--sage-light)" stroke-width="1" stroke-linecap="round"/>
-          <ellipse cx="109.5" cy="60" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(30 109.5 60)"/>
-          <ellipse cx="103.5" cy="72" rx="4" ry="7" fill="var(--sage-light)" transform="rotate(15 103.5 72)"/>
-          <circle cx="100" cy="86" r="3.6" fill="var(--rose-light)" stroke="var(--rose)" stroke-width="0.9"/>
-        </g>
-        <path d="M32 68 Q60 88 88 68" fill="none" stroke-width="1.5" stroke-linecap="round"/>
-        <text x="60" y="70" font-family="'Cormorant Garamond', Georgia, serif" font-size="44" text-anchor="middle" font-weight="500">AR</text>
-      </svg>
+      <img class="welcome-logo" src="logo-colored-white.png" alt="An &amp; Roselyn monogram">
       <h2 class="welcome-title">Welcome</h2>
       <p class="welcome-title-vi">Chào Mừng</p>
       <p class="welcome-text">Welcome to our wedding website! We are truly grateful to God for bringing us together and blessing us with this beautiful journey of love. As we prepare to receive the Sacrament of Holy Matrimony, we warmly invite you to celebrate this special day with us. Your prayers, love, and presence mean more than words can express. Thank you for being part of our story, and we look forward to creating cherished memories together.</p>
@@ -699,4 +661,4 @@
 
   <script src="main.js"></script>
 </body>
-              </html>
+  </html>
