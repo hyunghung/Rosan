@@ -155,6 +155,53 @@ let adminPassword = null;
 let currentLang = 'vi';
 let adminPollInterval = null;
 
+// MUSIC
+const music = document.getElementById("bg-music");
+const toggleBtn = document.getElementById("music-toggle");
+
+window.addEventListener("load", () => {
+    const savedTime = localStorage.getItem("musicTime");
+
+    if (savedTime) {
+        music.currentTime = parseFloat(savedTime);
+    }
+
+    music.volume = 0;
+
+    music.play().then(() => {
+        toggleBtn.style.display = "flex";
+
+        // Fade in to 20% volume
+        let volume = 0;
+        const fade = setInterval(() => {
+            if (volume < 0.2) {
+                volume += 0.01;
+                music.volume = volume;
+            } else {
+                clearInterval(fade);
+            }
+        }, 100);
+
+    }).catch(err => {
+        console.log("Autoplay blocked:", err);
+    });
+});
+
+music.addEventListener("timeupdate", () => {
+    localStorage.setItem("musicTime", music.currentTime);
+});
+
+const musicIcon = document.getElementById("music-icon");
+
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+        musicIcon.innerHTML = "♫"; // music on
+    } else {
+        music.pause();
+        musicIcon.innerHTML = "🔇"; // music off
+    }
+}
 // ─── LANGUAGE TOGGLE ────────────────────────────────────────────────────────
 function setLanguage(lang) {
   currentLang = lang;
