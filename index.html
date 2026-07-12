@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>An & Roselyn — Wedding RSVP</title>
 
-  <!-- Cormorant Garamond, Jost, and Allura are self-hosted via @font-face in main.css
-       (no external Google Fonts request needed — see fonts/ folder) -->
 
-  <!-- Twister (playful script), Hello Honey (romantic script) & Candy Cane (playful display) — free-for-personal-use webfonts via CDN Fonts -->
-  <link href="https://fonts.cdnfonts.com/css/twister-2" rel="stylesheet">
+
+  <!-- Apricot (headers & envelope script) & Hello Honey (fallback script) — free-for-personal-use webfonts via CDN Fonts -->
+  <link href="https://fonts.cdnfonts.com/css/apricot-2" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/hello-honey-personal-use" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/candy-cane-personal-use" rel="stylesheet">
 
   <link rel="stylesheet" href="style/main.css">
 
@@ -28,18 +26,28 @@
       text-rendering: optimizeLegibility;
     }
 
+    @font-face {
+      font-family: 'Universal Exploration';
+      src: url('fonts/universal-exploration.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Forward Serif Upright';
+      src: url('fonts/forward-serif-upright.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
-      /* Script/handwritten accent — couple's names, envelope card. Hello Honey
-         has fuller Vietnamese diacritic coverage than Twister, so it's the
-         primary here (names always render in Vietnamese, diacritics and all). */
+      --font-header: 'Apricot', 'hello honey - Personal Use', 'Allura', cursive;
+      --font-names: 'Universal Exploration', 'hello honey - Personal Use', 'Allura', cursive;
       --font-display: 'hello honey - Personal Use', 'Allura', cursive;
-      /* Twister — reserved for the Welcome section specifically. Falls back to
-         Hello Honey for any Vietnamese character Twister can't render. */
-      --font-welcome: 'Twister', 'hello honey - Personal Use', 'Allura', cursive;
-      /* Playful display accent — section titles only, kept off data-heavy UI for legibility */
-      --font-accent: 'Candy Cane Personal Use', 'hello honey - Personal Use', cursive;
-      --font-heading: 'Cormorant Garamond', Georgia, serif;
-      --font-body: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-welcome: 'Apricot', 'hello honey - Personal Use', 'Allura', cursive;
+      --font-heading: 'Forward Serif Upright', 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Forward Serif Upright', 'Cormorant Garamond', 'Jost', Georgia, serif;
     }
   </style>
 
@@ -47,10 +55,7 @@
 
 <body>
 
-  <!-- ── BACKGROUND MUSIC ──────────────────────────────────────────────────────
-       To add your song: drop an mp3 file into the music/ folder and name it
-       "song.mp3" (see music/README.txt). No other changes needed — it starts
-       softly once the envelope is opened, and guests can mute it any time. -->
+  <!-- ── BACKGROUND MUSIC ────────────────────────────────────────────────────── -->
   <audio id="bg-music" loop preload="none">
     <source src="music/song.mp3" type="audio/mpeg">
   </audio>
@@ -230,6 +235,7 @@
       <button onclick="showPage('home')" class="active" id="nav-home" data-vi="Trang chủ" data-en="Home">Trang chủ</button>
       <button onclick="showPage('story')" id="nav-story" data-vi="Chuyện tình" data-en="Our Story">Our Story</button>
       <button onclick="showPage('gallery')" id="nav-gallery" data-vi="Thư viện" data-en="Gallery">Gallery</button>
+      <button onclick="showPage('eventdetail')" id="nav-eventdetail" data-vi="Chi tiết sự kiện" data-en="Event Details">Event Details</button>
       <button onclick="showPage('rsvp')" id="nav-rsvp">RSVP</button>
     </div>
   </nav>
@@ -237,7 +243,6 @@
   <!-- ── HOME ── -->
   <div id="page-home" class="page active">
     <section class="hero">
-      <!-- decorative corner sprigs (original line-art, not a photo) -->
       <svg class="hero-bloom hero-bloom--tl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g fill="none" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round" opacity="0.85">
           <path d="M6 6 C 40 18, 55 45, 48 82" />
@@ -347,14 +352,14 @@
         <ellipse cx="10" cy="10" rx="7" ry="4" fill="var(--cream)" stroke="var(--rose)" stroke-width="1" transform="rotate(-25 10 10)"/>
       </svg>
       <div class="hero-content">
-        <p class="hero-eyebrow" data-vi="Trân trọng kính mời quý vị đến dự lễ thành hôn của" data-en="You Are Cordially Invited to the Wedding of">Trân trọng kính mời quý vị đến dự lễ thành hôn của</p>
+        <p class="hero-eyebrow" data-vi="Ngay lễ thành hôn của minh" data-en="Our Wedding Day">Trân trọng kính mời quý vị đến dự lễ thành hôn của</p>
         <div class="hero-names">
           <h1 class="bride-name">Hoàng Thanh An</h1>
           <span class="ampersand">&amp;</span>
           <h1 class="groom-name">Nguyễn Thu Hồng Roselyn</h1>
         </div>
         <div class="hero-divider"><span>✦</span></div>
-        <p class="hero-sub" data-vi="Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn" data-en="Together with their families joyfully invite you to celebrate their wedding">Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn</p>
+        <p class="hero-sub" data-vi="Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn" data-en="Together with their families, joyfully invite you to celebrate their wedding">Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn</p>
         <div class="hero-actions">
           <button class="btn btn-primary" onclick="showPage('rsvp')" data-vi="Xác nhận tham dự" data-en="RSVP Now">Xác nhận tham dự</button>
           <button class="btn btn-outline" onclick="showPage('lookup')" data-vi="Kiểm tra RSVP" data-en="Look Up RSVP">Kiểm tra RSVP</button>
@@ -404,21 +409,6 @@
 
     <!-- WELCOME -->
     <section class="welcome-section">
-      <img class="welcome-logo" src="logo-colored-red.png" alt="An &amp; Roselyn monogram">
-      <h2 class="welcome-title" data-vi="Chào Mừng" data-en="Welcome">Welcome</h2>
-      <p class="welcome-text" data-vi="Chào mừng bạn đến với trang web đám cưới của chúng tôi! Chúng tôi xin tạ ơn Thiên Chúa vì đã dẫn dắt và chúc phúc cho hành trình tình yêu của chúng tôi. Khi chuẩn bị bước vào Bí tích Hôn Phối, chúng tôi rất hân hạnh được mời bạn cùng chia sẻ niềm vui trong ngày trọng đại này. Sự hiện diện, lời cầu nguyện và tình yêu thương của bạn là món quà quý giá nhất dành cho chúng tôi. Xin chân thành cảm ơn vì đã đồng hành cùng chúng tôi, và chúng tôi mong được cùng bạn tạo nên những kỷ niệm thật đẹp trong ngày đặc biệt này."
-         data-en="Welcome to our wedding website! We are truly grateful to God for bringing us together and blessing us with this beautiful journey of love. As we prepare to receive the Sacrament of Holy Matrimony, we warmly invite you to celebrate this special day with us. Your prayers, love, and presence mean more than words can express. Thank you for being part of our story, and we look forward to creating cherished memories together.">Welcome to our wedding website! We are truly grateful to God for bringing us together and blessing us with this beautiful journey of love. As we prepare to receive the Sacrament of Holy Matrimony, we warmly invite you to celebrate this special day with us. Your prayers, love, and presence mean more than words can express. Thank you for being part of our story, and we look forward to creating cherished memories together.</p>
-    </section>
-
-    <!-- FAVORITE VERSE -->
-    <section class="verse-section">
-      <div class="verse-mark" aria-hidden="true">&#10077;</div>
-      <p class="verse-text">Love is patient, love is kind&hellip; Love never fails.</p>
-      <p class="verse-ref">1 Corinthians 13:4&ndash;8</p>
-    </section>
-
-    <!-- EVENT DETAILS -->
-    <section class="details-section">
       <svg class="section-bloom section-bloom--details" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M20.0 46.0 Q10.0 40.0 14.0 28.0 Q24.0 34.0 26.0 44.0 Z" fill="var(--sage-light)"/>
         <path d="M40.0 46.0 Q50.0 40.0 46.0 28.0 Q36.0 34.0 34.0 44.0 Z" fill="var(--sage-light)"/>
@@ -430,32 +420,17 @@
         <circle cx="30.0" cy="30.0" r="6.0" fill="var(--white)"/>
         <circle cx="30.0" cy="30.0" r="6.0" fill="none" stroke="var(--rose)" stroke-width="1"/>
       </svg>
-      <div class="page-header" style="padding-top:0">
-        <p class="section-eyebrow" data-vi="Khi nào &amp; Ở đâu" data-en="When &amp; Where">Khi nào &amp; Ở đâu</p>
-        <h2 class="section-title" data-vi="Chi tiết Lễ cưới" data-en="Wedding Details">Chi tiết Lễ cưới</h2>
-        <div class="divider"><span>✦</span></div>
-      </div>
-      <div class="church-banner">
-        <img src="church.jpg" alt="Vietnamese Martyrs Parish">
-      </div>
-      <div class="details-grid">
-        <div class="detail-card">
-          <div class="detail-icon">✦</div>
-          <p class="detail-eyebrow">December 5, 2026</p>
-          <h3 class="detail-title" data-vi="Thánh lễ" data-en="Mass">Thánh lễ</h3>
-          <p class="detail-time">2:00 PM</p>
-          <p class="detail-place">Vietnamese Martyrs Parish</p>
-          <p class="detail-address">8181 Florin Rd., Sacramento, California 95828</p>
-        </div>
-        <div class="detail-card">
-          <div class="detail-icon">✦</div>
-          <p class="detail-eyebrow">December 5, 2026</p>
-          <h3 class="detail-title" data-vi="Tiệc cưới" data-en="Reception">Tiệc cưới</h3>
-          <p class="detail-time">6:00 PM</p>
-          <p class="detail-place">New Happy Garden</p>
-          <p class="detail-address">5731 Stockton Blvd, Sacramento, CA 95824</p>
-        </div>
-      </div>
+      <img class="welcome-logo" src="logo-colored-red.png" alt="An &amp; Roselyn monogram">
+      <h2 class="welcome-title" data-vi="Chào Mừng" data-en="Welcome">Welcome</h2>
+      <p class="welcome-text" data-vi="Chào mừng bạn đến với trang web đám cưới của chúng tôi! Chúng tôi xin tạ ơn Thiên Chúa vì đã dẫn dắt và chúc phúc cho hành trình tình yêu của chúng tôi. Khi chuẩn bị bước vào Bí tích Hôn Phối, chúng tôi rất hân hạnh được mời bạn cùng chia sẻ niềm vui trong ngày trọng đại này. Sự hiện diện, lời cầu nguyện và tình yêu thương của bạn là món quà quý giá nhất dành cho chúng tôi. Xin chân thành cảm ơn vì đã đồng hành cùng chúng tôi, và chúng tôi mong được cùng bạn tạo nên những kỷ niệm thật đẹp trong ngày đặc biệt này."
+         data-en="Welcome to our wedding website! We are truly grateful to God for bringing us together and blessing us with this beautiful journey of love. As we prepare to receive the Sacrament of Holy Matrimony, we warmly invite you to celebrate this special day with us. Your prayers, love, and presence mean more than words can express. Thank you for being part of our story, and we look forward to creating cherished memories together.">Welcome to our wedding website! We are truly grateful to God for bringing us together and blessing us with this beautiful journey of love. As we prepare to receive the Sacrament of Holy Matrimony, we warmly invite you to celebrate this special day with us. Your prayers, love, and presence mean more than words can express. Thank you for being part of our story, and we look forward to creating cherished memories together.</p>
+    </section>
+
+    <!-- FAVORITE VERSE -->
+    <section class="verse-section">
+      <div class="verse-mark" aria-hidden="true">&#10077;</div>
+      <p class="verse-text">Love is patient, love is kind&hellip; Love never fails.</p>
+      <p class="verse-ref">1 Corinthians 13:4&ndash;8</p>
     </section>
 
     <!-- COUNTDOWN -->
@@ -499,8 +474,8 @@
           </div>
           <div class="story-row-node"><span>✦</span></div>
           <div class="story-row-text">
-            <p data-vi="Bảy năm trước, chúng tôi gặp nhau qua Thiếu Nhi Thánh Thể tại nhà thờ, trong lúc cùng phụ giúp tổ chức Tết Trung Thu. Lúc đó, chúng tôi không hề nghĩ rằng một khoảnh khắc giản dị cùng nhau phục vụ lại trở thành khởi đầu của một hành trình mãi mãi."
-               data-en="Seven years ago, we met through Thiếu Nhi Thánh Thể at church while helping plan the Mid-Autumn Festival. At that time, we never imagined that one simple moment of serving together would become the beginning of our forever.">Bảy năm trước, chúng tôi gặp nhau qua Thiếu Nhi Thánh Thể tại nhà thờ, trong lúc cùng phụ giúp tổ chức Tết Trung Thu. Lúc đó, chúng tôi không hề nghĩ rằng một khoảnh khắc giản dị cùng nhau phục vụ lại trở thành khởi đầu của một hành trình mãi mãi.</p>
+            <p data-vi="Tám năm trước, chúng tôi gặp nhau qua Thiếu Nhi Thánh Thể tại nhà thờ, trong lúc cùng phụ giúp tổ chức Tết Trung Thu. Lúc đó, chúng tôi không hề nghĩ rằng một khoảnh khắc giản dị cùng nhau phục vụ lại trở thành khởi đầu của một hành trình mãi mãi."
+               data-en="Eight years ago, we met through Thiếu Nhi Thánh Thể at church while helping plan the Mid-Autumn Festival. At that time, we never imagined that one simple moment of serving together would become the beginning of our forever.">Tám năm trước, chúng tôi gặp nhau qua Thiếu Nhi Thánh Thể tại nhà thờ, trong lúc cùng phụ giúp tổ chức Tết Trung Thu. Lúc đó, chúng tôi không hề nghĩ rằng một khoảnh khắc giản dị cùng nhau phục vụ lại trở thành khởi đầu của một hành trình mãi mãi.</p>
           </div>
         </div>
 
@@ -532,14 +507,14 @@
           </div>
           <div class="story-row-node"><span>✦</span></div>
           <div class="story-row-text">
-            <p data-vi="Giờ đây, sau bảy năm bên nhau, cuối cùng chúng tôi sẽ tổ chức lễ cưới tại nhà thờ vào tháng Mười Hai này. Nhìn lại, chúng tôi nhận ra câu chuyện tình yêu của mình bắt đầu từ việc phục vụ người khác tại nhà thờ, và hôm nay nó tiếp tục với lòng biết ơn, đức tin, và ước mơ xây dựng một gia đình lấy tình yêu của Thiên Chúa làm nền tảng."
-               data-en="Now, after seven years together, we are finally having our church celebration this December. Looking back, we realize our love story began with serving others at church, and today it continues with gratitude, faith, and the dream of building a family centered on God's love.">Giờ đây, sau bảy năm bên nhau, cuối cùng chúng tôi sẽ tổ chức lễ cưới tại nhà thờ vào tháng Mười Hai này. Nhìn lại, chúng tôi nhận ra câu chuyện tình yêu của mình bắt đầu từ việc phục vụ người khác tại nhà thờ, và hôm nay nó tiếp tục với lòng biết ơn, đức tin, và ước mơ xây dựng một gia đình lấy tình yêu của Thiên Chúa làm nền tảng.</p>
+            <p data-vi="Giờ đây, sau tám năm bên nhau, cuối cùng chúng tôi sẽ tổ chức lễ cưới tại nhà thờ vào tháng Mười Hai này. Nhìn lại, chúng tôi nhận ra câu chuyện tình yêu của mình bắt đầu từ việc phục vụ người khác tại nhà thờ, và hôm nay nó tiếp tục với lòng biết ơn, đức tin, và ước mơ xây dựng một gia đình lấy tình yêu của Thiên Chúa làm nền tảng."
+               data-en="Now, after eight years together, we are finally having our church celebration this December. Looking back, we realize our love story began with serving others at church, and today it continues with gratitude, faith, and the dream of building a family centered on God's love.">Giờ đây, sau tám năm bên nhau, cuối cùng chúng tôi sẽ tổ chức lễ cưới tại nhà thờ vào tháng Mười Hai này. Nhìn lại, chúng tôi nhận ra câu chuyện tình yêu của mình bắt đầu từ việc phục vụ người khác tại nhà thờ, và hôm nay nó tiếp tục với lòng biết ơn, đức tin, và ước mơ xây dựng một gia đình lấy tình yêu của Thiên Chúa làm nền tảng.</p>
           </div>
         </div>
       </div>
 
-      <p class="story-closing" data-vi="Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt bảy năm qua. ♡"
-         data-en="No matter what happens in life, we know we will continue walking side by side, just like we have for the past seven years. ♡">Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt bảy năm qua. ♡</p>
+      <p class="story-closing" data-vi="Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt tám năm qua. ♡"
+         data-en="No matter what happens in life, we know we will continue walking side by side, just like we have for the past eight years. ♡">Dù cuộc sống có ra sao, chúng tôi biết mình sẽ luôn sánh bước bên nhau, như đã từng suốt tám năm qua. ♡</p>
     </section>
   </div>
 
@@ -551,16 +526,40 @@
         <h2 class="section-title" data-vi="Thư Viện Ảnh" data-en="Gallery">Thư Viện Ảnh</h2>
         <div class="divider"><span>✦</span></div>
       </div>
-      <div class="gallery-wrap">
-        <div class="gallery-stage" id="gallery-stage">
-          <button class="gallery-arrow gallery-prev" onclick="galleryPrev()" aria-label="Previous photo">&#10094;</button>
-          <button class="gallery-arrow gallery-next" onclick="galleryNext()" aria-label="Next photo">&#10095;</button>
-        </div>
+      <div class="gallery-placeholder">
+        <p class="gallery-placeholder-mark" aria-hidden="true">✦</p>
+        <p data-vi="Hình ảnh sẽ sớm được cập nhật — hẹn gặp lại!" data-en="Photos coming soon — check back after our photoshoot!">Photos coming soon — check back after our photoshoot!</p>
       </div>
-      <div class="gallery-album-cta">
-        <p data-vi="Xem thêm nhiều hình ảnh của chúng tôi trong album đầy đủ" data-en="See more of our photos in the full album">Xem thêm nhiều hình ảnh của chúng tôi trong album đầy đủ</p>
-        <a class="btn btn-outline" href="https://photos.app.goo.gl/4Q4sQnfQMgSiqC1f6" target="_blank" rel="noopener noreferrer"
-           data-vi="Xem toàn bộ Album" data-en="View Full Album">Xem toàn bộ Album</a>
+    </section>
+  </div>
+
+      <!-- EVENT DETAILS -->
+  <div id="page-eventdetail" class="page">
+      <div class="page-header">
+        <p class="section-eyebrow" data-vi="Khi nào &amp; Ở đâu" data-en="When &amp; Where">Khi nào &amp; Ở đâu</p>
+        <h2 class="section-title" data-vi="Chi tiết Lễ cưới" data-en="Wedding Details">Chi tiết Lễ cưới</h2>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="church-banner">
+        <img src="church.jpg" alt="Vietnamese Martyrs Parish">
+      </div>
+      <div class="details-grid">
+        <div class="detail-card">
+          <div class="detail-icon">✦</div>
+          <p class="detail-eyebrow">December 5, 2026</p>
+          <h3 class="detail-title" data-vi="Thánh lễ" data-en="Mass">Thánh lễ</h3>
+          <p class="detail-time">2:00 PM</p>
+          <p class="detail-place">Vietnamese Martyrs Parish</p>
+          <p class="detail-address">8181 Florin Rd., Sacramento, California 95828</p>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">✦</div>
+          <p class="detail-eyebrow">December 5, 2026</p>
+          <h3 class="detail-title" data-vi="Tiệc cưới" data-en="Reception">Tiệc cưới</h3>
+          <p class="detail-time">6:00 PM</p>
+          <p class="detail-place">New Happy Garden</p>
+          <p class="detail-address">5731 Stockton Blvd, Sacramento, CA 95824</p>
+        </div>
       </div>
     </section>
   </div>
@@ -677,7 +676,7 @@
 
   <footer class="contact-footer">
     <p data-vi="Có câu hỏi nào không?" data-en="Have a question?">Have a question?</p>
-    <p><a href="mailto:anrosie1205@gmail.com">anrosie1205@gmail.com</a></p>
+    <p><a href="mailto:nguyenroselyn1020@gmail.com">nguyenroselyn1020@gmail.com</a></p>
   </footer>
 
   <div class="toast" id="toast"></div>
