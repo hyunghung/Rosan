@@ -223,7 +223,7 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --cream:      #fff6f0;
+  /* --cream:      #fff6f0;
   --blue:       #b3565c;
   --blue-light: #e8bfb5;
   --blue-dark:  #9b151d;
@@ -237,7 +237,22 @@
   --white:      #ffffff;
   --dusty-blue:      #f3d9d3;
   --dusty-blue-deep: #e3b7ac;
-  --dusty-blue-pale: #faece7;
+  --dusty-blue-pale: #faece7; */
+  --cream:            #f8f6f3;
+  --blue:             #6f8fb8;
+  --blue-light:       #d9e4f2;
+  --blue-dark:        #3f5f88;
+  --rose:             #7b95b7;
+  --rose-light:       #edf3fa;
+  --sage:             #7a9e7e;
+  --sage-light:       #d8ead9;
+  --navy:             #2f4d73;
+  --mid:              #7d90a8;
+  --light:            #f4f8fc;
+  --white:            #ffffff;
+  --dusty-blue:       #c9d8eb;
+  --dusty-blue-deep:  #9eb7d6;
+  --dusty-blue-pale:  #eef4fb;
   --font-display: 'hello honey - Personal Use', 'Allura', cursive;
   --font-welcome: 'Twister', 'hello honey - Personal Use', 'Allura', cursive;
   --font-accent:  'Allura', cursive;
