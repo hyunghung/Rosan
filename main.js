@@ -161,31 +161,19 @@ const toggleBtn = document.getElementById("music-toggle");
 
 window.addEventListener("load", () => {
     const savedTime = localStorage.getItem("musicTime");
-
     if (savedTime) {
         music.currentTime = parseFloat(savedTime);
     }
 
-    music.volume = 0;
-
-    music.play().then(() => {
-        toggleBtn.style.display = "flex";
-
-        // Fade in to 20% volume
-        let volume = 0;
-        const fade = setInterval(() => {
-            if (volume < 0.2) {
-                volume += 0.01;
-                music.volume = volume;
-            } else {
-                clearInterval(fade);
-            }
-        }, 100);
-
-    }).catch(err => {
-        console.log("Autoplay blocked:", err);
-    });
+    toggleBtn.style.display = "flex";
 });
+
+document.addEventListener("click", startMusic, { once: true });
+
+function startMusic() {
+    music.volume = 0.2;
+    music.play().catch(err => console.log(err));
+}
 
 music.addEventListener("timeupdate", () => {
     localStorage.setItem("musicTime", music.currentTime);
@@ -196,10 +184,10 @@ const musicIcon = document.getElementById("music-icon");
 function toggleMusic() {
     if (music.paused) {
         music.play();
-        musicIcon.innerHTML = "♫"; // music on
+        musicIcon.innerHTML = "♫";
     } else {
         music.pause();
-        musicIcon.innerHTML = "🔇"; // music off
+        musicIcon.innerHTML = "🔇";
     }
 }
 // ─── LANGUAGE TOGGLE ────────────────────────────────────────────────────────
