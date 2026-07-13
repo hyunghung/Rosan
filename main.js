@@ -171,7 +171,7 @@ window.addEventListener("load", () => {
 document.addEventListener("click", startMusic, { once: true });
 
 function startMusic() {
-    music.volume = 0.05;
+    music.volume = 0.01;
     music.play().catch(err => console.log(err));
 }
 
