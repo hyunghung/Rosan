@@ -158,36 +158,65 @@ let adminPollInterval = null;
 // MUSIC
 const music = document.getElementById("bg-music");
 const toggleBtn = document.getElementById("music-toggle");
+const musicIcon = document.getElementById("music-icon");
 
-window.addEventListener("load", () => {
-    const savedTime = localStorage.getItem("musicTime");
-    if (savedTime) {
-        music.currentTime = parseFloat(savedTime);
-    }
-
-    toggleBtn.style.display = "flex";
+// Show the toggle as soon as we know the song file actually exists,
+// regardless of whether autoplay is allowed — so the guest always has
+// a way to start the music manually.
+music.addEventListener("loadedmetadata", () => {
+  toggleBtn.style.display = "flex";
 });
-
-document.addEventListener("click", startMusic, { once: true });
-
-function startMusic() {
-    music.volume = 0.01;
-    music.play().catch(err => console.log(err));
+// If the audio finished loading before this script attached the listener
+// (fast connections), reveal the button immediately.
+if (music.readyState >= 1) {
+  toggleBtn.style.display = "flex";
 }
+music.addEventListener("error", () => {
+  toggleBtn.style.display = "none";
+}, true);
+
+function playMusicWithFade() {
+  const savedTime = localStorage.getItem("musicTime");
+  if (savedTime) music.currentTime = parseFloat(savedTime);
+
+  music.volume = 0;
+  music.play().then(() => {
+    musicIcon.innerHTML = "♫";
+    // Fade in to 20% volume
+    let volume = 0;
+    const fade = setInterval(() => {
+      if (volume < 0.1) {
+        volume += 0.01;
+        music.volume = Math.min(volume, 0.1);
+      } else {
+        clearInterval(fade);
+      }
+    }, 100);
+  }).catch(err => {
+    // Blocked — guest can still tap the ♫ button to start it.
+    console.log("Playback blocked:", err);
+  });
+}
+
+// Browsers block autoplay on page load, so the real trigger is the
+// "Enter the Invitation" click inside enterSite() — a user gesture,
+// which playback is always allowed from. This load attempt is only a
+// bonus for browsers that permit it (e.g. returning visitors).
+window.addEventListener("load", () => {
+  playMusicWithFade();
+});
 
 music.addEventListener("timeupdate", () => {
     localStorage.setItem("musicTime", music.currentTime);
 });
 
-const musicIcon = document.getElementById("music-icon");
-
 function toggleMusic() {
     if (music.paused) {
         music.play();
-        musicIcon.innerHTML = "♫";
+        musicIcon.innerHTML = "♫"; // music on
     } else {
         music.pause();
-        musicIcon.innerHTML = "🔇";
+        musicIcon.innerHTML = "🔇"; // music off
     }
 }
 // ─── LANGUAGE TOGGLE ────────────────────────────────────────────────────────
@@ -240,12 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function initIntro() {
   const overlay = document.getElementById('intro-overlay');
   if (!overlay) return;
-
-  // guests who already opened the invitation this session skip straight in
-  if (sessionStorage.getItem('introSeen') === 'true') {
-    overlay.classList.add('hidden');
-    return;
-  }
   document.documentElement.classList.add('intro-active');
 }
 
@@ -263,9 +286,9 @@ function enterSite(event) {
   const overlay = document.getElementById('intro-overlay');
   if (!overlay) return;
 
-  sessionStorage.setItem('introSeen', 'true');
   overlay.classList.add('exit');
   document.documentElement.classList.remove('intro-active');
+  playMusicWithFade();
 
   setTimeout(() => overlay.classList.add('hidden'), 850);
 }
@@ -382,7 +405,9 @@ function showPage(p) {
   document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.nav-links button').forEach(x => x.classList.remove('active'));
   document.getElementById('page-' + p).classList.add('active');
-  document.getElementById('nav-' + p).classList.add('active');
+  // Some pages (e.g. lookup) intentionally have no nav tab
+  const navBtn = document.getElementById('nav-' + p);
+  if (navBtn) navBtn.classList.add('active');
   document.getElementById('nav-links').classList.remove('open');
   if (p === 'admin' && adminPassword) {
     refreshAdmin();
@@ -511,9 +536,28 @@ function selectAttendance(val) {
 }
 
 // ─── SUBMIT RSVP ────────────────────────────────────────────────────────────
-// Formats digits into (___) ___-____ as the user types. No country code needed.
+// Formats digits into (___) ___-____ as the user types. A country code is
+// OPTIONAL: if the guest starts with "+" (e.g. +1 or +84), we leave their
+// number free-form instead of forcing the US layout.
 function formatPhoneNumber(value) {
-  const digits = value.replace(/\D/g, '').slice(0, 10);
+  const trimmed = value.trimStart();
+  if (trimmed.startsWith('+')) {
+    // International: keep "+" then digits/spaces only, max 15 digits (E.164)
+    let digits = trimmed.slice(1).replace(/[^\d\s]/g, '');
+    let digitCount = 0;
+    let out = '';
+    for (const ch of digits) {
+      if (/\d/.test(ch)) {
+        if (digitCount >= 15) break;
+        digitCount++;
+        out += ch;
+      } else if (ch === ' ' && out && !out.endsWith(' ')) {
+        out += ch;
+      }
+    }
+    return '+' + out;
+  }
+  const digits = trimmed.replace(/\D/g, '').slice(0, 10);
   const len = digits.length;
   if (len === 0) return '';
   if (len < 4) return `(${digits}`;
@@ -525,9 +569,15 @@ function formatPhoneField(e) {
   e.target.value = formatPhoneNumber(e.target.value);
 }
 
-// Requires a complete US-style number: (XXX) XXX-XXXX — exactly 10 digits.
+// Valid either way:
+//  - Plain US-style number: exactly 10 digits — (XXX) XXX-XXXX
+//  - With country code: starts with "+", 8–15 digits total (international)
 function validatePhone(raw) {
-  const digits = raw.replace(/\D/g, '');
+  const trimmed = raw.trim();
+  const digits = trimmed.replace(/\D/g, '');
+  if (trimmed.startsWith('+')) {
+    return digits.length >= 8 && digits.length <= 15;
+  }
   return digits.length === 10;
 }
 
@@ -568,8 +618,8 @@ async function submitRSVP(e) {
   if (!validatePhone(phone)) {
     return showRsvpError(
       currentLang === 'vi'
-        ? 'Số điện thoại không hợp lệ. Vui lòng nhập đầy đủ 10 số theo dạng (XXX) XXX-XXXX.'
-        : 'Invalid phone number. Please enter all 10 digits as (XXX) XXX-XXXX.'
+        ? 'Số điện thoại không hợp lệ. Vui lòng nhập 10 số theo dạng (XXX) XXX-XXXX, hoặc thêm mã quốc gia (ví dụ +84...).'
+        : 'Invalid phone number. Please enter 10 digits as (XXX) XXX-XXXX, or include a country code (e.g. +84...).'
     );
   }
   if (!selectedCategory) {
@@ -679,7 +729,7 @@ async function lookupRSVP() {
     return;
   }
   if (!validatePhone(phone)) {
-    resultEl.innerHTML = `<div class="error-msg">${currentLang === 'vi' ? 'Số điện thoại không hợp lệ. Vui lòng nhập đầy đủ 10 số.' : 'Invalid phone number. Please enter all 10 digits.'}</div>`;
+    resultEl.innerHTML = `<div class="error-msg">${currentLang === 'vi' ? 'Số điện thoại không hợp lệ. Vui lòng nhập 10 số, hoặc thêm mã quốc gia (ví dụ +84...).' : 'Invalid phone number. Please enter 10 digits, or include a country code (e.g. +84...).'}</div>`;
     return;
   }
 
