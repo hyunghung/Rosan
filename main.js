@@ -557,7 +557,14 @@ function formatPhoneNumber(value) {
     }
     return '+' + out;
   }
-  const digits = trimmed.replace(/\D/g, '').slice(0, 10);
+  let digits = trimmed.replace(/\D/g, '');
+  // A leading "1" is the US/Canada country code, not part of the number —
+  // US area codes never begin with 1. This handles autofill and guests who
+  // type "1 916 555 1234" without the "+".
+  if (digits.length > 10 && digits.startsWith('1')) {
+    digits = digits.slice(1);
+  }
+  digits = digits.slice(0, 10);
   const len = digits.length;
   if (len === 0) return '';
   if (len < 4) return `(${digits}`;
@@ -578,6 +585,9 @@ function validatePhone(raw) {
   if (trimmed.startsWith('+')) {
     return digits.length >= 8 && digits.length <= 15;
   }
+  // Accept a plain 10-digit number, or 11 digits when the extra leading
+  // digit is the US country code "1" (e.g. autofilled "1 916 555 1234").
+  if (digits.length === 11 && digits.startsWith('1')) return true;
   return digits.length === 10;
 }
 
