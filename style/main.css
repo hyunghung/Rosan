@@ -483,6 +483,10 @@
   src: url('../fonts/allura-latin-400-normal.woff2') format('woff2');
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
+@font-face {
+  font-family: 'Twister';
+  src: url('../fonts/Twister.ttf') format('woff2');
+}
 
 /* ── RESET & VARIABLES ─────────────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -519,6 +523,7 @@
   --dusty-blue-deep:  #9eb7d6;
   --dusty-blue-pale:  #eef4fb;
   --font-display: 'hello honey - Personal Use', 'Allura', cursive;
+  --font-twister: 'apricot-2', 'Allura', cursive;
   --font-welcome: 'Twister', 'hello honey - Personal Use', 'Allura', cursive;
   --font-accent:  'Allura', cursive;
   --font-heading: 'Cormorant Garamond', serif;
@@ -738,9 +743,9 @@ body {
 }
 .bride-name {
   font-family: var(--font-names);
-  font-size: clamp(3.6rem, 10vw, 6.5rem);
+  font-size: clamp(2.9rem, 7.5vw, 5.4rem);
   font-weight: 400;
-  color: var(--blue-dark);
+  color: var(--navy);
   line-height: 1.2;
 }
 .bride-viet {
@@ -1732,7 +1737,7 @@ html.intro-active, html.intro-active body { overflow: hidden; height: 100%; }
   z-index: 5;
 }
 .invitation-eyebrow { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.7rem; }
-.invitation-names { font-family: var(--font-envelope); font-size: clamp(1.9rem, 6.5vw, 2.6rem); color: var(--blue-dark); }
+.invitation-names { font-family: var(--font-twister); font-size: clamp(1.9rem, 6.5vw, 2.6rem); color: var(--blue-dark); }
 .invitation-names em { font-style: normal; color: var(--blue); padding: 0 0.15em; }
 .invitation-divider { display: flex; align-items: center; gap: 0.6rem; margin: 0.7rem auto; max-width: 140px; }
 .invitation-divider::before, .invitation-divider::after {

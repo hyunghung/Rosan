@@ -8,7 +8,7 @@
 
 
   <!-- Apricot (headers & envelope script) & Hello Honey (fallback script) — free-for-personal-use webfonts via CDN Fonts -->
-  <link href="https://fonts.cdnfonts.com/css/apricot-2" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/aricot-2" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/hello-honey-personal-use" rel="stylesheet">
 
   <link rel="stylesheet" href="style/main.css?v=4">
@@ -19,7 +19,7 @@
       -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
       /* Larger base size so all rem-based text scales up for easier reading */
-      font-size: 18px;
+      font-size: 20px;
     }
 
     body {
@@ -29,10 +29,6 @@
       font-size: 1rem;
     }
 
-    /* Great Vibes — elegant calligraphy with FULL Vietnamese diacritic support
-       (self-hosted in fonts/). Used for the couple's names. The three files split
-       coverage by character range: the browser automatically picks the Vietnamese
-       file for accented characters and the Latin file for everything else. */
     @font-face {
       font-family: 'Great Vibes';
       src: url('fonts/great-vibes-vietnamese-400-normal.woff2') format('woff2');
@@ -61,13 +57,11 @@
     }
 
     :root {
-      /* Times New Roman — all headers and body text. Has full Vietnamese
-         support on Windows/Mac/iOS; Android falls back to its serif equivalent. */
       --font-header: 'Times New Roman', 'Tinos', Times, serif;
       --font-heading: 'Times New Roman', 'Tinos', Times, serif;
       --font-body: 'Times New Roman', 'Tinos', Times, serif;
-      /* Apricot — envelope only: "You are invited!" and "An & Roselyn" */
-      --font-envelope: 'Apricot', 'hello honey - Personal Use', 'Allura', cursive;
+      /* Twister — envelope only: "You are invited!" and "An & Roselyn" */
+      --font-envelope: 'Twister', 'hello honey - Personal Use', 'Allura', cursive;
       /* Great Vibes — the couple's full names (elegant + full Vietnamese coverage) */
       --font-names: 'Great Vibes', 'Universal Exploration', 'hello honey - Personal Use', 'Allura', cursive;
       /* Script accent — wax seal */
