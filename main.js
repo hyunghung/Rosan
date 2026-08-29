@@ -236,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
   startCountdown();
   buildGallery();
   initIntro();
+  initReveal();
   setLanguage('en');
 
   document.getElementById('hamburger').addEventListener('click', () => {
@@ -393,6 +394,7 @@ function showPage(p) {
     stopAdminPolling();
   }
   window.scrollTo(0, 0);
+  setTimeout(revealActivePage, 50);
 }
 
 function startAdminPolling() {
@@ -934,6 +936,41 @@ function exportCSV() {
       toast(currentLang === 'vi' ? 'Đã xuất CSV!' : 'CSV exported!');
     })
     .catch(() => toast(currentLang === 'vi' ? 'Không thể xuất CSV' : 'Could not export CSV'));
+}
+
+// ─── SCROLL REVEAL ──────────────────────────────────────────────────────────
+function initReveal() {
+  const targets = document.querySelectorAll(
+    '.welcome-section > *, .verse-section > *, .details-grid, .church-banner, ' +
+    '.countdown-grid, .story-row, .story-closing, .gallery-placeholder, .form-card'
+  );
+  if (!targets.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+
+  targets.forEach(el => el.classList.add('reveal'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  targets.forEach(el => io.observe(el));
+}
+
+function revealActivePage() {
+  const page = document.querySelector('.page.active');
+  if (!page) return;
+  page.querySelectorAll('.reveal').forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < window.innerHeight) el.classList.add('is-visible');
+  });
 }
 
 // ─── TOAST ──────────────────────────────────────────────────────────────────
