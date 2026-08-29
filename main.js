@@ -6,9 +6,6 @@ const CATEGORIES = {
   en: ["Bride's Family","Groom's Family","Bride's Friends","Groom's Friends","TNTT / Youth Group","Parish / Community","Coworkers","Neighbors","Mutual Friends","Other"]
 };
 
-// Photo gallery — add/remove/reorder file paths here. Drop the actual image
-// files into pictures/ (same filenames) and the carousel picks them up
-// automatically, no other code changes needed.
 const GALLERY_IMAGES = [
   'pictures/14bdf07cc5bd4b8a66b579e07c709ebe.jpg',
   'pictures/1F8F44D7-25B1-4856-A491-AB1FF456737B.jpg',
@@ -155,19 +152,13 @@ let adminPassword = null;
 let currentLang = 'vi';
 let adminPollInterval = null;
 
-// MUSIC
 const music = document.getElementById("bg-music");
 const toggleBtn = document.getElementById("music-toggle");
 const musicIcon = document.getElementById("music-icon");
 
-// Show the toggle as soon as we know the song file actually exists,
-// regardless of whether autoplay is allowed — so the guest always has
-// a way to start the music manually.
 music.addEventListener("loadedmetadata", () => {
   toggleBtn.style.display = "flex";
 });
-// If the audio finished loading before this script attached the listener
-// (fast connections), reveal the button immediately.
 if (music.readyState >= 1) {
   toggleBtn.style.display = "flex";
 }
@@ -182,7 +173,6 @@ function playMusicWithFade() {
   music.volume = 0;
   music.play().then(() => {
     musicIcon.innerHTML = "♫";
-    // Fade in to 20% volume
     const MAX_VOLUME = 0.01;
     let volume = 0;
     const fade = setInterval(() => {
@@ -194,14 +184,9 @@ function playMusicWithFade() {
       }
     }, 25);
   }).catch(err => {
-    // Blocked — guest can still tap the ♫ button to start it.
     console.log("Playback blocked:", err);
   });
 }
-// Browsers block autoplay on page load, so the real trigger is the
-// "Enter the Invitation" click inside enterSite() — a user gesture,
-// which playback is always allowed from. This load attempt is only a
-// bonus for browsers that permit it (e.g. returning visitors).
 window.addEventListener("load", () => {
   playMusicWithFade();
 });
@@ -213,10 +198,10 @@ music.addEventListener("timeupdate", () => {
 function toggleMusic() {
     if (music.paused) {
         music.play();
-        musicIcon.innerHTML = "♫"; // music on
+        musicIcon.innerHTML = "♫";
     } else {
         music.pause();
-        musicIcon.innerHTML = "🔇"; // music off
+        musicIcon.innerHTML = "🔇";
     }
 }
 // ─── LANGUAGE TOGGLE ────────────────────────────────────────────────────────
@@ -224,25 +209,20 @@ function setLanguage(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
 
-  // swap textContent for all data-vi/data-en elements
   document.querySelectorAll('[data-vi]').forEach(el => {
     el.textContent = lang === 'vi' ? el.dataset.vi : el.dataset.en;
   });
 
-  // swap placeholders
   document.querySelectorAll('[data-vi-placeholder]').forEach(el => {
     el.placeholder = lang === 'vi' ? el.dataset.viPlaceholder : el.dataset.enPlaceholder;
   });
 
-  // toggle button state
   document.getElementById('lang-vi').classList.toggle('active', lang === 'vi');
   document.getElementById('lang-en').classList.toggle('active', lang === 'en');
 
-  // rebuild category grid so labels translate
   buildCategoryGrid();
   buildFilterCategoryDropdown();
 
-  // if admin dashboard is open, re-render its category-dependent views
   if (adminPassword) {
     loadGuests();
     if (window._catBreakdown) renderCategories();
@@ -346,11 +326,9 @@ function buildGallery() {
     stage.appendChild(slide);
   });
 
-  // pause autoplay while the person is looking closely / interacting
   stage.addEventListener('mouseenter', stopGalleryAutoplay);
   stage.addEventListener('mouseleave', startGalleryAutoplay);
 
-  // basic swipe support for mobile
   let touchStartX = 0;
   stage.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].clientX;
@@ -405,7 +383,6 @@ function showPage(p) {
   document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.nav-links button').forEach(x => x.classList.remove('active'));
   document.getElementById('page-' + p).classList.add('active');
-  // Some pages (e.g. lookup) intentionally have no nav tab
   const navBtn = document.getElementById('nav-' + p);
   if (navBtn) navBtn.classList.add('active');
   document.getElementById('nav-links').classList.remove('open');
@@ -418,8 +395,6 @@ function showPage(p) {
   window.scrollTo(0, 0);
 }
 
-// Keeps the admin dashboard (stats + seating chart) live-updated while it's open,
-// so new RSVPs and seat assignments show up without a manual refresh.
 function startAdminPolling() {
   stopAdminPolling();
   adminPollInterval = setInterval(() => {
@@ -437,14 +412,13 @@ function stopAdminPolling() {
 // ─── CATEGORY GRID ──────────────────────────────────────────────────────────
 function buildCategoryGrid() {
   const grid = document.getElementById('category-grid');
-  // Guest Group was removed from the RSVP form — nothing to build.
   if (!grid) return;
   const prevSelected = selectedCategory;
   grid.innerHTML = '';
   const cats = CATEGORIES[currentLang];
   const catsVi = CATEGORIES.vi;
   cats.forEach((c, i) => {
-    const viName = catsVi[i]; // always store Vietnamese name as canonical value
+    const viName = catsVi[i];
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'cat-btn';
@@ -464,28 +438,23 @@ function buildFilterCategoryDropdown() {
   const sel = document.getElementById('filter-cat');
   if (!sel) return;
   const prevValue = sel.value;
-  // Rebuild all options after the first (the "All Groups" placeholder, kept as-is)
   sel.querySelectorAll('option[data-cat-option]').forEach(o => o.remove());
   CATEGORIES.vi.forEach((viName, i) => {
     const o = document.createElement('option');
-    o.value = viName; // canonical value used for filtering/lookup, always Vietnamese
-    o.textContent = CATEGORIES[currentLang][i]; // label shown, translated
+    o.value = viName;
+    o.textContent = CATEGORIES[currentLang][i];
     o.dataset.catOption = 'true';
     sel.appendChild(o);
   });
   sel.value = prevValue;
 }
 
-// Returns the translated display label for a canonical (Vietnamese) category name.
 function categoryLabel(viName) {
   const i = CATEGORIES.vi.indexOf(viName);
   return i === -1 ? viName : CATEGORIES[currentLang][i];
 }
 
 // ─── PLUS-ONE GUEST NAMES ───────────────────────────────────────────────────
-// Rebuilds the "additional guest" name inputs whenever the plus-ones dropdown
-// changes, and keeps the hidden #rsvp-guests total (self + plus-ones) in sync
-// so the rest of the submit/lookup pipeline needs no other changes.
 function updatePlusOneFields() {
   const n = parseInt(document.getElementById('rsvp-plusones').value, 10) || 0;
   const wrap = document.getElementById('plusone-names-wrap');
@@ -498,7 +467,7 @@ function updatePlusOneFields() {
   if (n > 0) {
     wrap.style.display = 'block';
     for (let i = 1; i <= n; i++) {
-      const guestNumber = i + 1; // guest 1 is the person filling out the form
+      const guestNumber = i + 1;
       const field = document.createElement('div');
       field.style.marginTop = i === 1 ? '0' : '0.9rem';
 
@@ -538,13 +507,9 @@ function selectAttendance(val) {
 }
 
 // ─── SUBMIT RSVP ────────────────────────────────────────────────────────────
-// Formats digits into (___) ___-____ as the user types. A country code is
-// OPTIONAL: if the guest starts with "+" (e.g. +1 or +84), we leave their
-// number free-form instead of forcing the US layout.
 function formatPhoneNumber(value) {
   const trimmed = value.trimStart();
   if (trimmed.startsWith('+')) {
-    // International: keep "+" then digits/spaces only, max 15 digits (E.164)
     let digits = trimmed.slice(1).replace(/[^\d\s]/g, '');
     let digitCount = 0;
     let out = '';
@@ -560,9 +525,6 @@ function formatPhoneNumber(value) {
     return '+' + out;
   }
   let digits = trimmed.replace(/\D/g, '');
-  // A leading "1" is the US/Canada country code, not part of the number —
-  // US area codes never begin with 1. This handles autofill and guests who
-  // type "1 916 555 1234" without the "+".
   if (digits.length > 10 && digits.startsWith('1')) {
     digits = digits.slice(1);
   }
@@ -578,17 +540,12 @@ function formatPhoneField(e) {
   e.target.value = formatPhoneNumber(e.target.value);
 }
 
-// Valid either way:
-//  - Plain US-style number: exactly 10 digits — (XXX) XXX-XXXX
-//  - With country code: starts with "+", 8–15 digits total (international)
 function validatePhone(raw) {
   const trimmed = raw.trim();
   const digits = trimmed.replace(/\D/g, '');
   if (trimmed.startsWith('+')) {
     return digits.length >= 8 && digits.length <= 15;
   }
-  // Accept a plain 10-digit number, or 11 digits when the extra leading
-  // digit is the US country code "1" (e.g. autofilled "1 916 555 1234").
   if (digits.length === 11 && digits.startsWith('1')) return true;
   return digits.length === 10;
 }
@@ -605,7 +562,6 @@ async function submitRSVP(e) {
   const plusOneInputs = [...document.querySelectorAll('.plusone-name-input')];
   const plusOneNames  = plusOneInputs.map(i => i.value.trim());
 
-  // ── Client-side validation ──
   if (!name) {
     return showRsvpError(
       currentLang === 'vi'
@@ -656,9 +612,6 @@ async function submitRSVP(e) {
     );
   }
 
-  // Fold plus-one names into the dietary/notes field with a clear "Guests:" prefix,
-  // since that's the one free-text field the spreadsheet backend already stores —
-  // lookupRSVP() parses this same prefix back out to show it as its own line.
   const finalDietary = plusOneNames.length
     ? `Guests: ${plusOneNames.join(', ')}${dietary ? ' | Notes: ' + dietary : ''}`
     : (dietary || 'N/A');
@@ -728,7 +681,6 @@ function resetRSVP() {
 async function lookupRSVP() {
   const phoneEl  = document.getElementById('lookup-phone');
   const resultEl = document.getElementById('lookup-result');
-  // The lookup page was removed from the site — bail out safely if it's absent.
   if (!phoneEl || !resultEl) return;
   const phone    = phoneEl.value.trim();
 
@@ -756,8 +708,6 @@ async function lookupRSVP() {
     const g = data.data;
     const isVi = currentLang === 'vi';
 
-    // The stored "dietary" field may carry a "Guests: A, B | Notes: ..." prefix
-    // (see submitRSVP) — split it back apart for display.
     let extraGuests = '';
     let dietaryNote = g.dietary || '';
     const guestsMatch = dietaryNote.match(/^Guests:\s*(.+?)(?:\s*\|\s*Notes:\s*(.*))?$/s);
