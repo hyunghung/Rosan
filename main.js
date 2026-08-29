@@ -183,21 +183,21 @@ function playMusicWithFade() {
   music.play().then(() => {
     musicIcon.innerHTML = "♫";
     // Fade in to 20% volume
+    const MAX_VOLUME = 0.01;
     let volume = 0;
     const fade = setInterval(() => {
-      if (volume < 0.1) {
-        volume += 0.01;
-        music.volume = Math.min(volume, 0.1);
+      if (volume < MAX_VOLUME) {
+        volume += 0.0005;
+        music.volume = Math.min(volume, MAX_VOLUME);
       } else {
         clearInterval(fade);
       }
-    }, 100);
+    }, 25);
   }).catch(err => {
     // Blocked — guest can still tap the ♫ button to start it.
     console.log("Playback blocked:", err);
   });
 }
-
 // Browsers block autoplay on page load, so the real trigger is the
 // "Enter the Invitation" click inside enterSite() — a user gesture,
 // which playback is always allowed from. This load attempt is only a
@@ -437,6 +437,8 @@ function stopAdminPolling() {
 // ─── CATEGORY GRID ──────────────────────────────────────────────────────────
 function buildCategoryGrid() {
   const grid = document.getElementById('category-grid');
+  // Guest Group was removed from the RSVP form — nothing to build.
+  if (!grid) return;
   const prevSelected = selectedCategory;
   grid.innerHTML = '';
   const cats = CATEGORIES[currentLang];
@@ -632,13 +634,6 @@ async function submitRSVP(e) {
         : 'Invalid phone number. Please enter 10 digits as (XXX) XXX-XXXX, or include a country code (e.g. +84...).'
     );
   }
-  if (!selectedCategory) {
-    return showRsvpError(
-      currentLang === 'vi'
-        ? 'Vui lòng chọn nhóm khách.'
-        : 'Please select your guest group.'
-    );
-  }
   if (attending === null) {
     return showRsvpError(
       currentLang === 'vi'
@@ -677,7 +672,7 @@ async function submitRSVP(e) {
       action:    'submit',
       name,
       phone,
-      category:  selectedCategory,
+      category:  'N/A',
       guests,
       attending: attending.toString(),
       dietary:   finalDietary
@@ -731,8 +726,11 @@ function resetRSVP() {
 
 // ─── LOOKUP ─────────────────────────────────────────────────────────────────
 async function lookupRSVP() {
-  const phone    = document.getElementById('lookup-phone').value.trim();
+  const phoneEl  = document.getElementById('lookup-phone');
   const resultEl = document.getElementById('lookup-result');
+  // The lookup page was removed from the site — bail out safely if it's absent.
+  if (!phoneEl || !resultEl) return;
+  const phone    = phoneEl.value.trim();
 
   if (!phone) {
     toast(currentLang === 'vi' ? 'Vui lòng nhập số điện thoại' : 'Please enter a phone number');

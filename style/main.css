@@ -724,7 +724,7 @@ body {
   .hero-bloom--tr, .hero-bloom--bl, .hero-bloom--mid-left, .hero-bloom--mid-right { display: none; }
   .hero-petal--5, .hero-petal--6, .hero-petal--8, .hero-petal--9, .hero-petal--11, .hero-petal--12, .hero-petal--14 { display: none; }
 }
-.hero-content { position: relative; z-index: 1; max-width: 680px; }
+.hero-content { position: relative; z-index: 1; max-width: 1100px; }
 .hero-eyebrow {
   font-size: 0.72rem;
   letter-spacing: 0.4em;
@@ -732,7 +732,7 @@ body {
   color: var(--blue);
   margin-bottom: 2.25rem;
 }
-.hero-names { display: flex; flex-direction: column; align-items: center; }
+.hero-names { display: flex; flex-direction: column; align-items: center; width: 100%; }
 .saint-name {
   font-family: var(--font-header);
   font-size: 1.15rem;
@@ -743,10 +743,11 @@ body {
 }
 .bride-name {
   font-family: var(--font-names);
-  font-size: clamp(2.9rem, 7.5vw, 5.4rem);
+  font-size: clamp(1.25rem, 7.2vw, 4.5rem);
   font-weight: 400;
   color: var(--navy);
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 .bride-viet {
   display: block;
@@ -765,10 +766,11 @@ body {
 }
 .groom-name {
   font-family: var(--font-names);
-  font-size: clamp(2.9rem, 7.5vw, 5.4rem);
+  font-size: clamp(1.25rem, 7.2vw, 4.5rem);
   font-weight: 400;
   color: var(--navy);
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 .hero-divider {
   display: flex;

@@ -11,7 +11,7 @@
   <link href="https://fonts.cdnfonts.com/css/aricot-2" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/hello-honey-personal-use" rel="stylesheet">
 
-  <link rel="stylesheet" href="style/main.css?v=4">
+  <link rel="stylesheet" href="style/main.css?v=6">
 
   <!-- ✅ FONT FIX (MOBILE + DESKTOP CONSISTENCY) -->
   <style>
@@ -381,7 +381,6 @@
         <p class="hero-sub" data-vi="Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn" data-en="Together with their families, joyfully invite you to celebrate their wedding">Cùng gia đình trân trọng kính mời quý vị đến dự lễ thành hôn</p>
         <div class="hero-actions">
           <button class="btn btn-primary" onclick="showPage('rsvp')" data-vi="Xác nhận tham dự" data-en="RSVP Now">Xác nhận tham dự</button>
-          <button class="btn btn-outline" onclick="showPage('lookup')" data-vi="Kiểm tra RSVP" data-en="Look Up RSVP">Kiểm tra RSVP</button>
         </div>
       </div>
       <svg class="hero-petal hero-petal--7" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -590,10 +589,6 @@
       <h2 class="page-title" data-vi="Xác nhận tham dự" data-en="RSVP">Xác nhận tham dự</h2>
       <p class="page-sub" data-vi="Vui lòng cho chúng tôi biết bạn có thể tham dự không" data-en="Please let us know whether you'll be able to join us">Vui lòng cho chúng tôi biết bạn có thể tham dự không</p>
       <div class="divider"><span>✦</span></div>
-      <p style="font-size:0.82rem">
-        <span data-vi="Đã gửi RSVP rồi?" data-en="Already RSVP'd?">Already RSVP'd?</span>
-        <a href="#" onclick="showPage('lookup');return false;" style="color:var(--blue-dark);font-weight:500" data-vi="Kiểm tra tại đây" data-en="Look it up here">Look it up here</a>
-      </p>
     </div>
 
     <div id="rsvp-form-wrap">
@@ -606,15 +601,9 @@
         </div>
         <div class="form-group">
           <label for="rsvp-phone" data-vi="Số điện thoại" data-en="Phone Number">Số điện thoại</label>
-          <p class="field-hint" data-vi="Mã quốc gia tùy chọn — ví dụ +1 hoặc +84" data-en="Country code optional — e.g. +1 or +84">Country code optional — e.g. +1 or +84</p>
           <input type="tel" id="rsvp-phone"
                  placeholder="(___) ___-____" inputmode="tel" maxlength="20"
                  oninput="formatPhoneField(event)" autocomplete="tel" required>
-        </div>
-        <div class="form-group">
-          <label data-vi="Nhóm khách" data-en="Guest Group">Nhóm khách</label>
-          <div class="category-grid" id="category-grid"></div>
-          <input type="hidden" id="rsvp-category">
         </div>
         <div class="form-group">
           <label for="rsvp-plusones" data-vi="Bạn có mang khách đi cùng không?" data-en="Will you be bringing any guests?">Will you be bringing any guests?</label>
@@ -672,29 +661,6 @@
     </div>
   </div>
 
-  <!-- ── LOOKUP ── -->
-  <div id="page-lookup" class="page">
-    <div class="page-header">
-      <h2 class="page-title" data-vi="Kiểm tra RSVP" data-en="Look Up RSVP">Kiểm tra RSVP</h2>
-      <p class="page-sub" data-vi="Nhập số điện thoại để xem thông tin đặt chỗ của bạn" data-en="Enter your phone number to view your reservation">Nhập số điện thoại để xem thông tin đặt chỗ của bạn</p>
-      <div class="divider"><span>✦</span></div>
-    </div>
-    <div class="lookup-card">
-      <div class="form-group">
-        <label for="lookup-phone" data-vi="Số điện thoại" data-en="Phone Number">Số điện thoại</label>
-        <p class="field-hint" data-vi="Mã quốc gia tùy chọn — ví dụ +1 hoặc +84" data-en="Country code optional — e.g. +1 or +84">Country code optional — e.g. +1 or +84</p>
-        <input type="tel" id="lookup-phone"
-               placeholder="(___) ___-____" inputmode="tel" maxlength="20"
-               oninput="formatPhoneField(event)"
-               onkeydown="if(event.key==='Enter')lookupRSVP()">
-      </div>
-      <button class="btn btn-primary btn-full" onclick="lookupRSVP()"
-              data-vi="Tìm kiếm" data-en="Find My RSVP">
-        Tìm kiếm
-      </button>
-      <div id="lookup-result"></div>
-    </div>
-  </div>
 
   <footer class="contact-footer">
     <p data-vi="Có câu hỏi nào không?" data-en="Have a question?">Have a question?</p>
@@ -703,6 +669,6 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="main.js?v=4"></script>
+  <script src="main.js?v=6"></script>
 </body>
         </html>
