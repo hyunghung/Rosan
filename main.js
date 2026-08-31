@@ -237,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buildGallery();
   initIntro();
   initReveal();
+  initParallax();
   setLanguage('en');
 
   document.getElementById('hamburger').addEventListener('click', () => {
@@ -259,6 +260,7 @@ function openEnvelope() {
   if (!envelope || envelope.classList.contains('open')) return;
 
   envelope.classList.add('open');
+  celebrate(envelope);
   setTimeout(() => card.classList.add('show'), 450);
 }
 
@@ -270,6 +272,9 @@ function enterSite(event) {
   overlay.classList.add('exit');
   document.documentElement.classList.remove('intro-active');
   playMusicWithFade();
+  petalLayer().classList.add('behind');
+  petalShower(28, 900);
+  startAmbientPetals();
 
   setTimeout(() => overlay.classList.add('hidden'), 850);
 }
@@ -938,6 +943,170 @@ function exportCSV() {
     .catch(() => toast(currentLang === 'vi' ? 'Không thể xuất CSV' : 'Could not export CSV'));
 }
 
+// ─── PETAL EFFECTS ──────────────────────────────────────────────────────────
+var PETAL_SHAPES = [
+  '<svg viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="9" ry="5" fill="COLOR" transform="rotate(35 10 10)"/></svg>',
+  '<svg viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="8" ry="4.5" fill="COLOR" transform="rotate(-20 10 10)"/></svg>',
+  '<svg viewBox="0 0 20 20"><path d="M10 1 C15 5 16 12 10 19 C4 12 5 5 10 1 Z" fill="COLOR"/></svg>',
+  '<svg viewBox="0 0 24 24"><g fill="COLOR">' +
+    '<ellipse cx="12" cy="7" rx="4" ry="5.5"/><ellipse cx="12" cy="7" rx="4" ry="5.5" transform="rotate(72 12 12)"/>' +
+    '<ellipse cx="12" cy="7" rx="4" ry="5.5" transform="rotate(144 12 12)"/><ellipse cx="12" cy="7" rx="4" ry="5.5" transform="rotate(216 12 12)"/>' +
+    '<ellipse cx="12" cy="7" rx="4" ry="5.5" transform="rotate(288 12 12)"/></g>' +
+    '<circle cx="12" cy="12" r="2.6" fill="CENTER"/></svg>'
+];
+
+function petalColors() {
+  var s = getComputedStyle(document.documentElement);
+  var pick = function (n, fallback) {
+    var v = s.getPropertyValue(n).trim();
+    return v || fallback;
+  };
+  return {
+    petals: [pick('--white', '#ffffff'), pick('--blue-light', '#d9e4f2'),
+             pick('--cream', '#f8f6f3'), pick('--dusty-blue', '#c9d8eb')],
+    center: pick('--blue', '#6f8fb8')
+  };
+}
+
+function petalLayer() {
+  var layer = document.getElementById('petal-layer');
+  if (!layer) {
+    layer = document.createElement('div');
+    layer.id = 'petal-layer';
+    document.body.appendChild(layer);
+  }
+  return layer;
+}
+
+function makePetal(colors) {
+  var shape = PETAL_SHAPES[Math.floor(Math.random() * PETAL_SHAPES.length)];
+  var fill = colors.petals[Math.floor(Math.random() * colors.petals.length)];
+  var el = document.createElement('div');
+  el.innerHTML = shape.replace(/COLOR/g, fill).replace(/CENTER/g, colors.center);
+  return el;
+}
+
+function reducedMotion() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// Big celebratory burst out of the envelope, then a shower of falling petals.
+function celebrate(originEl) {
+  if (reducedMotion()) return;
+  var layer = petalLayer();
+  layer.classList.remove('behind');
+  var colors = petalColors();
+
+  var rect = originEl
+    ? originEl.getBoundingClientRect()
+    : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 };
+  var ox = rect.left + rect.width / 2;
+  var oy = rect.top + rect.height / 2;
+
+  var glow = document.createElement('div');
+  glow.className = 'intro-glow';
+  glow.style.left = ox + 'px';
+  glow.style.top = oy + 'px';
+  glow.style.position = 'fixed';
+  glow.style.animation = 'introGlow 1.6s ease-out both';
+  layer.appendChild(glow);
+  setTimeout(function () { glow.remove(); }, 1800);
+
+  var burstCount = window.innerWidth < 640 ? 26 : 44;
+  for (var i = 0; i < burstCount; i++) {
+    (function (i) {
+      var p = makePetal(colors);
+      p.className = 'petal-burst';
+      var size = 10 + Math.random() * 20;
+      var angle = (Math.PI * 2 * i) / burstCount + (Math.random() - 0.5) * 0.5;
+      var dist = 120 + Math.random() * Math.min(window.innerWidth, 520) * 0.55;
+      p.style.width = size + 'px';
+      p.style.left = ox + 'px';
+      p.style.top = oy + 'px';
+      p.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+      p.style.setProperty('--by', (Math.sin(angle) * dist * 0.75 + 140) + 'px');
+      p.style.setProperty('--bs', (0.7 + Math.random() * 0.7).toFixed(2));
+      p.style.setProperty('--br', Math.round((Math.random() - 0.5) * 720) + 'deg');
+      p.style.animationDelay = (Math.random() * 0.18).toFixed(2) + 's';
+      layer.appendChild(p);
+      setTimeout(function () { p.remove(); }, 2400);
+    })(i);
+  }
+
+  // gentle shower afterwards
+  setTimeout(function () { petalShower(46, 1400); }, 260);
+  // then settle into a slow ambient drift behind the content
+  setTimeout(function () { layer.classList.add('behind'); startAmbientPetals(); }, 2600);
+}
+
+function petalShower(count, spread) {
+  if (reducedMotion()) return;
+  var layer = petalLayer();
+  var colors = petalColors();
+  for (var i = 0; i < count; i++) {
+    (function () {
+      var p = makePetal(colors);
+      p.className = 'petal-piece';
+      var size = 9 + Math.random() * 16;
+      var dur = 6 + Math.random() * 6;
+      p.style.width = size + 'px';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.animationDuration = dur + 's';
+      p.style.animationDelay = (Math.random() * (spread / 1000)).toFixed(2) + 's';
+      p.style.setProperty('--drift', Math.round((Math.random() - 0.5) * 220) + 'px');
+      p.style.setProperty('--spin', Math.round((Math.random() - 0.5) * 900) + 'deg');
+      layer.appendChild(p);
+      setTimeout(function () { p.remove(); }, (dur + spread / 1000 + 1) * 1000);
+    })();
+  }
+}
+
+// A few petals always drifting softly in the background.
+var ambientTimer = null;
+function startAmbientPetals() {
+  if (ambientTimer || reducedMotion()) return;
+  petalLayer().classList.add('behind');
+  ambientTimer = setInterval(function () {
+    if (document.hidden) return;
+    petalShower(1, 0);
+  }, 2600);
+}
+
+function stopAmbientPetals() {
+  if (ambientTimer) { clearInterval(ambientTimer); ambientTimer = null; }
+}
+
+// ─── PARALLAX ───────────────────────────────────────────────────────────────
+function initParallax() {
+  if (reducedMotion()) return;
+  if (!(CSS && CSS.supports && CSS.supports('translate', '0 10px'))) return;
+
+  var items = [].slice.call(document.querySelectorAll('.hero-bloom, .hero-petal, .section-bloom'));
+  if (!items.length) return;
+
+  items.forEach(function (el, i) {
+    el.dataset.depth = (0.07 + (i % 5) * 0.05).toFixed(3);
+  });
+
+  var ticking = false;
+  function update() {
+    var vh = window.innerHeight;
+    items.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) return;
+      var fromCenter = (r.top + r.height / 2) - vh / 2;
+      var d = parseFloat(el.dataset.depth) || 0.1;
+      el.style.translate = '0 ' + (-fromCenter * d).toFixed(1) + 'px';
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+}
+
 // ─── SCROLL REVEAL ──────────────────────────────────────────────────────────
 function initReveal() {
   const targets = document.querySelectorAll(
@@ -979,4 +1148,4 @@ function toast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2800);
-        }
+                          }
