@@ -1049,8 +1049,9 @@ function celebrate(originEl) {
 
   // gentle shower afterwards
   setTimeout(function () { petalShower(46, 1400); }, 260);
-  // then settle into a slow ambient drift behind the content
-  setTimeout(function () { layer.classList.add('behind'); startAmbientPetals(); }, 2600);
+  // keep drifting gently; the layer only moves behind the content once the
+  // guest leaves the envelope screen (see enterSite)
+  setTimeout(function () { startAmbientPetals(); }, 2600);
 }
 
 function petalShower(count, spread) {
@@ -1079,7 +1080,6 @@ function petalShower(count, spread) {
 var ambientTimer = null;
 function startAmbientPetals() {
   if (ambientTimer || reducedMotion()) return;
-  petalLayer().classList.add('behind');
   ambientTimer = setInterval(function () {
     if (document.hidden) return;
     petalShower(1, 0);
