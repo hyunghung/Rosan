@@ -632,7 +632,6 @@ async function submitRSVP(e) {
       action:    'submit',
       name,
       phone,
-      category:  'N/A',
       guests,
       attending: attending.toString(),
       dietary:   dietary || 'N/A',
@@ -643,7 +642,7 @@ async function submitRSVP(e) {
     const data = await res.json();
 
     if (!data.ok) {
-      showRsvpError(data.error || (currentLang === 'vi' ? 'Có lỗi xảy ra.' : 'Something went wrong.'));
+      showRsvpError(guestFacingError(data.error));
       return;
     }
 
@@ -664,6 +663,18 @@ async function submitRSVP(e) {
     submitBtn.disabled = false;
     submitBtn.textContent = currentLang === 'vi' ? 'Gửi xác nhận' : 'Submit RSVP';
   }
+}
+
+function guestFacingError(msg) {
+  const fallback = currentLang === 'vi'
+    ? 'Rất tiếc, đã có lỗi khi lưu phản hồi. Vui lòng thử lại hoặc liên hệ nguyenroselyn1020@gmail.com.'
+    : 'Sorry, something went wrong saving your RSVP. Please try again or contact nguyenroselyn1020@gmail.com.';
+  if (!msg) return fallback;
+  // Spreadsheet/script internals mean nothing to a guest — show the friendly text.
+  if (/validation rules|cell [A-Z]\d+|Exception|apps ?script|getRange|Service error/i.test(msg)) {
+    return fallback;
+  }
+  return msg;
 }
 
 function showRsvpError(msg) {
