@@ -236,7 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
   startCountdown();
   buildGallery();
   initIntro();
-  initReveal();
+  try { initReveal(); } catch (e) { console.warn('reveal skipped', e); }
+  try { initParallax(); } catch (e) { console.warn('parallax skipped', e); }
+  try { initScrollEffects(); } catch (e) { console.warn('scroll effects skipped', e); }
   setLanguage('en');
 
   document.getElementById('hamburger').addEventListener('click', () => {
@@ -259,6 +261,7 @@ function openEnvelope() {
   if (!envelope || envelope.classList.contains('open')) return;
 
   envelope.classList.add('open');
+  try { celebrate(envelope); } catch (e) { console.warn('celebration skipped', e); }
   setTimeout(() => card.classList.add('show'), 450);
 }
 
@@ -270,6 +273,9 @@ function enterSite(event) {
   overlay.classList.add('exit');
   document.documentElement.classList.remove('intro-active');
   playMusicWithFade();
+  petalLayer().classList.add('behind');
+  petalShower(28, 900);
+  startAmbientPetals();
 
   setTimeout(() => overlay.classList.add('hidden'), 850);
 }
@@ -395,6 +401,7 @@ function showPage(p) {
   }
   window.scrollTo(0, 0);
   setTimeout(revealActivePage, 50);
+  setTimeout(refreshScrollEffects, 60);
 }
 
 function startAdminPolling() {
@@ -614,9 +621,7 @@ async function submitRSVP(e) {
     );
   }
 
-  const finalDietary = plusOneNames.length
-    ? `Guests: ${plusOneNames.join(', ')}${dietary ? ' | Notes: ' + dietary : ''}`
-    : (dietary || 'N/A');
+  const guestNames = plusOneNames.join(', ');
 
   const submitBtn = document.getElementById('rsvp-submit');
   submitBtn.disabled = true;
@@ -630,7 +635,8 @@ async function submitRSVP(e) {
       category:  'N/A',
       guests,
       attending: attending.toString(),
-      dietary:   finalDietary
+      dietary:   dietary || 'N/A',
+      guestNames: guestNames
     });
 
     const res  = await fetch(`${APPS_SCRIPT_URL}?${params}`, { redirect: 'follow' });
@@ -710,12 +716,14 @@ async function lookupRSVP() {
     const g = data.data;
     const isVi = currentLang === 'vi';
 
-    let extraGuests = '';
+    let extraGuests = (g.guestNames || '').trim();
     let dietaryNote = g.dietary || '';
-    const guestsMatch = dietaryNote.match(/^Guests:\s*(.+?)(?:\s*\|\s*Notes:\s*(.*))?$/s);
-    if (guestsMatch) {
-      extraGuests = guestsMatch[1].trim();
-      dietaryNote = (guestsMatch[2] || '').trim();
+    if (!extraGuests) {
+      const legacy = dietaryNote.match(/^Guests:\s*(.+?)(?:\s*\|\s*Notes:\s*(.*))?$/s);
+      if (legacy) {
+        extraGuests = legacy[1].trim();
+        dietaryNote = (legacy[2] || '').trim();
+      }
     }
 
     resultEl.innerHTML = `
@@ -938,6 +946,323 @@ function exportCSV() {
     .catch(() => toast(currentLang === 'vi' ? 'Không thể xuất CSV' : 'Could not export CSV'));
 }
 
+// ─── PETAL EFFECTS ──────────────────────────────────────────────────────────
+var PETAL_SHAPES = [
+  '<svg viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="9" ry="5" fill="COLOR" transform="rotate(35 10 10)"/></svg>',
+  '<svg viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="8" ry="4.5" fill="COLOR" transform="rotate(-20 10 10)"/></svg>',
+  '<svg viewBox="0 0 20 20"><path d="M10 1 C15 5 16 12 10 19 C4 12 5 5 10 1 Z" fill="COLOR"/></svg>',
+  '<svg viewBox="0 0 24 24"><g fill="COLOR">' +
+    '<ellipse cx="12" cy="7" rx="4" ry="5.5"/><ellipse cx="12" cy="7" rx="4" ry="5.5" transform="rotate(72 12 12)"/>' +
+    '<ellipse cx="12" cy="7" rx="4" ry="5.5" transform="rotate(144 12 12)"/><ellipse cx="12" cy="7" rx="4" ry="5.5" transform="rotate(216 12 12)"/>' +
+    '<ellipse cx="12" cy="7" rx="4" ry="5.5" transform="rotate(288 12 12)"/></g>' +
+    '<circle cx="12" cy="12" r="2.6" fill="CENTER"/></svg>'
+];
+
+function petalColors() {
+  var s = getComputedStyle(document.documentElement);
+  var pick = function (n, fallback) {
+    var v = s.getPropertyValue(n).trim();
+    return v || fallback;
+  };
+  return {
+    petals: [pick('--white', '#ffffff'), pick('--blue-light', '#d9e4f2'),
+             pick('--cream', '#f8f6f3'), pick('--dusty-blue', '#c9d8eb')],
+    center: pick('--blue', '#6f8fb8')
+  };
+}
+
+function petalLayer() {
+  var layer = document.getElementById('petal-layer');
+  if (!layer) {
+    layer = document.createElement('div');
+    layer.id = 'petal-layer';
+    document.body.appendChild(layer);
+  }
+  return layer;
+}
+
+function makePetal(colors) {
+  var shape = PETAL_SHAPES[Math.floor(Math.random() * PETAL_SHAPES.length)];
+  var fill = colors.petals[Math.floor(Math.random() * colors.petals.length)];
+  var el = document.createElement('div');
+  el.innerHTML = shape.replace(/COLOR/g, fill).replace(/CENTER/g, colors.center);
+  return el;
+}
+
+function reducedMotion() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// Big celebratory burst out of the envelope, then a shower of falling petals.
+function celebrate(originEl) {
+  if (reducedMotion()) return;
+  var layer = petalLayer();
+  layer.classList.remove('behind');
+  var colors = petalColors();
+
+  var rect = originEl
+    ? originEl.getBoundingClientRect()
+    : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 };
+  var ox = rect.left + rect.width / 2;
+  var oy = rect.top + rect.height / 2;
+
+  var glow = document.createElement('div');
+  glow.className = 'intro-glow';
+  glow.style.left = ox + 'px';
+  glow.style.top = oy + 'px';
+  glow.style.position = 'fixed';
+  glow.style.animation = 'introGlow 1.6s ease-out both';
+  layer.appendChild(glow);
+  setTimeout(function () { glow.remove(); }, 1800);
+
+  var burstCount = window.innerWidth < 640 ? 26 : 44;
+  for (var i = 0; i < burstCount; i++) {
+    (function (i) {
+      var p = makePetal(colors);
+      p.className = 'petal-burst';
+      var size = 10 + Math.random() * 20;
+      var angle = (Math.PI * 2 * i) / burstCount + (Math.random() - 0.5) * 0.5;
+      var dist = 120 + Math.random() * Math.min(window.innerWidth, 520) * 0.55;
+      p.style.width = size + 'px';
+      p.style.left = ox + 'px';
+      p.style.top = oy + 'px';
+      p.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+      p.style.setProperty('--by', (Math.sin(angle) * dist * 0.75 + 140) + 'px');
+      p.style.setProperty('--bs', (0.7 + Math.random() * 0.7).toFixed(2));
+      p.style.setProperty('--br', Math.round((Math.random() - 0.5) * 720) + 'deg');
+      p.style.animationDelay = (Math.random() * 0.18).toFixed(2) + 's';
+      layer.appendChild(p);
+      setTimeout(function () { p.remove(); }, 2400);
+    })(i);
+  }
+
+  // gentle shower afterwards
+  setTimeout(function () { petalShower(46, 1400); }, 260);
+  // then settle into a slow ambient drift behind the content
+  setTimeout(function () { layer.classList.add('behind'); startAmbientPetals(); }, 2600);
+}
+
+function petalShower(count, spread) {
+  if (reducedMotion()) return;
+  var layer = petalLayer();
+  var colors = petalColors();
+  for (var i = 0; i < count; i++) {
+    (function () {
+      var p = makePetal(colors);
+      p.className = 'petal-piece';
+      var size = 9 + Math.random() * 16;
+      var dur = 6 + Math.random() * 6;
+      p.style.width = size + 'px';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.animationDuration = dur + 's';
+      p.style.animationDelay = (Math.random() * (spread / 1000)).toFixed(2) + 's';
+      p.style.setProperty('--drift', Math.round((Math.random() - 0.5) * 220) + 'px');
+      p.style.setProperty('--spin', Math.round((Math.random() - 0.5) * 900) + 'deg');
+      layer.appendChild(p);
+      setTimeout(function () { p.remove(); }, (dur + spread / 1000 + 1) * 1000);
+    })();
+  }
+}
+
+// A few petals always drifting softly in the background.
+var ambientTimer = null;
+function startAmbientPetals() {
+  if (ambientTimer || reducedMotion()) return;
+  petalLayer().classList.add('behind');
+  ambientTimer = setInterval(function () {
+    if (document.hidden) return;
+    petalShower(1, 0);
+  }, 2600);
+}
+
+function stopAmbientPetals() {
+  if (ambientTimer) { clearInterval(ambientTimer); ambientTimer = null; }
+}
+
+// ─── PARALLAX ───────────────────────────────────────────────────────────────
+function initParallax() {
+  if (reducedMotion()) return;
+  if (typeof CSS === 'undefined' || !CSS.supports || !CSS.supports('translate', '0 10px')) return;
+
+  var items = [].slice.call(document.querySelectorAll('.hero-bloom, .hero-petal, .section-bloom'));
+  if (!items.length) return;
+
+  items.forEach(function (el, i) {
+    el.dataset.depth = (0.07 + (i % 5) * 0.05).toFixed(3);
+  });
+
+  var ticking = false;
+  function update() {
+    var vh = window.innerHeight;
+    items.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) return;
+      var fromCenter = (r.top + r.height / 2) - vh / 2;
+      var d = parseFloat(el.dataset.depth) || 0.1;
+      el.style.translate = '0 ' + (-fromCenter * d).toFixed(1) + 'px';
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+}
+
+// ─── SCROLL EFFECTS ─────────────────────────────────────────────────────────
+function onceVisible(elements, onShow, opts) {
+  var list = [].slice.call(elements);
+  if (!list.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    list.forEach(onShow);
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { onShow(e.target); io.unobserve(e.target); }
+    });
+  }, opts || { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
+  list.forEach(function (el) { io.observe(el); });
+  return io;
+}
+
+// Thin line across the top showing how far down the page you are.
+function initScrollProgress() {
+  if (reducedMotion()) return;
+  var bar = document.createElement('div');
+  bar.id = 'scroll-progress';
+  document.body.appendChild(bar);
+
+  var ticking = false;
+  function update() {
+    var doc = document.documentElement;
+    var max = (doc.scrollHeight - window.innerHeight);
+    var pct = max > 0 ? Math.min(1, (window.pageYOffset || doc.scrollTop) / max) : 0;
+    bar.style.width = (pct * 100).toFixed(2) + '%';
+    bar.style.opacity = pct > 0.005 ? '1' : '0';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+}
+
+// Story photos and their text glide in from opposite sides.
+function initStorySlides() {
+  if (reducedMotion()) return;
+  var rows = document.querySelectorAll('.story-row');
+  [].forEach.call(rows, function (r) { r.classList.add('slide-ready'); });
+  onceVisible(rows, function (el) { el.classList.add('slide-in'); },
+    { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
+}
+
+// Divider hairlines draw outward from the centre, then the ✦ fades in.
+function initDividerDraw() {
+  if (reducedMotion()) return;
+  var dividers = document.querySelectorAll('.divider');
+  [].forEach.call(dividers, function (d) { d.classList.add('draw'); });
+  onceVisible(dividers, function (el) { el.classList.add('drawn'); },
+    { threshold: 0.6 });
+}
+
+// Countdown circles pop in one after another.
+function initCountdownPop() {
+  if (reducedMotion()) return;
+  var grid = document.querySelector('.countdown-grid');
+  if (!grid) return;
+  var boxes = grid.querySelectorAll('.countdown-box');
+  [].forEach.call(boxes, function (b) { b.classList.add('pop-ready'); });
+  onceVisible([grid], function () {
+    [].forEach.call(boxes, function (b, i) {
+      setTimeout(function () {
+        b.classList.remove('pop-ready');
+        b.classList.add('pop-in');
+      }, i * 110);
+    });
+  }, { threshold: 0.35 });
+}
+
+// Mass / Reception cards rise in sequence.
+function initDetailCards() {
+  if (reducedMotion()) return;
+  var cards = document.querySelectorAll('.detail-card');
+  if (!cards.length) return;
+  [].forEach.call(cards, function (c) { c.classList.add('tilt-ready'); });
+  onceVisible(cards, function (el) {
+    var siblings = [].slice.call(document.querySelectorAll('.detail-card'));
+    var i = siblings.indexOf(el);
+    setTimeout(function () {
+      el.classList.remove('tilt-ready');
+      el.classList.add('tilt-in');
+    }, Math.max(0, i) * 140);
+  }, { threshold: 0.2 });
+}
+
+// The church illustration drifts slowly inside its frame as you pass it.
+function initBannerDrift() {
+  if (reducedMotion()) return;
+  var wrap = document.querySelector('.church-banner');
+  if (!wrap) return;
+  var img = wrap.querySelector('img');
+  if (!img) return;
+
+  var ticking = false;
+  function update() {
+    var r = wrap.getBoundingClientRect();
+    var vh = window.innerHeight;
+    if (r.bottom > -100 && r.top < vh + 100) {
+      var progress = (vh - r.top) / (vh + r.height);   // 0 entering -> 1 leaving
+      var shift = (progress - 0.5) * 34;               // px of travel
+      img.style.transform = 'scale(1.1) translateY(' + shift.toFixed(1) + 'px)';
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+}
+
+// Section headings rise up from behind an invisible line.
+function initTitleRise() {
+  if (reducedMotion()) return;
+  var titles = document.querySelectorAll('.section-title, .page-title');
+  [].forEach.call(titles, function (t) { t.classList.add('rise'); });
+  onceVisible(titles, function (el) { el.classList.add('risen'); }, { threshold: 0.45 });
+}
+
+function initScrollEffects() {
+  initScrollProgress();
+  initStorySlides();
+  initDividerDraw();
+  initCountdownPop();
+  initDetailCards();
+  initBannerDrift();
+  initTitleRise();
+}
+
+// Re-arm effects for whichever page just became visible.
+function refreshScrollEffects() {
+  if (reducedMotion()) return;
+  var page = document.querySelector('.page.active');
+  if (!page) return;
+  var vh = window.innerHeight;
+  page.querySelectorAll('.slide-ready, .pop-ready, .tilt-ready, .divider.draw, .section-title.rise, .page-title.rise')
+    .forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) {
+        el.classList.add('slide-in', 'drawn', 'risen');
+        if (el.classList.contains('pop-ready')) { el.classList.remove('pop-ready'); el.classList.add('pop-in'); }
+        if (el.classList.contains('tilt-ready')) { el.classList.remove('tilt-ready'); el.classList.add('tilt-in'); }
+      }
+    });
+}
+
 // ─── SCROLL REVEAL ──────────────────────────────────────────────────────────
 function initReveal() {
   const targets = document.querySelectorAll(
@@ -979,4 +1304,4 @@ function toast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2800);
-        }
+                          }
