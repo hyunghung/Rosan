@@ -222,6 +222,7 @@ function setLanguage(lang) {
 
   buildCategoryGrid();
   buildFilterCategoryDropdown();
+  refreshOpenFaq();
 
   if (adminPassword) {
     loadGuests();
@@ -463,48 +464,6 @@ function categoryLabel(viName) {
   return i === -1 ? viName : CATEGORIES[currentLang][i];
 }
 
-// ─── PLUS-ONE GUEST NAMES ───────────────────────────────────────────────────
-function updatePlusOneFields() {
-  const n = parseInt(document.getElementById('rsvp-plusones').value, 10) || 0;
-  const wrap = document.getElementById('plusone-names-wrap');
-  const existing = {};
-  wrap.querySelectorAll('.plusone-name-input').forEach(input => {
-    existing[input.dataset.index] = input.value;
-  });
-
-  wrap.innerHTML = '';
-  if (n > 0) {
-    wrap.style.display = 'block';
-    for (let i = 1; i <= n; i++) {
-      const guestNumber = i + 1;
-      const field = document.createElement('div');
-      field.style.marginTop = i === 1 ? '0' : '0.9rem';
-
-      const label = document.createElement('label');
-      label.setAttribute('data-vi', `Tên khách ${guestNumber}`);
-      label.setAttribute('data-en', `Guest ${guestNumber} Name`);
-      label.textContent = currentLang === 'vi' ? `Tên khách ${guestNumber}` : `Guest ${guestNumber} Name`;
-
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.className = 'plusone-name-input';
-      input.dataset.index = String(i);
-      input.setAttribute('data-vi-placeholder', 'Tên đầy đủ');
-      input.setAttribute('data-en-placeholder', 'Full name');
-      input.placeholder = currentLang === 'vi' ? 'Tên đầy đủ' : 'Full name';
-      input.required = true;
-      if (existing[i]) input.value = existing[i];
-
-      field.appendChild(label);
-      field.appendChild(input);
-      wrap.appendChild(field);
-    }
-  } else {
-    wrap.style.display = 'none';
-  }
-
-  document.getElementById('rsvp-guests').value = String(1 + n);
-}
 
 // ─── ATTENDANCE TOGGLE ──────────────────────────────────────────────────────
 function selectAttendance(val) {
@@ -512,7 +471,6 @@ function selectAttendance(val) {
   document.getElementById('rsvp-attending').value = val;
   document.getElementById('btn-yes').className = 'att-btn att-yes' + (val === true ? ' selected-yes' : '');
   document.getElementById('btn-no').className  = 'att-btn att-no'  + (val === false ? ' selected-no'  : '');
-  document.getElementById('dietary-wrap').style.display = val ? 'block' : 'none';
 }
 
 // ─── SUBMIT RSVP ────────────────────────────────────────────────────────────
@@ -567,9 +525,6 @@ async function submitRSVP(e) {
   const name     = document.getElementById('rsvp-name').value.trim();
   const phone    = document.getElementById('rsvp-phone').value.trim();
   const guests   = document.getElementById('rsvp-guests').value;
-  const dietary  = document.getElementById('rsvp-dietary').value.trim();
-  const plusOneInputs = [...document.querySelectorAll('.plusone-name-input')];
-  const plusOneNames  = plusOneInputs.map(i => i.value.trim());
 
   if (!name) {
     return showRsvpError(
@@ -606,22 +561,7 @@ async function submitRSVP(e) {
         : 'Please confirm your attendance.'
     );
   }
-  if (plusOneNames.some(n => !n)) {
-    return showRsvpError(
-      currentLang === 'vi'
-        ? 'Vui lòng nhập tên cho mỗi khách đi cùng.'
-        : 'Please enter a name for each additional guest.'
-    );
-  }
-  if (attending && !dietary) {
-    return showRsvpError(
-      currentLang === 'vi'
-        ? 'Vui lòng điền yêu cầu ăn uống. Nếu không có, ghi "Không có".'
-        : 'Please fill in dietary info. If none, write "None".'
-    );
-  }
 
-  const guestNames = plusOneNames.join(', ');
 
   const submitBtn = document.getElementById('rsvp-submit');
   submitBtn.disabled = true;
@@ -634,22 +574,22 @@ async function submitRSVP(e) {
       phone,
       guests,
       attending: attending.toString(),
-      dietary:   dietary || 'N/A',
-      guestNames: guestNames
+      dietary:   '',
+      guestNames: ''
     });
 
     const res  = await fetch(`${APPS_SCRIPT_URL}?${params}`, { redirect: 'follow' });
     const data = await res.json();
 
     if (!data.ok) {
-      showRsvpError(guestFacingError(data.error));
+      showRsvpError(guestFacingError(pickLang(data, 'error')));
       return;
     }
 
     document.getElementById('rsvp-form-wrap').style.display = 'none';
     document.getElementById('rsvp-success').style.display   = 'block';
     document.getElementById('success-title').textContent    = currentLang === 'vi' ? 'Cảm ơn bạn!' : 'Thank You!';
-    document.getElementById('success-msg').textContent      = data.message;
+    document.getElementById('success-msg').textContent      = pickLang(data, 'message');
     document.getElementById('success-seat').innerHTML       = data.data.table
       ? `<div class="seat-badge">${currentLang === 'vi' ? 'Bàn số' : 'Table'} ${data.data.table}</div>`
       : '';
@@ -663,6 +603,14 @@ async function submitRSVP(e) {
     submitBtn.disabled = false;
     submitBtn.textContent = currentLang === 'vi' ? 'Gửi xác nhận' : 'Submit RSVP';
   }
+}
+
+// The server sends each message in both languages (errorVi / errorEn,
+// messageVi / messageEn). Show only the one the guest is reading.
+function pickLang(data, field) {
+  if (!data) return '';
+  const suffix = currentLang === 'vi' ? 'Vi' : 'En';
+  return data[field + suffix] || data[field] || '';
 }
 
 function guestFacingError(msg) {
@@ -688,10 +636,8 @@ function resetRSVP() {
   document.getElementById('rsvp-form').reset();
   document.getElementById('btn-yes').className = 'att-btn att-yes';
   document.getElementById('btn-no').className = 'att-btn att-no';
-  document.getElementById('dietary-wrap').style.display = 'none';
   document.getElementById('rsvp-error').style.display = 'none';
   buildCategoryGrid();
-  updatePlusOneFields();
   document.getElementById('rsvp-form-wrap').style.display = 'block';
   document.getElementById('rsvp-success').style.display = 'none';
 }
@@ -720,7 +666,7 @@ async function lookupRSVP() {
     const data   = await res.json();
 
     if (!data.ok) {
-      resultEl.innerHTML = `<div class="error-msg">${data.error || (currentLang === 'vi' ? 'Không tìm thấy RSVP' : 'No RSVP found')}</div>`;
+      resultEl.innerHTML = `<div class="error-msg">${pickLang(data, 'error') || (currentLang === 'vi' ? 'Không tìm thấy RSVP' : 'No RSVP found')}</div>`;
       return;
     }
 
@@ -1306,6 +1252,33 @@ function revealActivePage() {
   page.querySelectorAll('.reveal').forEach(el => {
     const top = el.getBoundingClientRect().top;
     if (top < window.innerHeight) el.classList.add('is-visible');
+  });
+}
+
+// ─── FAQ ────────────────────────────────────────────────────────────────────
+function toggleFaq(btn) {
+  var item = btn.parentNode;
+  var panel = item.querySelector('.faq-a');
+  var isOpen = item.classList.contains('open');
+
+  // close whichever one is open so only a single answer shows at a time
+  var list = item.parentNode;
+  list.querySelectorAll('.faq-item.open').forEach(function (other) {
+    other.classList.remove('open');
+    var p = other.querySelector('.faq-a');
+    if (p) p.style.maxHeight = null;
+  });
+
+  if (!isOpen) {
+    item.classList.add('open');
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+  }
+}
+
+// An open answer must regrow if the text length changes (language switch).
+function refreshOpenFaq() {
+  document.querySelectorAll('.faq-item.open .faq-a').forEach(function (p) {
+    p.style.maxHeight = p.scrollHeight + 'px';
   });
 }
 

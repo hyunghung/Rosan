@@ -10,7 +10,7 @@
   <link href="https://fonts.cdnfonts.com/css/aricot-2" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/hello-honey-personal-use" rel="stylesheet">
 
-  <link rel="stylesheet" href="style/main.css?v=17">
+  <link rel="stylesheet" href="style/main.css?v=22">
 
   <style>
     html {
@@ -250,6 +250,7 @@
       <button onclick="showPage('story')" id="nav-story" data-vi="Chuyện tình" data-en="Our Story">Our Story</button>
       <button onclick="showPage('gallery')" id="nav-gallery" data-vi="Thư viện" data-en="Gallery">Gallery</button>
       <button onclick="showPage('eventdetail')" id="nav-eventdetail" data-vi="Chi tiết sự kiện" data-en="Event Details">Event Details</button>
+      <button onclick="showPage('faq')" id="nav-faq" data-vi="Câu hỏi" data-en="FAQ">FAQ</button>
       <button onclick="showPage('rsvp')" id="nav-rsvp">RSVP</button>
     </div>
   </nav>
@@ -580,6 +581,135 @@
     </section>
   </div>
 
+  <!-- ── FAQ ── -->
+  <div id="page-faq" class="page">
+    <section class="faq-section">
+      <div class="page-header" style="padding-top:0">
+        <p class="section-eyebrow" data-vi="Những điều cần biết" data-en="Good to Know">Good to Know</p>
+        <h2 class="section-title" data-vi="Câu Hỏi Thường Gặp" data-en="Frequently Asked Questions">Frequently Asked Questions</h2>
+        <div class="divider"><span>✦</span></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Tôi xác nhận tham dự khi nào và bằng cách nào?" data-en="When and how do I RSVP?">When and how do I RSVP?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Xin quý vị vui lòng xác nhận tham dự trước ngày 1 tháng 11 năm 2026. Quý vị có thể xác nhận ngay trên trang web này. Nếu gặp trục trặc khi gửi, xin nhắn tin đến số (916) 279-2027." data-en="Please RSVP by November 1, 2026. You can RSVP right here on our wedding website. If you have any trouble with the RSVP form, please send a message to (916) 279-2027.">Please RSVP by November 1, 2026. You can RSVP right here on our wedding website. If you have any trouble with the RSVP form, please send a message to (916) 279-2027.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Tôi có thể mang theo người đi cùng hoặc trẻ em không?" data-en="Can I bring a plus-one or children?">Can I bring a plus-one or children?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Đám cưới của chúng tôi chỉ dành cho những khách đã được mời. Vì sức chứa của nhà hàng có hạn, chúng tôi rất tiếc không thể tiếp đón thêm khách ngoài danh sách ghi trên thiệp mời. Xin chân thành cảm ơn quý vị đã thông cảm!" data-en="Our wedding is strictly RSVP only. Due to the capacity of our reception venue, we are sadly unable to accommodate additional guests. We will only be able to accommodate those listed on your invitation. Thank you for understanding!">Our wedding is strictly RSVP only. Due to the capacity of our reception venue, we are sadly unable to accommodate additional guests. We will only be able to accommodate those listed on your invitation. Thank you for understanding!</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Tôi nên đến lúc mấy giờ?" data-en="When should I arrive?">When should I arrive?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Cửa mở lúc 1:30 chiều cho Thánh lễ và 5:30 chiều cho tiệc cưới. Xin quý vị đến đúng giờ." data-en="Doors will open at 1:30 PM for the wedding ceremony and 5:30 PM for the wedding reception. Please arrive in a timely manner.">Doors will open at 1:30 PM for the wedding ceremony and 5:30 PM for the wedding reception. Please arrive in a timely manner.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Trang phục như thế nào là phù hợp?" data-en="What is the dress code?">What is the dress code?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Thánh lễ: trang phục trang trọng (formal). Các em Thiếu Nhi có thể mặc đồng phục TNTT. Chúng tôi rất hoan nghênh và khuyến khích quý vị mặc áo dài truyền thống. Tiệc cưới: xin quý vị mặc trang phục cocktail hoặc trang trọng — hãy thật lộng lẫy nhé!" data-en="The dress code for the wedding ceremony is formal attire. Thiếu Nhi members are welcome to wear TNTT uniform. Vietnamese cultural attire (Áo Dài) is welcomed and encouraged. Cocktail/formal attire is requested for the wedding reception. Dress to impress!">The dress code for the wedding ceremony is formal attire. Thiếu Nhi members are welcome to wear TNTT uniform. Vietnamese cultural attire (Áo Dài) is welcomed and encouraged. Cocktail/formal attire is requested for the wedding reception. Dress to impress!</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Tôi có được chụp ảnh hoặc quay phim trong Thánh lễ không?" data-en="Am I allowed to take pictures or videos of the ceremony?">Am I allowed to take pictures or videos of the ceremony?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Để giữ sự trang nghiêm cho Thánh lễ Công giáo, xin quý vị không lấy điện thoại hay máy ảnh ra sử dụng trong suốt nghi thức. Chúng tôi đã mời thợ chụp hình để ghi lại những khoảnh khắc đặc biệt này. Trong tiệc cưới, xin quý vị thoải mái chụp hình và quay phim tùy thích!" data-en="Out of respect for the Catholic Mass, the wedding ceremony is an unplugged ceremony. Please do not take out and use your phones or cameras during the ceremony. We have photographers hired to capture the special moments. However, please feel free to take as many pictures and videos as you desire during the wedding reception.">Out of respect for the Catholic Mass, the wedding ceremony is an unplugged ceremony. Please do not take out and use your phones or cameras during the ceremony. We have photographers hired to capture the special moments. However, please feel free to take as many pictures and videos as you desire during the wedding reception.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Bãi đậu xe thế nào?" data-en="What's the parking situation?">What's the parking situation?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Bãi đậu xe tại Giáo Xứ Các Thánh Tử Đạo Việt Nam rộng rãi và miễn phí. Nhà hàng New Happy Garden có bãi đậu xe miễn phí nhưng số chỗ hạn chế." data-en="Parking at Vietnamese Martyrs Parish is free and plentiful. New Happy Garden has limited but free parking.">Parking at Vietnamese Martyrs Parish is free and plentiful. New Happy Garden has limited but free parking.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Bữa tối sẽ có món gì?" data-en="What food will be served for dinner?">What food will be served for dinner?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Bữa tối là tiệc nhiều món dọn theo kiểu gia đình truyền thống. Chúng tôi sẽ cố gắng lưu ý đến các nhu cầu ăn uống khác nhau, nhưng rất tiếc không thể đáp ứng từng yêu cầu riêng biệt. Chúng tôi sẽ cập nhật thực đơn đầy đủ tại đây sau khi chọn xong!" data-en="Dinner will be served as a traditional, family-style, multi-course banquet. While we will do our best to consider differing dietary needs, please note that we cannot accommodate specific dietary restrictions. We will update the FAQ with the full menu once selected!">Dinner will be served as a traditional, family-style, multi-course banquet. While we will do our best to consider differing dietary needs, please note that we cannot accommodate specific dietary restrictions. We will update the FAQ with the full menu once selected!</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Thời tiết hôm đó thế nào?" data-en="What weather should I expect?">What weather should I expect?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Thời tiết ngày 5 tháng 12 thay đổi khá nhiều, trung bình cao khoảng 60°F và thấp khoảng 45°F. Xin quý vị theo dõi dự báo thời tiết để mặc cho phù hợp. Cả Thánh lễ và tiệc cưới đều diễn ra trong nhà." data-en="December 5th weather varies greatly, with an average high of 60°F and low of 45°F. Please keep an eye on the weather so you can dress accordingly. Both the ceremony and the reception will be indoors.">December 5th weather varies greatly, with an average high of 60°F and low of 45°F. Please keep an eye on the weather so you can dress accordingly. Both the ceremony and the reception will be indoors.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Tôi bay đến, sân bay nào gần nhất?" data-en="I'm flying in — what's the closest airport?">I'm flying in — what's the closest airport?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Sân bay Quốc tế Sacramento (SMF). Sân bay cách Elk Grove khoảng 30 dặm theo đường I-5 S, và cách South Sacramento khoảng 21 dặm theo đường I-5 S và CA-99 S." data-en="Sacramento International Airport (SMF). The airport is about 30 miles from Elk Grove traveling on I-5 S, and 21 miles from South Sacramento traveling on I-5 S and CA-99 S.">Sacramento International Airport (SMF). The airport is about 30 miles from Elk Grove traveling on I-5 S, and 21 miles from South Sacramento traveling on I-5 S and CA-99 S.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Tôi ở xa đến, nên đặt khách sạn nào?" data-en="I'm coming from out of town — what hotel should I book?">I'm coming from out of town — what hotel should I book?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Dưới đây là một số khách sạn trong khu vực:" data-en="Here are a few local hotels in the area:">Here are a few local hotels in the area:</p>
+            <ul class="faq-list-inline">
+              <li><strong>Hilton Garden Inn</strong><br>9241 Laguna Springs Dr, Elk Grove, CA 95758</li>
+              <li><strong>Holiday Inn Express &amp; Suites Elk Grove Central</strong><br>9175 W Stockton Blvd, Elk Grove, CA 95758</li>
+              <li><strong>Holiday Inn Express &amp; Suites Elk Grove West</strong><br>2460 Maritime Dr, Elk Grove, CA 95758</li>
+              <li><strong>TownePlace Suites Sacramento Elk Grove</strong><br>9320 E Stockton Blvd, Elk Grove, CA 95624</li>
+              <li><strong>Hampton Inn &amp; Suites Sacramento-Elk Grove Laguna</strong><br>2305 Longport Ct, Elk Grove, CA 95758</li>
+              <li><strong>Fairfield Inn &amp; Suites Sacramento Elk Grove</strong><br>8058 Orchard Loop Ln, Elk Grove, CA 95624</li>
+            </ul>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="toggleFaq(this)">
+            <span data-vi="Tôi có thời gian rảnh, có gì để làm không?" data-en="I have time — what is there to do?">I have time — what is there to do?</span>
+            <span class="faq-mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p data-vi="Giữa Thánh lễ và tiệc cưới sẽ có một khoảng thời gian trống. Sacramento và Elk Grove có rất nhiều quán trà sữa ngon, chẳng hạn như:" data-en="There will be some time in between the wedding ceremony and the reception. Sacramento and Elk Grove are home to many boba spots. Some great places are:">There will be some time in between the wedding ceremony and the reception. Sacramento and Elk Grove are home to many boba spots. Some great places are:</p>
+            <ul class="faq-list-inline">
+              <li><strong>Vinhouse</strong></li>
+              <li><strong>Moo Moo&#39;s</strong></li>
+              <li><strong>Rose Tea Lounge</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p class="faq-footer">
+        <span data-vi="Vẫn còn thắc mắc?" data-en="Still have a question?">Still have a question?</span>
+        <a href="mailto:nguyenroselyn1020@gmail.com">nguyenroselyn1020@gmail.com</a>
+      </p>
+    </section>
+  </div>
+
   <!-- ── RSVP ── -->
   <div id="page-rsvp" class="page">
     <div class="page-header">
@@ -602,18 +732,6 @@
                  placeholder="(___) ___-____" inputmode="tel" maxlength="20"
                  oninput="formatPhoneField(event)" autocomplete="tel" required>
         </div>
-        <div class="form-group">
-          <label for="rsvp-plusones" data-vi="Bạn có mang khách đi cùng không?" data-en="Will you be bringing any guests?">Will you be bringing any guests?</label>
-          <select id="rsvp-plusones" onchange="updatePlusOneFields()">
-            <option value="0" data-vi="Chỉ mình tôi" data-en="Just me">Just me</option>
-            <option value="1" data-vi="+1 khách" data-en="+1 guest">+1 guest</option>
-            <option value="2" data-vi="+2 khách" data-en="+2 guests">+2 guests</option>
-            <option value="3" data-vi="+3 khách" data-en="+3 guests">+3 guests</option>
-            <option value="4" data-vi="+4 khách" data-en="+4 guests">+4 guests</option>
-            <option value="5" data-vi="+5 khách" data-en="+5 guests">+5 guests</option>
-          </select>
-        </div>
-        <div class="form-group" id="plusone-names-wrap" style="display:none"></div>
         <input type="hidden" id="rsvp-guests" value="1">
         <div class="form-group">
           <label data-vi="Xác nhận tham dự" data-en="Attendance">Xác nhận tham dự</label>
@@ -628,13 +746,6 @@
             </button>
           </div>
           <input type="hidden" id="rsvp-attending">
-        </div>
-        <div class="form-group" id="dietary-wrap" style="display:none">
-          <label for="rsvp-dietary" data-vi="Yêu cầu ăn uống" data-en="Dietary Restrictions">Yêu cầu ăn uống</label>
-          <textarea id="rsvp-dietary" rows="2"
-                    data-vi-placeholder="Ví dụ: ăn chay, dị ứng đậu phộng..."
-                    data-en-placeholder="e.g. vegetarian, peanut allergy..."
-                    placeholder="Ví dụ: ăn chay, dị ứng đậu phộng..."></textarea>
         </div>
         <div id="rsvp-error" class="error-msg" style="display:none"></div>
         <button type="submit" class="btn btn-primary btn-full" id="rsvp-submit"
@@ -665,6 +776,6 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="main.js?v=17"></script>
+  <script src="main.js?v=22"></script>
 </body>
 </html>
