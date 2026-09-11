@@ -10,7 +10,7 @@
   <link href="https://fonts.cdnfonts.com/css/aricot-2" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/hello-honey-personal-use" rel="stylesheet">
 
-  <link rel="stylesheet" href="style/main.css?v=22">
+  <link rel="stylesheet" href="style/main.css?v=24">
 
   <style>
     html {
@@ -542,9 +542,11 @@
         <h2 class="section-title" data-vi="Thư Viện Ảnh" data-en="Gallery">Thư Viện Ảnh</h2>
         <div class="divider"><span>✦</span></div>
       </div>
-      <div class="gallery-placeholder">
-        <p class="gallery-placeholder-mark" aria-hidden="true">✦</p>
-        <p data-vi="Hình ảnh sẽ sớm được cập nhật — mời bạn ghé lại xem nhé!" data-en="Photos coming soon — check back after our photoshoot!">Photos coming soon — check back after our photoshoot!</p>
+      <div class="gallery-wrap">
+        <div class="gallery-stage" id="gallery-stage">
+          <button class="gallery-arrow gallery-prev" onclick="galleryPrev()" aria-label="Previous photo">&#10094;</button>
+          <button class="gallery-arrow gallery-next" onclick="galleryNext()" aria-label="Next photo">&#10095;</button>
+        </div>
       </div>
     </section>
   </div>
@@ -732,6 +734,23 @@
                  placeholder="(___) ___-____" inputmode="tel" maxlength="20"
                  oninput="formatPhoneField(event)" autocomplete="tel" required>
         </div>
+        <div class="form-group">
+          <label for="rsvp-party" data-vi="Tổng số người sẽ tham dự (kể cả bạn)" data-en="How many people are attending? (including you)">How many people are attending? (including you)</label>
+          <p class="field-hint" data-vi="Chỉ những người có tên trên thiệp mời của bạn" data-en="Only those listed on your invitation">Only those listed on your invitation</p>
+          <select id="rsvp-party" onchange="updatePartyFields()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <div class="form-group" id="party-names-wrap" style="display:none"></div>
         <input type="hidden" id="rsvp-guests" value="1">
         <div class="form-group">
           <label data-vi="Xác nhận tham dự" data-en="Attendance">Xác nhận tham dự</label>
@@ -776,6 +795,6 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="main.js?v=22"></script>
+  <script src="main.js?v=24"></script>
 </body>
 </html>

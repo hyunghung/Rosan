@@ -223,6 +223,7 @@ function setLanguage(lang) {
   buildCategoryGrid();
   buildFilterCategoryDropdown();
   refreshOpenFaq();
+  updatePartyFields();
 
   if (adminPassword) {
     loadGuests();
@@ -473,6 +474,58 @@ function selectAttendance(val) {
   document.getElementById('btn-no').className  = 'att-btn att-no'  + (val === false ? ' selected-no'  : '');
 }
 
+// ─── PARTY MEMBERS ──────────────────────────────────────────────────────────
+// The invitation goes to a household, so whoever RSVPs lists everyone from
+// their invitation who is coming. Picking a number reveals a name box for each
+// additional person; their own name is already at the top of the form.
+function updatePartyFields() {
+  const select = document.getElementById('rsvp-party');
+  const wrap = document.getElementById('party-names-wrap');
+  if (!select || !wrap) return;
+
+  const total = parseInt(select.value, 10) || 1;
+
+  // keep anything already typed if they change the number
+  const typed = {};
+  wrap.querySelectorAll('.party-name-input').forEach(input => {
+    typed[input.dataset.index] = input.value;
+  });
+
+  wrap.innerHTML = '';
+  if (total > 1) {
+    wrap.style.display = 'block';
+    for (let i = 2; i <= total; i++) {
+      const field = document.createElement('div');
+      field.style.marginTop = i === 2 ? '0' : '0.9rem';
+
+      const label = document.createElement('label');
+      label.setAttribute('data-vi', 'Tên người thứ ' + i);
+      label.setAttribute('data-en', 'Guest ' + i + ' name');
+      label.textContent = currentLang === 'vi'
+        ? 'Tên người thứ ' + i
+        : 'Guest ' + i + ' name';
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'party-name-input';
+      input.dataset.index = String(i);
+      input.setAttribute('data-vi-placeholder', 'Họ và tên');
+      input.setAttribute('data-en-placeholder', 'Full name');
+      input.placeholder = currentLang === 'vi' ? 'Họ và tên' : 'Full name';
+      input.required = true;
+      if (typed[i]) input.value = typed[i];
+
+      field.appendChild(label);
+      field.appendChild(input);
+      wrap.appendChild(field);
+    }
+  } else {
+    wrap.style.display = 'none';
+  }
+
+  document.getElementById('rsvp-guests').value = String(total);
+}
+
 // ─── SUBMIT RSVP ────────────────────────────────────────────────────────────
 function formatPhoneNumber(value) {
   const trimmed = value.trimStart();
@@ -525,6 +578,7 @@ async function submitRSVP(e) {
   const name     = document.getElementById('rsvp-name').value.trim();
   const phone    = document.getElementById('rsvp-phone').value.trim();
   const guests   = document.getElementById('rsvp-guests').value;
+  const partyNames = [...document.querySelectorAll('.party-name-input')].map(i => i.value.trim());
 
   if (!name) {
     return showRsvpError(
@@ -554,6 +608,13 @@ async function submitRSVP(e) {
         : 'Invalid phone number. Please enter 10 digits as (XXX) XXX-XXXX, or include a country code (e.g. +84...).'
     );
   }
+  if (partyNames.some(n => !n)) {
+    return showRsvpError(
+      currentLang === 'vi'
+        ? 'Vui lòng nhập tên cho từng người sẽ tham dự.'
+        : 'Please enter a name for everyone who is attending.'
+    );
+  }
   if (attending === null) {
     return showRsvpError(
       currentLang === 'vi'
@@ -575,7 +636,7 @@ async function submitRSVP(e) {
       guests,
       attending: attending.toString(),
       dietary:   '',
-      guestNames: ''
+      guestNames: partyNames.join(', ')
     });
 
     const res  = await fetch(`${APPS_SCRIPT_URL}?${params}`, { redirect: 'follow' });
@@ -638,6 +699,7 @@ function resetRSVP() {
   document.getElementById('btn-no').className = 'att-btn att-no';
   document.getElementById('rsvp-error').style.display = 'none';
   buildCategoryGrid();
+  updatePartyFields();
   document.getElementById('rsvp-form-wrap').style.display = 'block';
   document.getElementById('rsvp-success').style.display = 'none';
 }
