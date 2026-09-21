@@ -911,9 +911,12 @@ body {
 .gallery-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  /* Square stage: the photo set is roughly half portrait, half landscape,
+     so a 1:1 frame gives both orientations the same amount of room. */
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--light);
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 50%, var(--white), var(--cream) 85%);
   box-shadow: 0 0 0 6px var(--white), 0 0 0 7px var(--blue-light), var(--shadow);
 }
 .gallery-slide {
@@ -924,15 +927,14 @@ body {
   pointer-events: none;
 }
 .gallery-slide.active { opacity: 1; pointer-events: auto; }
-.gallery-backdrop {
-  display: none;
-}
 .gallery-photo {
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* contain = whole photo is shown, never cropped; it is only scaled down
+     to fit the frame, never scaled up, so nothing goes soft. */
+  object-fit: contain;
   object-position: center;
 }
 .gallery-arrow {

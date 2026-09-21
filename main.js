@@ -320,16 +320,12 @@ function buildGallery() {
     const slide = document.createElement('div');
     slide.className = 'gallery-slide' + (i === 0 ? ' active' : '');
 
-    const backdrop = document.createElement('div');
-    backdrop.className = 'gallery-backdrop';
-    backdrop.style.backgroundImage = `url('${src}')`;
-    slide.appendChild(backdrop);
-
     const img = document.createElement('img');
     img.src = src;
     img.alt = `Roselyn & An — photo ${i + 1}`;
     img.className = 'gallery-photo';
     img.loading = i === 0 ? 'eager' : 'lazy';
+    img.decoding = 'async';
     slide.appendChild(img);
 
     stage.appendChild(slide);
